@@ -33,7 +33,7 @@ fileprivate func run(_ task: Process) -> (out: String?, err: String?) {
     do {
         try task.run()
     } catch {
-        return ("Failed to run task: \(error.localizedDescription)", nil)
+        return (nil, "Failed to run task: \(error.localizedDescription)")
     }
     
     task.waitUntilExit()
@@ -47,8 +47,17 @@ fileprivate func run(_ task: Process) -> (out: String?, err: String?) {
     return (outStr, errStr)
 }
 
-class CommandLineTool {
-    class func execute(_ command: String, arguments: [String], currentDirectory: URL? = nil) -> (out: String?, err: String?) {
+enum CommandLineTool {
+    static var binURL: URL {
+        let url = URL(fileURLWithPath: "/Applications/HP/PrimeSDK/bin")
+        if url.isDirectory == false {
+            return URL(fileURLWithPath: Bundle.main.bundleURL.path)
+                .appendingPathComponent("Contents/Developer/usr/bin")
+        }
+        return url
+    }
+    
+    static func execute(_ command: String, arguments: [String], currentDirectory: URL? = nil) -> (out: String?, err: String?) {
         let task = Process()
         
         task.executableURL = URL(fileURLWithPath: command)
@@ -60,10 +69,12 @@ class CommandLineTool {
         return run(task)
     }
     
-    class func `ppl+`(i infile: URL, o outfile: URL? = nil) -> (out: String?, err: String?) {
+    static func `ppl+`(i infile: URL, o outfile: URL? = nil) -> (out: String?, err: String?) {
         
         let process = Process()
-        process.executableURL = URL(filePath: "/Applications/HP/PrimeSDK/bin/ppl+")
+        process.executableURL = URL(filePath: binURL.path)
+            .appendingPathComponent("ppl+")
+        
         process.arguments = [infile.path]
         
         if AppSettings.librarySearchPath.isEmpty == false {
@@ -74,9 +85,13 @@ class CommandLineTool {
             process.arguments?.append("-I\(AppSettings.headerSearchPath)")
         }
         
-        if let _ = outfile {
+        if let outfile = outfile {
             process.arguments?.append("-o")
-            process.arguments?.append(outfile!.path)
+            process.arguments?.append(outfile.path)
+        }
+        
+        if AppSettings.compressHPPRGM == true {
+            process.arguments?.append("-c")
         }
         
         return run(process)

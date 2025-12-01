@@ -606,7 +606,7 @@
                                                 <items>
                                                     <menuItem title="Running" image="play.fill" catalog="system" keyEquivalent="R" id="RMz-vh-Kx1">
                                                         <connections>
-                                                            <action selector="buildForRunning:" target="Ady-hI-5gd" id="LRU-Qw-bpO"/>
+                                                            <action selector="buildForRunning:" target="Ady-hI-5gd" id="UfM-bB-7Gx"/>
                                                         </connections>
                                                     </menuItem>
                                                     <menuItem title="Archiving" image="cube.fill" catalog="system" keyEquivalent="A" id="6iN-LO-z15">
@@ -642,7 +642,7 @@
                                                             </items>
                                                         </menu>
                                                     </menuItem>
-                                                    <menuItem title="Archieve Without Building" image="cube.box" catalog="system" id="csI-Pr-hfC">
+                                                    <menuItem title="Archive Without Building" image="cube.box" catalog="system" id="csI-Pr-hfC">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
                                                         <connections>
                                                             <action selector="archiveWithoutBuilding:" target="Ady-hI-5gd" id="6FG-tx-MXM"/>

@@ -361,27 +361,11 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         savePanel.begin { result in
             guard result == .OK, let outURL = savePanel.url else { return }
             
-            if AppSettings.compressHPPRGM {
-                let destPath = outURL.deletingLastPathComponent().path
-                let name = outURL.deletingPathExtension().lastPathComponent
-                
-                let _ = CommandLineTool.execute("/Applications/HP/PrimeSDK/bin/pplmin", arguments: [url.path, "-o", "\(destPath)/~\(name).prgm"])
-                if FileManager.default.fileExists(atPath: "\(destPath)/~\(name).prgm") {
-                    let contents = CommandLineTool.execute("/Applications/HP/PrimeSDK/bin/hpprgm", arguments: ["\(destPath)/~\(name).prgm", "-o", outURL.path])
-                    if let out = contents.out, !out.isEmpty {
-                        self.outputTextView.string = out
-                    }
-                    self.outputTextView.string = contents.err ?? ""
-                    try? FileManager.default.removeItem(at: URL(fileURLWithPath: "\(destPath)/~\(name).prgm"))
-                    return
-                }
-            } else {
-                let contents = CommandLineTool.execute("/Applications/HP/PrimeSDK/bin/hpprgm", arguments: [url.path, "-o", outURL.path])
-                if let out = contents.out, !out.isEmpty {
-                    self.outputTextView.string = out
-                }
-                self.outputTextView.string += contents.err ?? ""
+            let result = CommandLineTool.execute("\(CommandLineTool.binURL.path)/ppl+", arguments: [url.path, "-o", outURL.path])
+            if let out = result.out, !out.isEmpty {
+                self.outputTextView.string = out
             }
+            self.outputTextView.string += result.err ?? ""
         }
     }
     
@@ -414,7 +398,6 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                 alert.messageText = "Error"
                 alert.informativeText = "Failed to save file: \(url.lastPathComponent)"
                 alert.runModal()
-            
         }
     }
     
@@ -451,7 +434,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             }
         }
         
-        buildForRunning(sender)
+        build(sender)
         
         if HP.hpPrgmExists(atPath: parentURL.path, named: name) {
             installHPPrgmFileToCalculator(sender)
@@ -459,79 +442,61 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         }
     }
     
-    /*
-     • Saves the current PPL/PPL+ source file.
-     • Preprocesses the PPL+ (.prgm+) source into
-       standard PPL (.prgm) format.
-     • Builds an .hpprgm executable package from the
-       generated .prgm file.
-     */
+    @IBAction func archive(_ sender: Any) {
+        buildForArchiving(sender)
+        archiveWithoutBuilding(sender)
+    }
+    
     @IBAction func buildForRunning(_ sender: Any) {
         guard let parentURL = parentURL, let name = applicationName else {
             return
         }
         
+        let result = processRequires(in: codeEditorTextView.string)
+
+        let baseURL = URL(fileURLWithPath: "/Applications/HP/PrimeSDK/hpprgm/")
+        for file in result.requiredFiles {
+            do {
+                try HP.installHPPrgm(at: baseURL
+                    .appendingPathComponent(file)
+                    .appendingPathExtension("hpprgm"))
+                outputTextView.string += "Installed: \(file)\n"
+            } catch {
+                outputTextView.string += "Error installing \(file).hpprgm: \(error)"
+            }
+        }
+        
         build(sender)
         
-        guard HP.prgmExists(atPath: parentURL.path, named: name) else {
-            let alert = NSAlert()
-            alert.messageText = "Failed to build"
-            alert.informativeText = "File not found: \(name).prgm"
-            alert.runModal()
-            return
+        if HP.hpPrgmExists(atPath: parentURL.path, named: name) {
+            installHPPrgmFileToCalculator(sender)
         }
-        
-        let programURL: URL
-        
-        programURL = parentURL
-            .appendingPathComponent(name)
-            .appendingPathExtension("prgm")
-        
-        if AppSettings.compressHPPRGM {
-            let result = HP.createCompressedHPPrgm(at: programURL)
-            if let out = result.out, !out.isEmpty {
-                self.outputTextView.string = out
-            }
-            self.outputTextView.string += result.err ?? ""
-            return
-        }
-        
-        let result = HP.createHPPrgm(at: programURL)
-        if let out = result.out, !out.isEmpty {
-            self.outputTextView.string = out
-        }
-        outputTextView.string += result.err ?? ""
     }
     
+    
     @IBAction func buildForArchiving(_ sender: Any) {
-        guard let name = applicationName , let parentURL = parentURL else { return }
-       
-        buildForRunning(sender)
-        
-        if !HP.hpAppDirExists(atPath: parentURL.path, named: name) {
-            do {
-                try HP.createHPAppDirectory(at: parentURL, named: name)
-                outputTextView.string += ("✅ Application directory created: \(name).hpappdir\n")
-            } catch {
-                outputTextView.string += ("❌ Failed to create directory: \(error)\n")
-                return
-            }
-        } else {
-            let folderURL = parentURL.appendingPathComponent("\(name).hpappdir")
-            do {
-                let destination = folderURL.appendingPathComponent("\(name).hpappprgm")
-                let source = parentURL.appendingPathComponent("\(name).hpprgm")
-                
-                if FileManager.default.fileExists(atPath: destination.path) {
-                    try FileManager.default.removeItem(at: destination)
-                }
+        guard
+            let currentURL = currentURL,
+                let name = applicationName ,
+                let parentURL = parentURL
+        else { return }
 
-                try FileManager.default.copyItem(at: source, to: destination)
-            } catch {
-                outputTextView.string += ("❌ Failed to update application program file: \(error)\n")
-                return
-            }
+        saveDocument(sender)
+        
+        do {
+            try HP.restoreMissingAppFiles(at: parentURL, named: name)
+        } catch {
+            return
         }
+        
+        let hpPrgmPath = parentURL
+            .appendingPathComponent(name)
+            .appendingPathExtension("hpappdir")
+            .appendingPathComponent(name)
+            .appendingPathExtension("hpappprgm")
+        
+        let result = CommandLineTool.`ppl+`(i: currentURL, o: hpPrgmPath)
+        outputTextView.string = result.err ?? ""
     }
     
     
@@ -583,11 +548,6 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         self.outputTextView.string += result.err ?? ""
     }
     
-    /*
-     • Saves the current PPL+ source file.
-     • Preprocesses the PPL+ (.prgm+) source into
-       standard PPL (.prgm) format.
-     */
     @IBAction func build(_ sender: Any) {
         guard let currentURL = currentURL, currentURL.pathExtension.lowercased() == "prgm+" else {
             return
@@ -595,7 +555,11 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
 
         saveDocument(sender)
         
-        let result = CommandLineTool.`ppl+`(i: currentURL)
+        let hpPrgmPath = currentURL
+            .deletingPathExtension()
+            .appendingPathExtension("hpprgm")
+        
+        let result = CommandLineTool.`ppl+`(i: currentURL, o: hpPrgmPath)
         outputTextView.string = result.err ?? ""
     }
     
@@ -612,7 +576,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         openPanel.begin { result in
             guard result == .OK, let url = openPanel.url else { return }
             
-            let contents = CommandLineTool.execute("/Applications/HP/PrimeSDK/bin/grob", arguments: [url.path, "-o", "/dev/stdout"])
+            let contents = CommandLineTool.execute("\(CommandLineTool.binURL.path)/grob", arguments: [url.path, "-o", "/dev/stdout"])
             if let out = contents.out, !out.isEmpty {
                 self.codeEditorTextView.insertCode(out)
             }
@@ -632,7 +596,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         openPanel.begin { result in
             guard result == .OK, let url = openPanel.url else { return }
             
-            let contents = CommandLineTool.execute("/Applications/HP/PrimeSDK/bin/pplfont", arguments: [url.path, "-o", "/dev/stdout", "--ppl"])
+            let contents = CommandLineTool.execute("\(CommandLineTool.binURL.path)/pplfont", arguments: [url.path, "-o", "/dev/stdout", "--ppl"])
             if let out = contents.out, !out.isEmpty {
                 self.codeEditorTextView.insertCode(contents.out ?? "")
             }
@@ -677,8 +641,13 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         }
         
         guard let menuItem = sender as? NSMenuItem else { return }
+        let url = Bundle.main.bundleURL
+            .appendingPathComponent(templatesBasePath)
+            .appendingPathComponent(traceMenuItem(menuItem))
+            .appendingPathComponent(menuItem.title)
+            .appendingPathExtension("prgm")
         
-        let url = Bundle.main.bundleURL.appendingPathComponent("Contents/Template/\(traceMenuItem(menuItem))/\(menuItem.title).prgm")
+        
         
         if let contents = HP.loadHPPrgm(at: url) {
             codeEditorTextView.insertCode(contents)
@@ -686,29 +655,20 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     }
     
     
-    @IBAction func archive(_ sender: Any) {
-        buildForArchiving(sender)
-        archiveWithoutBuilding(sender)
-    }
+   
     
     @IBAction func cleanBuildFolder(_ sender: Any) {
-        guard let currentURL = currentURL, let name = applicationName, let parentURL = parentURL else {
+        guard let name = applicationName, let parentURL = parentURL else {
             return
         }
         
         outputTextView.string = ""
         
-        var files: [URL] = [
+        let files: [URL] = [
             parentURL.appendingPathComponent("\(name).hpprgm"),
             parentURL.appendingPathComponent("\(name).hpappdir/\(name).hpappprgm"),
             parentURL.appendingPathComponent("\(name).hpappdir.zip")
         ]
-        
-        if currentURL.pathExtension.lowercased() == "prgm+" {
-            files.append(
-                parentURL.appendingPathComponent("\(name).prgm")
-            )
-        }
         
         for file in files {
             do {
@@ -792,14 +752,8 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         let ext = (currentURL != nil) ? currentURL!.pathExtension.lowercased() : ""
     
         switch menuItem.action {
-        case #selector(build(_:)):
-            if let _ = currentURL, ext == "prgm+" {
-                return true
-            }
-            return false
-            
-        case #selector(reformatCode(_:)), #selector(exportAsHPPrgm(_:)):
-            if let _ = currentURL, ext == "prgm" {
+        case #selector(reformatCode(_:)):
+            if let _ = currentURL, ext == "prgm" || ext == "ppl" {
                 return true
             }
             return false
@@ -828,15 +782,27 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             }
             return false
             
-        case #selector(run(_:)), #selector(buildForRunning(_:)), #selector(archive(_:)), #selector(buildForArchiving(_:)):
-            if let _ = currentURL, ext == "prgm" || ext == "prgm+" {
+        case
+            #selector(exportAsHPPrgm(_:)),
+            #selector(run(_:)),
+            #selector(archive(_:)),
+            #selector(buildForRunning(_:)),
+            #selector(buildForArchiving(_:)),
+            #selector(build(_:)):
+            
+            if let _ = currentURL, ext == "prgm" || ext == "prgm+" || ext == "ppl" || ext == "ppl+" {
                 return true
             }
             return false
             
             
-        case #selector(insertTemplate(_:)), #selector(importCode(_:)), #selector(importImage(_:)), #selector(importAdafruitGFXFont(_:)):
-            if ext == "prgm" || ext == "prgm+" || ext == "hpprgm" || ext == "hpappprgm" || ext.isEmpty {
+        case
+            #selector(insertTemplate(_:)),
+            #selector(importCode(_:)),
+            #selector(importImage(_:)),
+            #selector(importAdafruitGFXFont(_:)):
+            
+            if ext == "prgm" || ext == "prgm+" || ext == "hpprgm" || ext == "hpappprgm" || ext == "ppl" || ext == "ppl+" || ext.isEmpty {
                 return true
             }
             return false
@@ -850,7 +816,10 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             }
             return false
             
-        case #selector(exportAsArchive(_:)), #selector(archiveWithoutBuilding(_:)):
+        case
+            #selector(exportAsArchive(_:)),
+            #selector(archiveWithoutBuilding(_:)):
+            
             if let _ = currentURL, let name = applicationName, let parentURL = parentURL {
                 return HP.hpAppDirIsComplete(atPath: parentURL.path, named: name)
             }
@@ -858,7 +827,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             
             
         case #selector(showBuildFolderInFinder(_:)):
-            if let _ = currentURL, ext == "prgm" || ext == "prgm+" {
+            if let _ = currentURL, ext == "prgm" || ext == "prgm+" || ext == "ppl" || ext == "ppl+" {
                 return true
             }
             return false

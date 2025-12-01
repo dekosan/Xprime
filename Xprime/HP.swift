@@ -22,6 +22,10 @@
 
 import Cocoa
 
+let templatesBasePath = "Contents/Developer/Library/Xprime/Templates/File Templates"
+let applicationTemplateBasePath = "Contents/Developer/Library/Xprime/Templates/Application Template"
+
+
 fileprivate func launchApplication(named appName: String, arguments: [String] = []) {
     switch launchApp(named: appName, arguments: arguments) {
     case .success:
@@ -44,6 +48,8 @@ fileprivate func launchApplication(named appName: String, arguments: [String] = 
     }
 }
 
+
+
 //        guard let enumerator = FileManager.default.enumerator(atPath: parentURL.path) else { return }
 //        for case let fileURL as URL in enumerator where fileURL.pathExtension == "hpprgm" {
 //            let fileName = fileURL.deletingPathExtension().lastPathComponent
@@ -53,19 +59,7 @@ fileprivate func launchApplication(named appName: String, arguments: [String] = 
 //
 //        }
 
-final class HP {
-    static func hpPrimeCalculatorExists(named name: String) -> Bool {
-        guard !name.isEmpty else { return false }
-        
-        let calculatorURL = FileManager.default
-            .homeDirectoryForCurrentUser
-            .appendingPathComponent("Documents/HP Connectivity Kit/Calculators")
-            .appendingPathComponent(name)
-        
-        print(calculatorURL.isDirectory)
-        return calculatorURL.isDirectory
-    }
-    
+enum HP {
     static var isVirtualCalculatorInstalled: Bool {
         if AppSettings.HPPrime == "macOS" {
             return FileManager.default.fileExists(atPath: "/Applications/HP Prime.app/Contents/MacOS/HP Prime")
@@ -82,6 +76,20 @@ final class HP {
         let homeDirectory = FileManager.default.homeDirectoryForCurrentUser
         return FileManager.default.fileExists(atPath: homeDirectory.appendingPathComponent(".wine/drive_c/Program Files/HP/HP Connectivity Kit/ConnectivityKit.exe").path)
     }
+    
+    
+    static func hpPrimeCalculatorExists(named name: String) -> Bool {
+        guard !name.isEmpty else { return false }
+        
+        let calculatorURL = FileManager.default
+            .homeDirectoryForCurrentUser
+            .appendingPathComponent("Documents/HP Connectivity Kit/Calculators")
+            .appendingPathComponent(name)
+        
+        print(calculatorURL.isDirectory)
+        return calculatorURL.isDirectory
+    }
+    
     
     static func hpPrimeDirectory(forUser user: String = "Prime") -> URL? {
         let homeURL = FileManager.default.homeDirectoryForCurrentUser
@@ -180,6 +188,7 @@ final class HP {
             .appendingPathExtension("hpappdir")
         
         let files: [URL] = [
+            appDirURL.appendingPathComponent("icon.hpapp"),
             appDirURL.appendingPathComponent("\(name).hpapp"),
             appDirURL.appendingPathComponent("\(name).hpappprgm")
         ]
@@ -192,45 +201,69 @@ final class HP {
         return true
     }
     
-    static func createHPAppDirectory(at url: URL, named name: String) throws {
-        let directoryURL = url
-            .appendingPathComponent(name)
-            .appendingPathExtension("hpappdir")
-        
-        if directoryURL.isDirectory {
+    static func restoreMissingAppFiles(at parentURL: URL, named name: String) throws {
+        if hpAppDirIsComplete(atPath: parentURL.path, named: name) {
             return
         }
         
-        try FileManager.default.createDirectory(
-            at: directoryURL,
-            withIntermediateDirectories: true,
-            attributes: nil
-        )
+        let templateDirURL = Bundle.main.bundleURL
+            .appendingPathComponent(applicationTemplateBasePath)
         
-        try FileManager.default.copyItem(
-            at: Bundle.main.bundleURL.appendingPathComponent("Contents/Resources/template.hpapp"),
-            to: directoryURL.appendingPathComponent("\(name).hpapp")
-        )
+        let hpAppDirURL = parentURL.appendingPathComponent("\(name).hpappdir")
         
-        try FileManager.default.copyItem(
-            at: url.appendingPathComponent("\(name).hpprgm"),
-            to: directoryURL.appendingPathComponent("\(name).hpappprgm")
-        )
-        
-        do {
-            try FileManager.default.moveItem(
-                at: url.appendingPathComponent("icon.png"),
-                to: directoryURL.appendingPathComponent("icon.png")
+        if hpAppDirURL.isDirectory == false {
+            try FileManager.default.createDirectory(
+                at: hpAppDirURL,
+                withIntermediateDirectories: true,
+                attributes: nil
             )
-        } catch {
+        }
+        
+        if !FileManager.default.fileExists(atPath: hpAppDirURL
+            .appendingPathComponent("icon.png")
+            .path
+        )
+        {
+            if FileManager.default.fileExists(atPath: parentURL.appendingPathComponent("icon.png").path) == true {
+                try FileManager.default.copyItem(
+                    at: templateDirURL
+                        .appendingPathComponent("icon.png"),
+                    to: hpAppDirURL
+                        .appendingPathComponent("icon.png")
+                )
+            } else {
+                try FileManager.default.copyItem(
+                    at: templateDirURL
+                        .appendingPathComponent("icon.png"),
+                    to: hpAppDirURL
+                        .appendingPathComponent("icon.png")
+                )
+            }
+        }
+        
+        if !FileManager.default.fileExists(atPath: hpAppDirURL
+            .appendingPathComponent(name)
+            .appendingPathExtension("hpapp")
+            .path
+        )
+        {
             try FileManager.default.copyItem(
-                at: Bundle.main.bundleURL.appendingPathComponent("Contents/Resources/icon.png"),
-                to: directoryURL.appendingPathComponent("icon.png")
+                at: templateDirURL
+                    .appendingPathComponent("template.hpapp"),
+                to: hpAppDirURL
+                    .appendingPathComponent(name)
+                    .appendingPathExtension("hpapp")
             )
         }
     }
     
     static func archiveHPAppDirectory(at url: URL, named name: String, to desctinationURL: URL? = nil) -> (out: String?, err: String?)  {
+        do {
+            try restoreMissingAppFiles(at: url, named: name)
+        } catch {
+            return (nil, "Failed to restore missing app files: \(error)")
+        }
+        
         var destinationPath = "\(name).hpappdir.zip"
         
         if let desctinationURL = desctinationURL {
@@ -252,64 +285,13 @@ final class HP {
         )
     }
     
-    static func createCompressedHPPrgm(at url: URL) -> (out: String?, err: String?) {
-        guard FileManager.default.fileExists(atPath: url.path) else {
-            return (nil, "")
-        }
-       
-        // Create temp file next to the original
-        let tempURL = url.deletingLastPathComponent()
-            .appending(component: "~" + url.lastPathComponent)
-        
-        // Step 1: Minify PPL
-        _ = CommandLineTool.execute(
-            "/Applications/HP/PrimeSDK/bin/pplmin",
-            arguments: [url.path, "-o", tempURL.path]
-        )
-        
-        // Ensure temp file exists
-        guard FileManager.default.fileExists(atPath: tempURL.path) else {
-            return (nil, "Failed to create intermediate minified program.")
-        }
-        
-        // Step 2: Compile .hpprgm
-        let programURL: URL
-        programURL = url
-            .deletingPathExtension()
-            .appendingPathExtension("hpprgm")
-        let result = CommandLineTool.execute(
-            "/Applications/HP/PrimeSDK/bin/hpprgm",
-            arguments: [tempURL.path, "-o", programURL.path]
-        )
-        
-        // Clean up temp file
-        try? FileManager.default.removeItem(at: tempURL)
-        
-        return result
-    }
-    
-    static func createHPPrgm(at url: URL) -> (out: String?, err: String?) {
-        guard FileManager.default.fileExists(atPath: url.path) else {
-            return (nil, "")
-        }
-        
-        let programURL: URL
-        programURL = url
-            .deletingPathExtension()
-            .appendingPathExtension("hpprgm")
-    
-        let result = CommandLineTool.execute(
-            "/Applications/HP/PrimeSDK/bin/hpprgm",
-            arguments: [url.path, "-o", programURL.path]
-        )
-        
-        return result
-    }
-    
     static func loadHPPrgm(at url: URL) -> String? {
         
         if url.pathExtension.lowercased() == "hpprgm" || url.pathExtension.lowercased() == "hpappprgm" {
-            let contents = CommandLineTool.execute("/Applications/HP/PrimeSDK/bin/hpprgm", arguments: [url.path, "-o", "/dev/stdout"])
+            let commandURL = CommandLineTool.binURL
+                .appendingPathComponent("hpprgm")
+            
+            let contents = CommandLineTool.execute(commandURL.path, arguments: [url.path, "-o", "/dev/stdout"])
             if let out = contents.out, !out.isEmpty {
                 return contents.out
             }
