@@ -385,7 +385,7 @@ enum HP {
         var arguments: [String] = [sourceURL.path, "-o", destinationURL.path]
         
         if AppSettings.compressHPPRGM {
-            arguments.append(contentsOf: ["-compress"])
+            arguments.append(contentsOf: ["--compress"])
         }
         
         if AppSettings.headerSearchPath.isEmpty == false {
