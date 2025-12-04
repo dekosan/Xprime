@@ -206,13 +206,13 @@ final class CodeEditorTextView: NSTextView {
     }
     
     func insertCode(_ string: String) {
+        registerUndo()
         if let selectedRange = selectedRanges.first as? NSRange {
             if let textStorage = textStorage {
                 textStorage.replaceCharacters(in: selectedRange, with: string)
                 setSelectedRange(NSRange(location: selectedRange.location + string.count, length: 0))
             }
         }
-        registerUndo()
         applySyntaxHighlighting()
     }
     

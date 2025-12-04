@@ -317,6 +317,10 @@ enum HP {
             let commandURL = HP.sdkURL
                 .appendingPathComponent("bin")
                 .appendingPathComponent("hpprgm")
+            //TODO: - Find out why using ppl+ is not working!
+//            let commandURL = HP.sdkURL
+//                .appendingPathComponent("bin")
+//                .appendingPathComponent("ppl+")
             
             let contents = CommandLineTool.execute(commandURL.path, arguments: [url.path, "-o", "/dev/stdout"])
             if let out = contents.out, !out.isEmpty {

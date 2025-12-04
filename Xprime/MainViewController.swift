@@ -198,7 +198,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         if let window = self.view.window {
             window.title = url.lastPathComponent
             
-            window.representedURL = URL(fileURLWithPath: url.path)
+            window.representedURL = url
             if let iconButton = window.standardWindowButton(.documentIconButton) {
                 if url.pathExtension == "prgm+" {
                     iconButton.image = NSImage(named: "pplplus")
@@ -260,6 +260,11 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         
         savePanel.allowedContentTypes = contentTypes
         savePanel.nameFieldStringValue = "Untitled.prgm+"
+        
+        if let window = self.view.window {
+            let url = URL(fileURLWithPath: window.title)
+            savePanel.nameFieldStringValue = url.deletingPathExtension().appendingPathExtension("prgm+").lastPathComponent
+        }
         
         savePanel.begin { result in
             guard result == .OK, let url = savePanel.url else { return }
@@ -395,40 +400,75 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         outputTextView.string = result.err ?? ""
     }
     
+    func runExport(
+        allowedExtensions: [String],
+        defaultName: String,
+        action: @escaping (_ outputURL: URL) -> (out: String?, err: String?)
+    ) {
+        let savePanel = NSSavePanel()
+        savePanel.allowedContentTypes = allowedExtensions.compactMap { UTType(filenameExtension: $0) }
+        savePanel.nameFieldStringValue = defaultName
+        
+        savePanel.begin { result in
+            guard result == .OK, let outURL = savePanel.url else { return }
+            
+            let result = action(outURL)
+            
+            if let out = result.out, !out.isEmpty {
+                self.outputTextView.string = out
+            } else {
+                self.outputTextView.string = result.err ?? ""
+            }
+        }
+    }
+    
     // MARK: - Interface Builder Action Handlers
     
     @IBAction func newProject(_ sender: Any) {
         let savePanel = NSSavePanel()
-        let extensions = ["prgm+"]
-        let contentTypes = extensions.compactMap { UTType(filenameExtension: $0) }
-        
-        savePanel.allowedContentTypes = contentTypes
-        savePanel.nameFieldStringValue = "Untitled"
+        savePanel.allowedContentTypes = ["prgm+"].compactMap { UTType(filenameExtension: $0) }
+        savePanel.nameFieldStringValue = "Untitled.prgm+"
         
         savePanel.begin { result in
-            guard result == .OK, let url = savePanel.url else { return }
-
+            guard result == .OK, let selectedURL = savePanel.url else { return }
+            
             do {
-                let projectName = url.deletingPathExtension().lastPathComponent
+                // Strip extension from panel result
+                let projectName = selectedURL.deletingPathExtension().lastPathComponent
                 
-                let dirURL = url
-                    .deletingLastPathComponent()
-                    .appendingPathComponent(projectName)
+                // Project directory path
+                let parentDir = selectedURL.deletingLastPathComponent()
+                let projectDir = parentDir.appendingPathComponent(projectName)
                 
-                try FileManager.default.createDirectory(at: dirURL, withIntermediateDirectories: false)
+                // Create the project directory
+                try FileManager.default.createDirectory(
+                    at: projectDir,
+                    withIntermediateDirectories: false
+                )
                 
-                let fileURL = dirURL.appendingPathComponent(projectName + ".prgm+")
-                try HP.savePrgm(at: fileURL, content: self.codeEditorTextView.string)
-                self.currentURL = fileURL
+                // File inside project directory
+                let prgmURL = projectDir.appendingPathComponent(projectName + ".prgm+")
+                
+                // Save the .prgm+ file
+                try HP.savePrgm(
+                    at: prgmURL,
+                    content: self.codeEditorTextView.string
+                )
+                
+                // Update document state
+                self.currentURL = prgmURL
                 self.documentIsModified = false
                 
-                XprimeProject.save(to: dirURL, named: projectName)
-                FileManager.default.changeCurrentDirectoryPath(dirURL.path)
+                // Save project metadata
+                XprimeProject.save(to: projectDir, named: projectName)
+                
+                // Change working directory (if your app depends on this)
+                FileManager.default.changeCurrentDirectoryPath(projectDir.path)
                 
             } catch {
                 let alert = NSAlert()
                 alert.messageText = "Error"
-                alert.informativeText = "Failed to save project: \(error)"
+                alert.informativeText = "Failed to save project: \(error.localizedDescription)"
                 alert.runModal()
             }
         }
@@ -438,6 +478,9 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         if let url = Bundle.main.resourceURL?.appendingPathComponent("Untitled.prgm+") {
             codeEditorTextView.string = HP.loadHPPrgm(at: url) ?? ""
             currentURL = nil
+            if let window = self.view.window {
+                window.title = "Untitled.prgm+"
+            }
         }
     }
     
@@ -467,27 +510,19 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         saveDocumentAs()
     }
     
-    
     @IBAction func exportAsHPPrgm(_ sender: Any) {
         saveDocument()
         
         guard let currentURL = currentURL,
-           FileManager.default.fileExists(atPath: currentURL.path) else
-        {
-            return
-        }
+              FileManager.default.fileExists(atPath: currentURL.path) else { return }
         
-        let savePanel = NSSavePanel()
-        savePanel.allowedContentTypes = ["hpprgm"].compactMap { UTType(filenameExtension: $0) }
-        savePanel.nameFieldStringValue = currentURL.deletingPathExtension().lastPathComponent + ".hpprgm"
-        savePanel.begin { result in
-            guard result == .OK, let outURL = savePanel.url else { return }
-            
-            let result = HP.preProccess(at: currentURL, to: outURL)
-            if let out = result.out, !out.isEmpty {
-                self.outputTextView.string = out
-            }
-            self.outputTextView.string = result.err ?? ""
+        let defaultName = currentURL.deletingPathExtension().lastPathComponent + ".hpprgm"
+        
+        runExport(
+            allowedExtensions: ["hpprgm"],
+            defaultName: defaultName
+        ) { outputURL in
+            HP.preProccess(at: currentURL, to: outputURL)
         }
     }
     
@@ -495,55 +530,47 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         saveDocument()
         
         guard let currentURL = currentURL,
-           FileManager.default.fileExists(atPath: currentURL.path) else
-        {
-            return
-        }
+              FileManager.default.fileExists(atPath: currentURL.path) else { return }
         
-        let savePanel = NSSavePanel()
-        savePanel.allowedContentTypes = ["prgm"].compactMap { UTType(filenameExtension: $0) }
-        savePanel.nameFieldStringValue = currentURL.deletingPathExtension().lastPathComponent + ".prgm"
-        savePanel.begin { result in
-            guard result == .OK, let outURL = savePanel.url else { return }
-            
-            
-            let result = HP.preProccess(at: currentURL, to: outURL)
-            if let out = result.out, !out.isEmpty {
-                self.outputTextView.string = out
-            }
-            self.outputTextView.string = result.err ?? ""
+        let defaultName = currentURL.deletingPathExtension().lastPathComponent + ".prgm"
+        
+        runExport(
+            allowedExtensions: ["prgm"],
+            defaultName: defaultName
+        ) { outputURL in
+            HP.preProccess(at: currentURL, to: outputURL)
         }
     }
+    
     
     @IBAction func exportAsArchive(_ sender: Any) {
         guard let parentURL = parentURL, let projectName = projectName else { return }
         
-        
-        let savePanel = NSSavePanel()
-        let extensions = ["hpappdir.zip"]
-        let contentTypes = extensions.compactMap { UTType(filenameExtension: $0) }
-        
-        savePanel.allowedContentTypes = contentTypes
-        savePanel.nameFieldStringValue = "Untitled"
-        
-        savePanel.begin { result in
-            guard result == .OK, let url = savePanel.url else { return }
-
+        runExport(
+            allowedExtensions: ["hpappdir.zip"],
+            defaultName: "Untitled"
+        ) { url in
+            
+            // Ensure final extension is correct
             var destination = url
             while !destination.pathExtension.isEmpty {
                 destination.deletePathExtension()
             }
             destination = destination.appendingPathExtension("hpappdir.zip")
             
-            let contents = HP.archiveHPAppDirectory(at: parentURL, named: projectName, to: destination)
-                if let out = contents.out, !out.isEmpty {
-                    self.outputTextView.string = out
-                    return
-                }
-                let alert = NSAlert()
-                alert.messageText = "Error"
-                alert.informativeText = "Failed to save file: \(url.lastPathComponent)"
-                alert.runModal()
+            let result = HP.archiveHPAppDirectory(at: parentURL, named: projectName, to: destination)
+            
+            if let out = result.out, !out.isEmpty {
+                return (out, nil)
+            }
+            
+            // Show error alert
+            let alert = NSAlert()
+            alert.messageText = "Error"
+            alert.informativeText = "Failed to save file: \(url.lastPathComponent)"
+            alert.runModal()
+            
+            return (nil, "Failed to save!")
         }
     }
     
