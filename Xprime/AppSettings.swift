@@ -92,5 +92,7 @@ struct AppSettings {
         get { defaults.object(forKey: Key.calculatorName.rawValue) as? String ?? "Prime" }
         set { defaults.set(newValue, forKey: Key.calculatorName.rawValue) }
     }
+    
+    
 }
 

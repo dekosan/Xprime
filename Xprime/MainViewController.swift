@@ -112,9 +112,6 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         }
         
         
-        if let url = Bundle.main.resourceURL?.appendingPathComponent("Untitled.prgm+") {
-            codeEditorTextView.string = HP.loadHPPrgm(at: url) ?? ""
-        }
         
         NotificationCenter.default.addObserver(
             self,
@@ -159,12 +156,16 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     override func viewDidAppear() {
         super.viewDidAppear()
         
-       
-        if let window = self.view.window {
-            window.representedURL = Bundle.main.resourceURL?.appendingPathComponent("Untitled.prgm+")
-            window.title = "Untitled (UNSAVED)"
-            openDocument(withContentsOf: window.representedURL!)
-            currentURL = nil
+        if let path = UserDefaults.standard.string(forKey: "lastOpenedFilePath") {
+            let url = URL(fileURLWithPath: path)
+            openDocument(url)
+        } else {
+            if let window = self.view.window, let url = Bundle.main.resourceURL?.appendingPathComponent("Untitled.prgm+") {
+                window.representedURL = url
+                window.title = "Untitled (UNSAVED)"
+                openDocument(url)
+                currentURL = nil
+            }
         }
     }
     
@@ -212,12 +213,15 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     
     // MARK: - Action-handling methods
     
-    private func openDocument(withContentsOf url: URL) {
+    private func openDocument(url: URL) {
         guard let contents = HP.loadHPPrgm(at: url) else { return }
+        
+        UserDefaults.standard.set(url.path, forKey: "lastOpenedFilePath")
         
         currentURL = url
         codeEditorTextView.string = contents
         
+
         guard let projectName = projectName else { return }
         guard let parentURL = parentURL else { return }
         let folderURL = parentURL.appendingPathComponent("\(projectName).hpappdir")
@@ -495,7 +499,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         
         openPanel.begin { result in
             guard result == .OK, let url = openPanel.url else { return }
-            self.openDocument(withContentsOf: url)
+            self.openDocument(url)
             if let projectName = self.projectName {
                 XprimeProject.load(at: url.deletingLastPathComponent(), named: projectName)
             }
@@ -688,7 +692,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         }
         outputTextView.string = result.err ?? ""
         
-        openDocument(withContentsOf: sourceURL
+        openDocument(sourceURL
             .deletingPathExtension()
             .appendingPathExtension("prgm"))
     }
