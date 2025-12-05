@@ -117,6 +117,8 @@ final class CodeEditorTextView: NSTextView {
                 loadGrammar(at: Bundle.main.url(forResource: "Prime Plus", withExtension: "xpgrammar")!)
             }
         }
+        
+        
     }
     
     // MARK: - Setup
@@ -130,7 +132,7 @@ final class CodeEditorTextView: NSTextView {
         isAutomaticTextReplacementEnabled = false
         isContinuousSpellCheckingEnabled = false
         
-        textContainerInset = NSSize(width: 0, height: 0)
+        textContainerInset = NSSize(width: 5, height: 0)
         backgroundColor = NSColor.textBackgroundColor
         
         smartInsertDeleteEnabled = false

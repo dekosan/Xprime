@@ -60,6 +60,7 @@ final class LineNumberRulerView: NSRulerView {
         guard let textView = self.textView,
               let layoutManager = textView.layoutManager,
               let textContainer = textView.textContainer else { return }
+        
 
         // Clip to avoid drawing outside bounds
         NSGraphicsContext.current?.cgContext.clip(to: rect)
@@ -89,6 +90,7 @@ final class LineNumberRulerView: NSRulerView {
             let attrs: [NSAttributedString.Key: Any] = [
                 .font: NSFont.monospacedDigitSystemFont(ofSize: 12, weight: .regular),
                 .foregroundColor: NSColor.gray,
+                .backgroundColor: NSColor.clear,
                 .paragraphStyle: paragraphStyle
             ]
 

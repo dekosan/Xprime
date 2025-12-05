@@ -111,7 +111,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             scrollView.tile()
         }
         
-        
+        outputTextView.textContainerInset = NSSize(width: 5, height: 0)
         
         NotificationCenter.default.addObserver(
             self,
@@ -158,12 +158,12 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         
         if let path = UserDefaults.standard.string(forKey: "lastOpenedFilePath") {
             let url = URL(fileURLWithPath: path)
-            openDocument(url)
+            openDocument(url: url)
         } else {
             if let window = self.view.window, let url = Bundle.main.resourceURL?.appendingPathComponent("Untitled.prgm+") {
                 window.representedURL = url
                 window.title = "Untitled (UNSAVED)"
-                openDocument(url)
+                openDocument(url: url)
                 currentURL = nil
             }
         }
@@ -201,7 +201,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             
             window.representedURL = url
             if let iconButton = window.standardWindowButton(.documentIconButton) {
-                if url.pathExtension == "prgm+" {
+                if url.pathExtension.lowercased() == "prgm+" {
                     iconButton.image = NSImage(named: "pplplus")
                 } else {
                     iconButton.image = NSImage(named: "ppl")
@@ -305,7 +305,6 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         do {
             try HP.savePrgm(at: url, content: codeEditorTextView.string)
             currentURL = url
-            self.documentIsModified = false
             if let projectName = self.projectName {
                 XprimeProject.save(to: url.deletingLastPathComponent(), named: projectName)
             }
@@ -335,7 +334,8 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             .appendingPathComponent(projectName)
             .appendingPathExtension("hpappdir")
             .appendingPathComponent(projectName)
-            .appendingPathExtension("hpappprgm")
+            .appendingPathExtension("hpappprgm"),
+            compress: AppSettings.compressHPPRGM
         )
         outputTextView.string = result.err ?? ""
     }
@@ -400,7 +400,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             .deletingPathExtension()
             .appendingPathExtension("hpprgm")
 
-        let result = HP.preProccess(at: sourceURL, to: destinationURL)
+        let result = HP.preProccess(at: sourceURL, to: destinationURL,  compress: AppSettings.compressHPPRGM)
         outputTextView.string = result.err ?? ""
     }
     
@@ -499,7 +499,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         
         openPanel.begin { result in
             guard result == .OK, let url = openPanel.url else { return }
-            self.openDocument(url)
+            self.openDocument(url: url)
             if let projectName = self.projectName {
                 XprimeProject.load(at: url.deletingLastPathComponent(), named: projectName)
             }
@@ -526,7 +526,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             allowedExtensions: ["hpprgm"],
             defaultName: defaultName
         ) { outputURL in
-            HP.preProccess(at: currentURL, to: outputURL)
+            HP.preProccess(at: currentURL, to: outputURL, compress: AppSettings.compressHPPRGM)
         }
     }
     
@@ -676,25 +676,19 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     }
     
     @IBAction func convert(_ sender: Any) {
+        saveDocument()
+        
         guard let sourceURL = currentURL else {
             return
         }
-        //TODO: /dev/stdout
-        let destinationURL = sourceURL
-            .deletingPathExtension()
-            .appendingPathExtension("prgm")
+        let destinationURL = URL(fileURLWithPath: "/dev/stdout")
         
-        saveDocument(sender)
-    
         let result = HP.preProccess(at: sourceURL, to: destinationURL)
         if let out = result.out, !out.isEmpty {
             outputTextView.string = "Converting...\n"
+            codeEditorTextView.string = out
         }
         outputTextView.string = result.err ?? ""
-        
-        openDocument(sourceURL
-            .deletingPathExtension()
-            .appendingPathExtension("prgm"))
     }
     
     @IBAction func build(_ sender: Any) {
@@ -705,7 +699,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     
     @IBAction func importImage(_ sender: Any) {
         let openPanel = NSOpenPanel()
-        let extensions = ["bmp", "png", "pbm"]
+        let extensions = ["bmp"]
         let contentTypes = extensions.compactMap { UTType(filenameExtension: $0) }
         
         openPanel.allowedContentTypes = contentTypes

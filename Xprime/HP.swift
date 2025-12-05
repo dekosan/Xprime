@@ -375,7 +375,7 @@ enum HP {
         }
     }
     
-    static func preProccess(at sourceURL: URL, to destinationURL: URL) -> (out: String?, err: String?) {
+    static func preProccess(at sourceURL: URL, to destinationURL: URL, compress: Bool = false) -> (out: String?, err: String?) {
     
         let command = HP.sdkURL
             .appendingPathComponent("bin")
@@ -384,7 +384,7 @@ enum HP {
         
         var arguments: [String] = [sourceURL.path, "-o", destinationURL.path]
         
-        if AppSettings.compressHPPRGM {
+        if compress {
             arguments.append(contentsOf: ["--compress"])
         }
         
