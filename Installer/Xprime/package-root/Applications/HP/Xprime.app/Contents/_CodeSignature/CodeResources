@@ -4,53 +4,129 @@
 <dict>
 	<key>files</key>
 	<dict>
+		<key>Resources/ARC.rtf</key>
+		<data>
+		liSeuI6fj4hECvElWF1yFk/frqc=
+		</data>
+		<key>Resources/ASC.rtf</key>
+		<data>
+		yM3fXOWQSiLuUDgo7yeExMT7r9E=
+		</data>
 		<key>Resources/AppIcon.icns</key>
 		<data>
 		20EbQN1cTfH7zGbeivlCrI1qlcE=
 		</data>
 		<key>Resources/Assets.car</key>
 		<data>
-		4qCd+fQn0t4ozCl9KLUkumqZ2rA=
+		A1apeumGlcqTxKRPed+qa3le53c=
+		</data>
+		<key>Resources/BEGIN.rtf</key>
+		<data>
+		QiTMiVD89BiGGEUJJX2VY2CfZYg=
 		</data>
 		<key>Resources/Base.lproj/Main.storyboardc/HsO-bO-Dfd-view-1RK-mx-rDE.nib</key>
 		<data>
-		UE+hAn/ticFwoTqDm/IflYMGkU0=
+		CApqwLdc/m2mlXHH7EQykvnijlY=
 		</data>
 		<key>Resources/Base.lproj/Main.storyboardc/Info.plist</key>
 		<data>
-		gb+CG720YG3YLA+vaes+vdX2oNM=
+		glq0fgT0ZGKRSyY6JQ4ts8NEinE=
 		</data>
 		<key>Resources/Base.lproj/Main.storyboardc/MainMenu.nib</key>
 		<data>
-		AIXwiq+WMiPimJcUGXX5DkfZH5w=
+		mrHAs1pic4p9WdnxFhgIAFSEcNo=
 		</data>
 		<key>Resources/Base.lproj/Main.storyboardc/MainViewController.nib</key>
 		<data>
-		UsJac8GRVE2GuzBJkYIKs2ObKQo=
+		h9ZWBomb6hvWw47C0CVDck0J01Q=
 		</data>
 		<key>Resources/Base.lproj/Main.storyboardc/MainWindowController.nib</key>
 		<data>
-		WziIUz22o3aK+sHEHm8VLs3eZ/E=
+		hAwKsV6NLyOp+dp2/XHUs3d0umM=
 		</data>
 		<key>Resources/Base.lproj/Main.storyboardc/NSWindowController-CFc-li-Drx.nib</key>
 		<data>
-		6g3gOLp5DMp4aTjU2EQ11YIcifc=
+		UAbnbCGQxftLq6SH0Kocbv5ko30=
 		</data>
 		<key>Resources/Base.lproj/Main.storyboardc/XfG-lQ-9wD-view-m2S-Jp-Qdl.nib</key>
 		<data>
-		ftNzXZPY15GzDlgHqIYx7pKXUrY=
+		MWptglkEThLpYuGS0TFjjoqCjxU=
+		</data>
+		<key>Resources/CASE.rtf</key>
+		<data>
+		Z6ASGYt98310wWF8Pjeb1jsxMZE=
+		</data>
+		<key>Resources/CHAR.rtf</key>
+		<data>
+		e+41QgBhFVbwTUnlsD9d3y0gonA=
 		</data>
 		<key>Resources/Credits.rtf</key>
 		<data>
 		3gXwm4tR/AqdeAqus5/ECN87aH8=
 		</data>
+		<key>Resources/C→PX.rtf</key>
+		<data>
+		+BrzxkjU1mnBeHsQDowDbCGM9t0=
+		</data>
+		<key>Resources/DIM.rtf</key>
+		<data>
+		zVqfEOzA5bchhbGm9uUL0sxgqTg=
+		</data>
+		<key>Resources/DIMGROB.rtf</key>
+		<data>
+		zjz7QOvKX0mUlmJuTwBbgk1KSlo=
+		</data>
+		<key>Resources/DOWNTO.rtf</key>
+		<data>
+		OoO5UqZxFPykUH0zJmpOV2OoDNM=
+		</data>
+		<key>Resources/DRAWMENU.rtf</key>
+		<data>
+		4uHZ/yOXT97oSShx4o8y7U4hlvo=
+		</data>
 		<key>Resources/Default (Dark).xpcolortheme</key>
 		<data>
-		tr1hXjxzsnZ8rJTs/RLurL4Ezhs=
+		e1CI9L/KoaVLWvIo82tCyXgFcOw=
 		</data>
 		<key>Resources/Default (Light).xpcolortheme</key>
 		<data>
-		/3lLaNTeYUcgsjA87RVrPkEJulw=
+		SXjj0p5SeaSUzkduZp51u/DrLNY=
+		</data>
+		<key>Resources/EXPORT.rtf</key>
+		<data>
+		6UmEHU9EDH79exIbS9aFTAMpHs0=
+		</data>
+		<key>Resources/FILLPOLY_P.rtf</key>
+		<data>
+		R0tDcC3qpRVuTnB3ahhfOyFyvZg=
+		</data>
+		<key>Resources/FOR.rtf</key>
+		<data>
+		rxqnRVbm3AcF6WCoDJ6+gV4m/FI=
+		</data>
+		<key>Resources/GETPIX.rtf</key>
+		<data>
+		JL2HQuMoxo0eDR7WMo1QMAejXSw=
+		</data>
+		<key>Resources/GETPIX_P.rtf</key>
+		<data>
+		6cep19Q2xMf/aW2sT2jJr3zNx/I=
+		</data>
+		<key>Resources/GROBH.rtf</key>
+		<data>
+		yPvoFW4rEfkZUHqiFX3nw8L+uj4=
+		</data>
+		<key>Resources/GROBH_P.rtf</key>
+		<data>
+		k/twApwalNw2iTOuR6rjB2rG89g=
+		</data>
+		<key>Resources/GROBW.rtf</key>
+		<data>
+		gv+9r/TCnCGYOmyPXNIjrsTj8nQ=
+		</data>
+		<key>Resources/GROBW_P.rtf</key>
+		<data>
+		yqOPcSafIfTMAbVhsDqSCLs9RAs=
 		</data>
 		<key>Resources/GitHub.xpcolortheme</key>
 		<data>
@@ -59,6 +135,82 @@
 		<key>Resources/HP Connectivity Kit.xpcolortheme</key>
 		<data>
 		+U1gM0zK9MFXGu5MxIoO5g5HqyI=
+		</data>
+		<key>Resources/IF.rtf</key>
+		<data>
+		az3VjuOq+N4sTTGcefyQSEqtVi4=
+		</data>
+		<key>Resources/IFERR.rtf</key>
+		<data>
+		rFRUEGIJZ2vHLfrmNZm5yFopSyo=
+		</data>
+		<key>Resources/IMAGE.rtf</key>
+		<data>
+		YrgmXg9d1rvsvSEGpuCCGZkqhJ4=
+		</data>
+		<key>Resources/INSTRING.rtf</key>
+		<data>
+		H6L5S6UnOfA7j+bmG1DwPNuBBCQ=
+		</data>
+		<key>Resources/INVERT.rtf</key>
+		<data>
+		6s44cTRhPAlKQd6xJ/MCZLWSwC0=
+		</data>
+		<key>Resources/INVERT_P.rtf</key>
+		<data>
+		1pBxOFsjoyqi4t2K1TuKd/hzB4Y=
+		</data>
+		<key>Resources/KILL.rtf</key>
+		<data>
+		AouZXnsynbTIhaGDixFqcM6rdyQ=
+		</data>
+		<key>Resources/LEFT.rtf</key>
+		<data>
+		Hubrz8hNNyoHrkqBp4kiFj26YIc=
+		</data>
+		<key>Resources/LINE.rtf</key>
+		<data>
+		Vf2KrvgO8LNOnT196H5FsW9lYis=
+		</data>
+		<key>Resources/LINE_P.rtf</key>
+		<data>
+		jw95vjLp61l20uVE3c5Fn8NnmDw=
+		</data>
+		<key>Resources/LOCAL.rtf</key>
+		<data>
+		6T5U0+2DOl82NqQdqv9Ofu9FaYA=
+		</data>
+		<key>Resources/LOWER.rtf</key>
+		<data>
+		dvvABuc1IRxkEluEDGCnKlnbPJQ=
+		</data>
+		<key>Resources/MAKELIST.rtf</key>
+		<data>
+		C3UAov9zmHM6I+WgLol012DSzJs=
+		</data>
+		<key>Resources/MAKEMAT.rtf</key>
+		<data>
+		yHo7Ywxa7bADeiYC5n7MiEwpjX4=
+		</data>
+		<key>Resources/MID.rtf</key>
+		<data>
+		ClYJnYrQ1I1SmZwfA92JcA0NfSc=
+		</data>
+		<key>Resources/PIXOFF.rtf</key>
+		<data>
+		HjhgRX9olLzogPoJA1m+YHEwujk=
+		</data>
+		<key>Resources/PIXOFF_P.rtf</key>
+		<data>
+		KV7Ngm/zwOXZsU6H+h4iDJo5yK4=
+		</data>
+		<key>Resources/PIXON.rtf</key>
+		<data>
+		vfaE75KVLoZP3Vj1cvcL1BM0Kzg=
+		</data>
+		<key>Resources/PIXON_P.rtf</key>
+		<data>
+		Mvfe7NhBUIFNR64zyxxOBTAJ8kQ=
 		</data>
 		<key>Resources/Prime Plus.xpgrammar</key>
 		<data>
@@ -72,9 +224,81 @@
 		<data>
 		rQ8j7OuLO7my1/S52TtLV2SLIdU=
 		</data>
+		<key>Resources/RECT.rtf</key>
+		<data>
+		Z1ZFS43VCQ5uPVgV6Z55IIt5jp8=
+		</data>
+		<key>Resources/RECT_P.rtf</key>
+		<data>
+		dupX0kS3a4X4oYpW/KbnNzf1fw0=
+		</data>
+		<key>Resources/REPLACE.rtf</key>
+		<data>
+		ucru0WGzUfYBUtbz6XH3uLUEw4A=
+		</data>
+		<key>Resources/RETURN.rtf</key>
+		<data>
+		55/GEeZrAXYHwXHNBRduXFoFbe0=
+		</data>
+		<key>Resources/RGB.rtf</key>
+		<data>
+		7DP4MsoMp6P7AFER2q8GgXcgLSA=
+		</data>
+		<key>Resources/RIGHT.rtf</key>
+		<data>
+		Cw05Yd11PugMTnfrXbYa4wOQImM=
+		</data>
+		<key>Resources/ROTATE.rtf</key>
+		<data>
+		OpnYlN7coMkdbk3OW3Nt0+XbmSA=
+		</data>
+		<key>Resources/STEP.rtf</key>
+		<data>
+		sCTr1/U1kL6qKYH+NulcSM5q1rs=
+		</data>
+		<key>Resources/STRING.rtf</key>
+		<data>
+		IKRMMWzixPChAw/FRmEz3C4jvvQ=
+		</data>
+		<key>Resources/STRINGFROMID.rtf</key>
+		<data>
+		xGDUWLx8WzmRCpvFW+fgbggSvdg=
+		</data>
+		<key>Resources/SUBGROB.rtf</key>
+		<data>
+		vjoNA7ihzpWSgJt4KmtKRlKa+NU=
+		</data>
+		<key>Resources/SUBGROB_P.rtf</key>
+		<data>
+		uwknJzaQ1atsttj485HD5Cd/UCY=
+		</data>
+		<key>Resources/TEXT.rtf</key>
+		<data>
+		DlH8dKn9cLThMDGblGVjoHNNRvE=
+		</data>
+		<key>Resources/TEXTOUT.rtf</key>
+		<data>
+		bUk2ADs3tEX8hsVoTUl9+dPSBCQ=
+		</data>
+		<key>Resources/TEXTOUT_P.rtf</key>
+		<data>
+		vaPv/85wNhPnEcI0/m5dy9nR5N4=
+		</data>
+		<key>Resources/TRIANGLE_P.rtf</key>
+		<data>
+		4aAPaIIOxfWo0VSvrUHpRI5IgzE=
+		</data>
+		<key>Resources/UPPER.rtf</key>
+		<data>
+		N8Vhu/eRKXEa2mMDv+0y/zyLEDI=
+		</data>
 		<key>Resources/Untitled.prgm+</key>
 		<data>
 		DMHilN5aOcGQ6sH2AewgtZ9Wy00=
+		</data>
+		<key>Resources/VIEW.rtf</key>
+		<data>
+		284a2feeeUuikM6gVPmfZhYfihw=
 		</data>
 		<key>Resources/cspace.prgm+</key>
 		<data>
@@ -82,7 +306,7 @@
 		</data>
 		<key>Resources/default.metallib</key>
 		<data>
-		fYJbhk3AHYMRWNZtiw+lbRKrtPw=
+		i1DwX2YeRC4IL3Hh9mZMHqKS4rQ=
 		</data>
 		<key>Resources/dictionary.prgm+</key>
 		<data>
@@ -111,10 +335,6 @@
 		<key>Resources/pplang.prgm+</key>
 		<data>
 		cMMK2PFbtjBoNXdnHZmCZsOPELU=
-		</data>
-		<key>Resources/pplref</key>
-		<data>
-		7ud3UJqtp29xhRsTb9RU1Hwhe8c=
 		</data>
 		<key>Resources/string.prgm+</key>
 		<data>
@@ -295,28 +515,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			XQ0aRqJA1xphcw/qLt4Efej+BBGYwIQcmozzMZuI6tI=
+			OS+7RJwbhfxIq6nrkZQ5G1Nh5Eo6WW0au8RppuPbcVs=
 			</data>
 		</dict>
 		<key>Developer/usr/bin/ppl+</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			yKbIDn95Fmk26iFC02ZDJSA+YcELrU+hSN3j2Sjr2xs=
-			</data>
-		</dict>
-		<key>Developer/usr/bin/pplfont</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			8sT/+bCOUJLEG9jkTNkTohN1T1C2Cj81A+z6NKz9zzM=
-			</data>
-		</dict>
-		<key>Developer/usr/bin/pplref</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			ars9Qu/weMM5EG+JOnaNcnRmoAt2/zcQkDvGgpGXnNU=
+			lqxmsQV/MKYPsk1g4XdqYxXKwue/fq/oEuzrIIGVZCg=
 			</data>
 		</dict>
 		<key>Developer/usr/hpprgm/ColorSpace.hpprgm</key>
@@ -337,7 +543,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			e6sTU9dq2ZuMZVAypUWoFRTJOnZobaN6RrTg6BH/Whs=
+			d7RWRB76uLX48gjcm5ItwPv4ZgHGGoq3hufy/eboBsE=
 			</data>
 		</dict>
 		<key>Developer/usr/include/cspace.prgm+</key>
@@ -494,6 +700,20 @@
 			+8TS3jUnQ4G0vo+rafDIRLl7LzRZOe+oVwLQPqcKmR8=
 			</data>
 		</dict>
+		<key>Resources/ARC.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			gwFZt/LVcQE/SN6U4Eb8kpoN9zwL/IVkCWIbB7j74V8=
+			</data>
+		</dict>
+		<key>Resources/ASC.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			cV1ZMYmOoSdiJi6Z1Ut4C8h6mGRXlR1q2QEP45fuZcU=
+			</data>
+		</dict>
 		<key>Resources/AppIcon.icns</key>
 		<dict>
 			<key>hash2</key>
@@ -505,56 +725,77 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			jYxunkrmHHC9f8oSUdO7vV45WgqjWBHDAkd+SulyHvw=
+			QNS20OSW2v1PteuOJzjYZ38wJO4MlQdx7ulS+7+g0ME=
+			</data>
+		</dict>
+		<key>Resources/BEGIN.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			5YnfSrGklMNrITYB/zb03pEQZAkiUz1uWKXdvfZfMvM=
 			</data>
 		</dict>
 		<key>Resources/Base.lproj/Main.storyboardc/HsO-bO-Dfd-view-1RK-mx-rDE.nib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			0dANcRx3pgCfzF+D9cjPgxc946vCjdTsyNQbazP2zqY=
+			fwFDWBgtIblTYG3Mur3JNpo+YoClI0S0lZjcmdcirDs=
 			</data>
 		</dict>
 		<key>Resources/Base.lproj/Main.storyboardc/Info.plist</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			BJhWApqTyb24enQjXrt6Lah0aLzgVUt9XqTT6ugsekI=
+			rcZTtd4asKap9DctQ1P6WpTz5SeV6GC64EsqoDacxgQ=
 			</data>
 		</dict>
 		<key>Resources/Base.lproj/Main.storyboardc/MainMenu.nib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			zH2jySBsCwRy02zr0SgCGxgcA7jyIltZKR1vuDjL28Q=
+			KTS5i8nF3lCc1TjHwMUPIxvsdYvhvBIiE/0wP5TCNdA=
 			</data>
 		</dict>
 		<key>Resources/Base.lproj/Main.storyboardc/MainViewController.nib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			W56mC8XnJJGgFZTKtxcNV5tjlI1Tjtg+GJa3q+ZhdCI=
+			Zg17bMrn+A/RKDtKUCdrBxFUbYDEUdROqMmX2vSnWZk=
 			</data>
 		</dict>
 		<key>Resources/Base.lproj/Main.storyboardc/MainWindowController.nib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			qehYlPHCx1sFwswQCw5sLhHTfonIhMPxxO62HlszmVM=
+			UG/xF3PhDMmqvHutF0yNGopBSqOr6faZ1LiJmh9hnoA=
 			</data>
 		</dict>
 		<key>Resources/Base.lproj/Main.storyboardc/NSWindowController-CFc-li-Drx.nib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			2h0G85CXIxDn0092CcCECqL49V6uZSUFt8ZrhThiJjg=
+			P1GtqoBPU/+O7I49mlAC4s2PG35ZkO8k3kMbWkOMf8E=
 			</data>
 		</dict>
 		<key>Resources/Base.lproj/Main.storyboardc/XfG-lQ-9wD-view-m2S-Jp-Qdl.nib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			ZFHUTUlYuxwlzo4uIwPgMr0PKb57xiASXniZa2y6MP4=
+			jp23yXhEYaEDZs4MgyA6VOPtltim5cKidu2xk7PSZFo=
+			</data>
+		</dict>
+		<key>Resources/CASE.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			l2Yh8+jIYl7otUBcgsV62sqhUnrFi8v2FoTzCmovtCw=
+			</data>
+		</dict>
+		<key>Resources/CHAR.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			jAvTHGvCCD1ZOIEZOUcyqGaNuIqILLzP3HV/I/nTgUw=
 			</data>
 		</dict>
 		<key>Resources/Credits.rtf</key>
@@ -564,18 +805,116 @@
 			jVbkj3iHRgZXwChdkc6l6VlfuJfTpKG1/37euuleNbI=
 			</data>
 		</dict>
+		<key>Resources/C→PX.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			rCHz2alvHVc2mgnQPIqjp+4UQiBGDsAzi+UqqY+rshw=
+			</data>
+		</dict>
+		<key>Resources/DIM.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			MFjfp7emqmTx8y0m+Fc4zte79ZPFpyIbYRaJm92Vp3w=
+			</data>
+		</dict>
+		<key>Resources/DIMGROB.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			bw1Vb7qQNyC1qTc7rKVvw+hSDZk1od1CHVvYx3ZVSu0=
+			</data>
+		</dict>
+		<key>Resources/DOWNTO.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			sD1t8k6BeTl+BJ7B9S+/ynlktSABHgwxGlKlMt5gNUo=
+			</data>
+		</dict>
+		<key>Resources/DRAWMENU.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			reaLyNanv/9kiDEEV+He+Dy9evA04JRv+doMQrsS7h4=
+			</data>
+		</dict>
 		<key>Resources/Default (Dark).xpcolortheme</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			vvRsDa/QcpiUckjwJN8iSFMp932p3IdLjgbC6QrOMTY=
+			eCbjzO74r14epBJhNRuSGy/K1C6oLI1mI0vQaOVpA5U=
 			</data>
 		</dict>
 		<key>Resources/Default (Light).xpcolortheme</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			0w43wzcm7fPnhhTm5lbnus6G5RdoGow5/YlRIY2q32c=
+			t4nrxvQLpHxU5KIMN0PuXBw0Jmy3o3uNWag8NN21jjw=
+			</data>
+		</dict>
+		<key>Resources/EXPORT.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			oxgDX89SD9JPajEaBZYJMZ8QAI4puo7/KjVeBpY9i2s=
+			</data>
+		</dict>
+		<key>Resources/FILLPOLY_P.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			pvwCiWLi84XqKF0UA2E3WbQ22SvRyYZiwPG0qny4rQg=
+			</data>
+		</dict>
+		<key>Resources/FOR.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			1SpfUYuKs9YoA38xS3p+OqD3jRQV5HvSVD3Ht5Pr+pQ=
+			</data>
+		</dict>
+		<key>Resources/GETPIX.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			tsLrGbashJEYZHUa/GEsMyxCx2ipdS4hz1yjyFYa6KM=
+			</data>
+		</dict>
+		<key>Resources/GETPIX_P.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			1O2kuP6is0Yj1OlBbj/k6+RAZsmTU/A/U4mCPM3drAA=
+			</data>
+		</dict>
+		<key>Resources/GROBH.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			VaGxsCUS/6iEXTGO6VAjZhXTseqRNIgi/JHnKx8Kzh8=
+			</data>
+		</dict>
+		<key>Resources/GROBH_P.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			yMVQtL5pD/ZNqIRiGVKkFqq5pKB0UxUc2iW/OVQNuiU=
+			</data>
+		</dict>
+		<key>Resources/GROBW.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			Mq67Mu5fg/Ym0J6pCJy/wgeeD19msy2AiWTp1D0/tVc=
+			</data>
+		</dict>
+		<key>Resources/GROBW_P.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			qVddRdaFtaT4Xw0mjuumIjPb6jzWsnziVC3fRn36qtA=
 			</data>
 		</dict>
 		<key>Resources/GitHub.xpcolortheme</key>
@@ -590,6 +929,139 @@
 			<key>hash2</key>
 			<data>
 			30xz5bUlrdRy6DFa4FVt4jb6p1D/EkYwfwKaULOwiIU=
+			</data>
+		</dict>
+		<key>Resources/IF.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			4ND5MohzvxEDBtzwiL37TYHb45Ip0+ScsFaOZMWg41U=
+			</data>
+		</dict>
+		<key>Resources/IFERR.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			LPFPsZzCDGXtsSk0/CQHnbc6qcE//ivqKVj29OFxccc=
+			</data>
+		</dict>
+		<key>Resources/IMAGE.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			9u0Jk+7JhFUJRma7wnliXXqVhhw7sHf2AuU/p8buZqg=
+			</data>
+		</dict>
+		<key>Resources/INSTRING.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			2JCfrUM/O2GPbfr+vlclluyw6OtO5Gq4VEbo93M5iBM=
+			</data>
+		</dict>
+		<key>Resources/INVERT.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			gTldEXtAHXLxdSM+X1AdmvDNZD4JaDAlYnURg63JNCo=
+			</data>
+		</dict>
+		<key>Resources/INVERT_P.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			1o1VuhuouG3PY6F1X4DKXz/FxoaOJdYEludm2UY2ryg=
+			</data>
+		</dict>
+		<key>Resources/KILL.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			V7xH9sVJ6V7siGRwXIwNPUas3zUBfkf5jCp+RjFGIMk=
+			</data>
+		</dict>
+		<key>Resources/LEFT.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			GROmQSdRzcMWs5Cmqr60IxKOuDiFHcZOIlyi8ChhAXc=
+			</data>
+		</dict>
+		<key>Resources/LINE.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			ZFfuQCrzb87MxlT/YkgkNo44h4Q1ryCIBC4wJeQmjYY=
+			</data>
+		</dict>
+		<key>Resources/LINE_P.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			6tkCi/g5Qp+cOIJeEItxgSG+Gr4Ukdlh6VIPYT4xqac=
+			</data>
+		</dict>
+		<key>Resources/LOCAL.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			+WoMJcmV5mV2OubJ50vPNWif5YsZHcpvShn2WIlzMAA=
+			</data>
+		</dict>
+		<key>Resources/LOWER.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			t4mAatCS5QqnL+5DfUJIdEMUoguVoqgzOm5wWw7/q/Q=
+			</data>
+		</dict>
+		<key>Resources/MAKELIST.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			X4dpxuuA2kFeOeRNryucrjGv/qv+lyASAw+5b5tNVmI=
+			</data>
+		</dict>
+		<key>Resources/MAKEMAT.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			99Bi3rWOAOY0y/QRB+b9GJ7baktqgsGIWpkdquauLm0=
+			</data>
+		</dict>
+		<key>Resources/MID.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			DIrci+FA1pkbRj3HaooU1QIWgTKVv96plGs+FOb72TA=
+			</data>
+		</dict>
+		<key>Resources/PIXOFF.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			y96DeuYvGSzvdGhN8VuUB3qh3JSHFC9kPd2ve2S2P4M=
+			</data>
+		</dict>
+		<key>Resources/PIXOFF_P.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			z4UOiGK1LJCAcjENIYkUB12+NhLWbzWEs5HPiZPktww=
+			</data>
+		</dict>
+		<key>Resources/PIXON.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			ZfK4OWcQRAGFeKcLG6w0Req5Obw6iJYPKtV6mxdiQl4=
+			</data>
+		</dict>
+		<key>Resources/PIXON_P.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			TBAWSk7SUKnb0z5d8i768ogeKHMMbwH7RplqZRVfB8w=
 			</data>
 		</dict>
 		<key>Resources/Prime Plus.xpgrammar</key>
@@ -613,11 +1085,137 @@
 			jBjl7CkS01hccXN9po+zL1s2cSQxkGeIT3NW9IZrCH4=
 			</data>
 		</dict>
+		<key>Resources/RECT.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			cPriXSSsUTJDjNfVhJYgX3sR6Lf99a3LF3BOJ594aaQ=
+			</data>
+		</dict>
+		<key>Resources/RECT_P.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			M/WTtf/TSf2XUFHAFjRDZAQEUW2pmdynJNyX/8HJnNs=
+			</data>
+		</dict>
+		<key>Resources/REPLACE.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			1AwmkSr42xEwRdDl8zSpAql/UlMnZxxEuvwtpfe3DgI=
+			</data>
+		</dict>
+		<key>Resources/RETURN.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			rlzvMi4zqZrbCfzFKFa78zCntKAtSHFNz3u0ndbzWe0=
+			</data>
+		</dict>
+		<key>Resources/RGB.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			JsifdNiMn9xKegVuGTbFz7sMgfZghBo6FBnURnBYclg=
+			</data>
+		</dict>
+		<key>Resources/RIGHT.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			ZsDMK5yfAwg32wdUkqTI/EgJosQv25kHFfBfRGgOmwU=
+			</data>
+		</dict>
+		<key>Resources/ROTATE.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			I0ay7/HOnOhKRLWHlj1WFVYmxsTb6Q0TJ+knEXt5jsQ=
+			</data>
+		</dict>
+		<key>Resources/STEP.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			/vGcjDDGsKYd3jkzUmXShTRs1iPgdg4m/EsZGsy/KsU=
+			</data>
+		</dict>
+		<key>Resources/STRING.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			wB6HwyzvUq9HZyI/ec6BHu8kHOWQNiabQcZaPITVmM4=
+			</data>
+		</dict>
+		<key>Resources/STRINGFROMID.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			sbOFCPlVQlWb/vW4SuvP5WW4nHm0Y7Mwa+I0CMipM5M=
+			</data>
+		</dict>
+		<key>Resources/SUBGROB.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			ouK+ARQNyyurGAhjWbOudt1+nD6DPyIxA6Z+mUJWTi8=
+			</data>
+		</dict>
+		<key>Resources/SUBGROB_P.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			5F0YiH7OBZJ5ykBEfuNdTj88KvR8D6rYJq6Cpbqp5mM=
+			</data>
+		</dict>
+		<key>Resources/TEXT.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			/AewjJGUHUWxx166sc5SAnJM1+dvFc3tgtwh241+j6s=
+			</data>
+		</dict>
+		<key>Resources/TEXTOUT.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			nLjKyl7J7TJb708n3m19KOS3nh2XVewma6LBpAV061g=
+			</data>
+		</dict>
+		<key>Resources/TEXTOUT_P.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			c7vil0K/k6EG+/ZIaJTVlaYwth2IPnp0aGw0rcf6p6g=
+			</data>
+		</dict>
+		<key>Resources/TRIANGLE_P.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			NJmDbB5KgELMGmgWFptrRAGCvOeRBP5Sdg77tF0rJbc=
+			</data>
+		</dict>
+		<key>Resources/UPPER.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			9Ux3pvkItjQu5f2i4GokYRJ8LjViiioSrcAqEx3zBTw=
+			</data>
+		</dict>
 		<key>Resources/Untitled.prgm+</key>
 		<dict>
 			<key>hash2</key>
 			<data>
 			4KzpzcBGJV/0HG5n1Y9aKm3h/EZHw303TjMxaLTARNI=
+			</data>
+		</dict>
+		<key>Resources/VIEW.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			jgpS2fXzJhwKireu1J3MxXOJ0qGHoOP58uGDQyjuKMQ=
 			</data>
 		</dict>
 		<key>Resources/cspace.prgm+</key>
@@ -631,7 +1229,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			+UjNPTn+Q4XHdhPHK8yiVvKRY9sPI/fjCAYZ1k9QIaw=
+			VJ/H3EYWsT/Kg4gKJpVgICIL7m99CUHObsbQxRb1+wE=
 			</data>
 		</dict>
 		<key>Resources/dictionary.prgm+</key>
@@ -681,13 +1279,6 @@
 			<key>hash2</key>
 			<data>
 			WpPWA/GJz9bN4q6XTqwCpMZeBUQ/cVnLU++Wi3872kM=
-			</data>
-		</dict>
-		<key>Resources/pplref</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			HCl0d9V8Qmy/NMmAI5SBjF8Qjvqs0HZb5fK4B5TTfTI=
 			</data>
 		</dict>
 		<key>Resources/string.prgm+</key>

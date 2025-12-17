@@ -418,17 +418,8 @@ final class CodeEditorTextView: NSTextView {
             )
         }
         
-        guard let layoutManager = layoutManager,
-              let textContainer = textContainer else { return }
-
-          
         let point = convert(event.locationInWindow, from: nil)
-        let glyphIndex = layoutManager.glyphIndex(for: point, in: textContainer)
-        let charIndex = layoutManager.characterIndexForGlyph(at: glyphIndex)
-        let wordRange = (string as NSString).rangeOfWord(at: charIndex)
-        let word = (string as NSString).substring(with: wordRange)
-        
-        guard charIndex != NSNotFound else { return }
+        guard let word = word(at: point) else { return }
         showQuickHelp(for: word, at: point)
     }
     
@@ -444,12 +435,28 @@ final class CodeEditorTextView: NSTextView {
     }
 
     override func mouseMoved(with event: NSEvent) {
-        if event.modifierFlags.contains(.option) {
+        let point = convert(event.locationInWindow, from: nil)
+
+        if let _ = word(at: point), event.modifierFlags.contains(.option) {
             NSCursor.contextualMenu.set()
         } else {
-//            NSCursor.arrow.set()
             NSCursor.current.set()
         }
+    }
+
+    
+    private func word(at point: CGPoint) -> String? {
+        guard let layoutManager = layoutManager,
+              let textContainer = textContainer else { return nil }
+        
+        let glyphIndex = layoutManager.glyphIndex(for: point, in: textContainer)
+        let charIndex = layoutManager.characterIndexForGlyph(at: glyphIndex)
+        let wordRange = (string as NSString).rangeOfWord(at: charIndex)
+        let word = (string as NSString).substring(with: wordRange)
+        
+        guard charIndex != NSNotFound else { return nil }
+        
+        return word
     }
 }
 

@@ -74,7 +74,7 @@ final class QuickHelpViewController: NSViewController {
         ])
 
         self.view = view
-        preferredContentSize = NSSize(width: 500, height: 120)
+        preferredContentSize = NSSize(width: 500, height: 250)
     }
 }
 
