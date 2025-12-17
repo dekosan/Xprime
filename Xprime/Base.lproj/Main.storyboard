@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="24412" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="24506" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="24412"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="24506"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -27,12 +27,6 @@
                                         <menuItem title="Settings..." image="gear" catalog="system" keyEquivalent="," id="36R-ZF-jrv">
                                             <connections>
                                                 <segue destination="CFc-li-Drx" kind="show" id="rs1-pK-ahC"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Prime SDK" image="pplplus" id="s7N-Ew-YPV">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="primeSDK:" target="Ady-hI-5gd" id="xtj-1h-lD1"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="wFC-TO-SCJ"/>
@@ -1003,13 +997,6 @@ Gw
                                         <action selector="saveDocument:" target="Oky-zY-oP4" id="zr3-he-7cV"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="0C54E2DB-EC1B-4E78-A931-72EE13420635" explicitItemIdentifier="Export" label="Export" paletteLabel="Export" tag="-1" image="square.and.arrow.up" catalog="system" id="MlY-DF-mDD">
-                                    <size key="minSize" width="23" height="27"/>
-                                    <size key="maxSize" width="23" height="27"/>
-                                    <connections>
-                                        <action selector="exportAsHpprgm:" target="Oky-zY-oP4" id="7gd-Th-FFT"/>
-                                    </connections>
-                                </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="AD3522ED-9E05-47FC-826C-82BDA25EBD85" explicitItemIdentifier="Build" label="Build" paletteLabel="Build" tag="-1" image="hammer.fill" catalog="system" id="qhn-5s-CEp">
                                     <size key="minSize" width="29" height="27"/>
                                     <size key="maxSize" width="29" height="27"/>
@@ -1052,7 +1039,6 @@ Gw
                                 <toolbarItem reference="0ug-tp-WdJ"/>
                                 <toolbarItem reference="vRb-OI-uPy"/>
                                 <toolbarItem reference="0uA-kt-18g"/>
-                                <toolbarItem reference="MlY-DF-mDD"/>
                                 <toolbarItem reference="Pr6-Kd-yB2"/>
                                 <toolbarItem reference="qhn-5s-CEp"/>
                                 <toolbarItem reference="LmB-mZ-kcz"/>
@@ -1154,7 +1140,7 @@ Gw
                                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="icon" id="3v8-6I-Ist"/>
                                             </imageView>
                                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="o4M-ON-b8V">
-                                                <rect key="frame" x="19" y="255.5" width="24" height="24"/>
+                                                <rect key="frame" x="17" y="255.5" width="24" height="24"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                 <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="inset.filled.topthird.square" catalog="system" imagePosition="overlaps" alignment="center" imageScaling="proportionallyDown" inset="2" id="AfA-QU-4Ov">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -1229,7 +1215,6 @@ Gw
         <image name="play.fill" catalog="system" width="12" height="13"/>
         <image name="plus" catalog="system" width="14" height="13"/>
         <image name="ppl" width="16" height="16"/>
-        <image name="pplplus" width="16" height="16"/>
         <image name="square.and.arrow.down" catalog="system" width="15" height="17"/>
         <image name="square.and.arrow.up" catalog="system" width="15" height="18"/>
         <image name="square.and.arrow.up.on.square" catalog="system" width="17" height="20"/>

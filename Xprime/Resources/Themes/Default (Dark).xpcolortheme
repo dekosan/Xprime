@@ -59,7 +59,7 @@
         {
             "scope": ["Functions"],
             "settings": {
-                "foreground": "#FFCC00"
+                "foreground": "#44BBFF"
             }
         }
     ]

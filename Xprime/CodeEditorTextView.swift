@@ -396,43 +396,60 @@ final class CodeEditorTextView: NSTextView {
     
     //MARK: HELP
     override func mouseDown(with event: NSEvent) {
-        // 1. Check if Option key is held
-        let optionDown = event.modifierFlags.contains(.option)
-        
-        if optionDown {
+        if event.modifierFlags.contains(.option) {
             handleOptionClick(event)
             return
         }
-        
         super.mouseDown(with: event)
     }
     
-    
     private func handleOptionClick(_ event: NSEvent) {
-        // 2. Convert click location to text position
+        func showQuickHelp(for symbol: String, at point: NSPoint) {
+            let vc = QuickHelpViewController(symbol: symbol)
+
+            let popover = NSPopover()
+            popover.behavior = .transient
+            popover.contentViewController = vc
+
+            popover.show(
+                relativeTo: NSRect(origin: point, size: .zero),
+                of: self,
+                preferredEdge: .maxY
+            )
+        }
+        
+        guard let layoutManager = layoutManager,
+              let textContainer = textContainer else { return }
+
+          
         let point = convert(event.locationInWindow, from: nil)
-        let charIndex = characterIndexForInsertion(at: point)
+        let glyphIndex = layoutManager.glyphIndex(for: point, in: textContainer)
+        let charIndex = layoutManager.characterIndexForGlyph(at: glyphIndex)
+        let wordRange = (string as NSString).rangeOfWord(at: charIndex)
+        let word = (string as NSString).substring(with: wordRange)
         
         guard charIndex != NSNotFound else { return }
-        
-        // 3. Get the word at that index
-        if let word = word(at: charIndex) {
-            // Do whatever you want — show docs, definitions, etc.
-            print("Option-clicked word: \(word)")
-        }
+        showQuickHelp(for: word, at: point)
     }
     
     
-    // Extract the word around a character index
-    private func word(at index: Int) -> String? {
-        guard index < string.count else { return nil }
-        
-        let nsString = self.string as NSString
-        let range = nsString.rangeOfWord(at: index)
-        if range.location != NSNotFound {
-            return nsString.substring(with: range)
+    override func updateTrackingAreas() {
+        super.updateTrackingAreas()
+        addTrackingArea(NSTrackingArea(
+            rect: bounds,
+            options: [.mouseMoved, .activeInKeyWindow],
+            owner: self,
+            userInfo: nil
+        ))
+    }
+
+    override func mouseMoved(with event: NSEvent) {
+        if event.modifierFlags.contains(.option) {
+            NSCursor.contextualMenu.set()
+        } else {
+//            NSCursor.arrow.set()
+            NSCursor.current.set()
         }
-        return nil
     }
 }
 

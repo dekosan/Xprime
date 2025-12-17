@@ -494,9 +494,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         }
     }
     
-    
 
-    
     private func performBuild() {
         guard let sourceURL = projectURL else {
             return
@@ -876,10 +874,10 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             
             let command = HP.sdkURL
                 .appendingPathComponent("bin")
-                .appendingPathComponent("pplfont")
+                .appendingPathComponent("ppl+")
                 .path
             
-            let contents = CommandLineTool.execute(command, arguments: [url.path, "-o", "/dev/stdout", "--ppl"])
+            let contents = CommandLineTool.execute(command, arguments: [url.path, "-o", "/dev/stdout"])
             if let out = contents.out, !out.isEmpty {
                 self.outputTextView.string = "Importing Adafruit GFX Font...\n"
                 self.codeEditorTextView.insertCode(contents.out ?? "")
@@ -985,10 +983,10 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         
         let command = HP.sdkURL
             .appendingPathComponent("bin")
-            .appendingPathComponent("pplref")
+            .appendingPathComponent("ppl+")
             .path
         
-        let contents = CommandLineTool.execute(command, arguments: [currentURL.path, "-o", "/dev/stdout"])
+        let contents = CommandLineTool.execute(command, arguments: [currentURL.path, "--reformat", "-o", "/dev/stdout"])
         if let out = contents.out, !out.isEmpty {
             codeEditorTextView.string = out
         }
@@ -1021,12 +1019,6 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         switch item.action {
         case #selector(build(_:)), #selector(run(_:)):
             if let _ = projectURL  {
-                return true
-            }
-            return false
-            
-        case #selector(exportAsHPPrgm(_:)):
-            if let _ = currentURL, ext == "prgm" || ext == "prgm+" || ext == "ppl" || ext == "ppl+" || ext == "pp"  {
                 return true
             }
             return false
@@ -1101,7 +1093,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             return true
             
         case #selector(insertTemplate(_:)), #selector(importImage(_:)), #selector(importAdafruitGFXFont(_:)):
-            if ext == "prgm" || ext == "prgm+" || ext == "hpprgm" || ext == "hpappprgm" || ext == "ppl" || ext == "ppl+" {
+            if ext == "prgm" || ext == "prgm+" || ext == "hpprgm" || ext == "hpappprgm" || ext == "ppl" || ext == "ppl+" || ext == "pp" {
                 return true
             }
             return false

@@ -49,36 +49,21 @@ fileprivate func run(_ task: Process) -> (out: String?, err: String?) {
 
 enum CommandLineTool {
     static private var binURL: URL {
-        let url = URL(fileURLWithPath: "/Applications/HP/PrimeSDK/bin")
-        if url.isDirectory == false || AppSettings.usePrimeSDK == false {
-            return URL(fileURLWithPath: Bundle.main.bundleURL.path)
-                .appendingPathComponent("Contents/Developer/usr/bin")
-        }
-        return url
+        return URL(fileURLWithPath: Bundle.main.bundleURL.path).appendingPathComponent("Contents/Developer/usr/bin")
     }
     
     static private var includeURL: URL {
         guard AppSettings.headerSearchPath == "~" else {
             return URL(fileURLWithPath: AppSettings.headerSearchPath)
         }
-        let url = URL(fileURLWithPath: "/Applications/HP/PrimeSDK/include")
-        if url.isDirectory == false || AppSettings.usePrimeSDK == false {
-            return URL(fileURLWithPath: Bundle.main.bundleURL.path)
-                .appendingPathComponent("Contents/Developer/usr/include")
-        }
-        return url
+        return URL(fileURLWithPath: Bundle.main.bundleURL.path).appendingPathComponent("Contents/Developer/usr/include")
     }
     
     static private var libURL: URL {
         guard AppSettings.headerSearchPath == "~" else {
             return URL(fileURLWithPath: AppSettings.headerSearchPath)
         }
-        let url = URL(fileURLWithPath: "/Applications/HP/PrimeSDK/lib")
-        if url.isDirectory == false || AppSettings.usePrimeSDK == false {
-            return URL(fileURLWithPath: Bundle.main.bundleURL.path)
-                .appendingPathComponent("Contents/Developer/usr/lib")
-        }
-        return url
+        return URL(fileURLWithPath: Bundle.main.bundleURL.path).appendingPathComponent("Contents/Developer/usr/lib")
     }
     
     static func execute(_ command: String, arguments: [String], currentDirectory: URL? = nil) -> (out: String?, err: String?) {

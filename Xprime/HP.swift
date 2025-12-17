@@ -61,12 +61,7 @@ fileprivate func launchApplication(named appName: String, arguments: [String] = 
 
 enum HP {
     static var sdkURL: URL {
-        let url = URL(fileURLWithPath: "/Applications/HP/PrimeSDK")
-        if url.isDirectory == false || AppSettings.usePrimeSDK == false {
-            return URL(fileURLWithPath: Bundle.main.bundleURL.path)
-                .appendingPathComponent("Contents/Developer/usr")
-        }
-        return url
+        return URL(fileURLWithPath: Bundle.main.bundleURL.path).appendingPathComponent("Contents/Developer/usr")
     }
     
     

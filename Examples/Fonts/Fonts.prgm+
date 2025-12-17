@@ -1,7 +1,7 @@
 #pragma mode( separator(.,;) integer(h64) )
 #require "HP"
 
-#include "../prgm/VGA.prgm"
+#include "VGA.h"
 
 #define WHITE #FFFFFF:32h
 #define BLACK 0
@@ -15,5 +15,6 @@ end;
 
 export RESET()
 begin
+FILLPOLY_P
     return 0;
 end;
