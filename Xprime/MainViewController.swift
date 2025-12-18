@@ -325,19 +325,19 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         
         if ext == "prgm+" || ext == "ppl+" {
             if let url = Bundle.main.url(forResource: "Prime Plus", withExtension: "xpgrammar", subdirectory:"Grammars") {
-                self.codeEditorTextView.loadGrammar(at: url)
+                codeEditorTextView.loadGrammar(at: url)
             }
         }
         
         if ext == "prgm" || ext == "ppl" || ext == "hpprgm" || ext == "hpappprgm" {
             if let url = Bundle.main.url(forResource: "Prime", withExtension: "xpgrammar", subdirectory:"Grammars") {
-                self.codeEditorTextView.loadGrammar(at: url)
+                codeEditorTextView.loadGrammar(at: url)
             }
         }
         
         if ext == "py" {
             if let url = Bundle.main.url(forResource: "Python", withExtension: "xpgrammar", subdirectory:"Grammars") {
-                self.codeEditorTextView.loadGrammar(at: url)
+                codeEditorTextView.loadGrammar(at: url)
             }
         }
         
@@ -355,8 +355,8 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             return
         }
         
-//        icon.image = NSImage(contentsOf: Bundle.main.bundleURL.appendingPathComponent("Contents/Resources/icon.png"))
         icon.image = NSImage(contentsOf: Bundle.main.url(forResource: "icon", withExtension: "png", subdirectory:"Developer/Library/Xprime/Teemplates/Application Template")!)
+        
     }
     
     private func saveDocumentAs() {

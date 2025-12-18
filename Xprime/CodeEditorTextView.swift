@@ -102,19 +102,19 @@ final class CodeEditorTextView: NSTextView {
         
         let fileManager = FileManager.default
         
-        if let themeURL = Bundle.main.url(forResource: AppSettings.selectedTheme, withExtension: "xpcolortheme") {
+        if let themeURL = Bundle.main.url(forResource: AppSettings.selectedTheme, withExtension: "xpcolortheme", subdirectory: "Themes") {
             if fileManager.fileExists(atPath: themeURL.path) {
                 loadTheme(at: themeURL)
             } else {
-                loadTheme(at: Bundle.main.url(forResource: "Default (Dark)", withExtension: "xpcolortheme")!)
+                loadTheme(at: Bundle.main.url(forResource: "Default (Dark)", withExtension: "xpcolortheme", subdirectory: "Themes")!)
             }
         }
         
-        if let grammarURL = Bundle.main.url(forResource: AppSettings.selectedGrammar, withExtension: "xpgrammar") {
+        if let grammarURL = Bundle.main.url(forResource: AppSettings.selectedGrammar, withExtension: "xpgrammar", subdirectory: "Grammars") {
             if fileManager.fileExists(atPath: grammarURL.path) {
                 loadGrammar(at: grammarURL)
             } else {
-                loadGrammar(at: Bundle.main.url(forResource: "Prime Plus", withExtension: "xpgrammar")!)
+                loadGrammar(at: Bundle.main.url(forResource: "Prime Plus", withExtension: "xpgrammar", subdirectory: "Grammars")!)
             }
         }
         
