@@ -4,14 +4,6 @@
 <dict>
 	<key>files</key>
 	<dict>
-		<key>Resources/ARC.rtf</key>
-		<data>
-		liSeuI6fj4hECvElWF1yFk/frqc=
-		</data>
-		<key>Resources/ASC.rtf</key>
-		<data>
-		yM3fXOWQSiLuUDgo7yeExMT7r9E=
-		</data>
 		<key>Resources/AppIcon.icns</key>
 		<data>
 		20EbQN1cTfH7zGbeivlCrI1qlcE=
@@ -20,700 +12,529 @@
 		<data>
 		A1apeumGlcqTxKRPed+qa3le53c=
 		</data>
-		<key>Resources/BEGIN.rtf</key>
-		<data>
-		QiTMiVD89BiGGEUJJX2VY2CfZYg=
-		</data>
 		<key>Resources/Base.lproj/Main.storyboardc/HsO-bO-Dfd-view-1RK-mx-rDE.nib</key>
 		<data>
-		CApqwLdc/m2mlXHH7EQykvnijlY=
+		v+xu5HDU9o+PsBaHgIt62mBrCLY=
 		</data>
 		<key>Resources/Base.lproj/Main.storyboardc/Info.plist</key>
 		<data>
-		glq0fgT0ZGKRSyY6JQ4ts8NEinE=
+		IF3I2RIqPYjl79xJ26zAb6NNK3o=
 		</data>
 		<key>Resources/Base.lproj/Main.storyboardc/MainMenu.nib</key>
 		<data>
-		mrHAs1pic4p9WdnxFhgIAFSEcNo=
+		UhybxQBwJRroA8Ml3T+J12TEGA0=
 		</data>
 		<key>Resources/Base.lproj/Main.storyboardc/MainViewController.nib</key>
 		<data>
-		h9ZWBomb6hvWw47C0CVDck0J01Q=
+		UD6eusXEfzOvBJMXiCwG2JwQTnI=
 		</data>
 		<key>Resources/Base.lproj/Main.storyboardc/MainWindowController.nib</key>
 		<data>
-		hAwKsV6NLyOp+dp2/XHUs3d0umM=
+		lRQ1tdYzd0b3nePes2OxrXbCoSQ=
 		</data>
 		<key>Resources/Base.lproj/Main.storyboardc/NSWindowController-CFc-li-Drx.nib</key>
 		<data>
-		UAbnbCGQxftLq6SH0Kocbv5ko30=
+		cMXiSl2WyipWRF+TMiuwn2t+nG0=
 		</data>
 		<key>Resources/Base.lproj/Main.storyboardc/XfG-lQ-9wD-view-m2S-Jp-Qdl.nib</key>
 		<data>
-		MWptglkEThLpYuGS0TFjjoqCjxU=
-		</data>
-		<key>Resources/CASE.rtf</key>
-		<data>
-		Z6ASGYt98310wWF8Pjeb1jsxMZE=
-		</data>
-		<key>Resources/CHAR.rtf</key>
-		<data>
-		e+41QgBhFVbwTUnlsD9d3y0gonA=
+		bhP61OTtAaan/Ci/SZV112sgKkQ=
 		</data>
 		<key>Resources/Credits.rtf</key>
 		<data>
 		3gXwm4tR/AqdeAqus5/ECN87aH8=
 		</data>
-		<key>Resources/C→PX.rtf</key>
+		<key>Resources/Developer/Library/Xprime/Templates/Application Template/icon.png</key>
 		<data>
-		+BrzxkjU1mnBeHsQDowDbCGM9t0=
+		GNJPp5no7TLmc5qjAYmez6DLDFk=
 		</data>
-		<key>Resources/DIM.rtf</key>
+		<key>Resources/Developer/Library/Xprime/Templates/Application Template/template.hpapp</key>
 		<data>
-		zVqfEOzA5bchhbGm9uUL0sxgqTg=
+		Xwj6qybvHmG1nogfQ82mYg4I79Q=
 		</data>
-		<key>Resources/DIMGROB.rtf</key>
+		<key>Resources/Developer/Library/Xprime/Templates/File Templates/Block/BEGIN END.prgm</key>
 		<data>
-		zjz7QOvKX0mUlmJuTwBbgk1KSlo=
+		gGRCFDkreGFCQr/h9pAcP252a5c=
 		</data>
-		<key>Resources/DOWNTO.rtf</key>
+		<key>Resources/Developer/Library/Xprime/Templates/File Templates/Block/KILL.prgm</key>
 		<data>
-		OoO5UqZxFPykUH0zJmpOV2OoDNM=
+		qVYxBxFdBpawupekvy8JNKmArIM=
 		</data>
-		<key>Resources/DRAWMENU.rtf</key>
+		<key>Resources/Developer/Library/Xprime/Templates/File Templates/Block/RETURN.prgm</key>
 		<data>
-		4uHZ/yOXT97oSShx4o8y7U4hlvo=
+		CbpJGxbiqomk2vNnjZUSBgw7qF8=
 		</data>
-		<key>Resources/Default (Dark).xpcolortheme</key>
+		<key>Resources/Developer/Library/Xprime/Templates/File Templates/Branch/CASE.prgm</key>
 		<data>
-		e1CI9L/KoaVLWvIo82tCyXgFcOw=
+		ccWsKN5jWGR84IuusFp4HR/2vos=
 		</data>
-		<key>Resources/Default (Light).xpcolortheme</key>
+		<key>Resources/Developer/Library/Xprime/Templates/File Templates/Branch/IF THEN ELSE.prgm</key>
 		<data>
-		SXjj0p5SeaSUzkduZp51u/DrLNY=
+		j/lNc7BsqfvZxYeCe9HR8ViUhsY=
 		</data>
-		<key>Resources/EXPORT.rtf</key>
+		<key>Resources/Developer/Library/Xprime/Templates/File Templates/Branch/IF THEN.prgm</key>
 		<data>
-		6UmEHU9EDH79exIbS9aFTAMpHs0=
+		QSJDB+TiShFSjay1NpfuK2Od1O8=
 		</data>
-		<key>Resources/FILLPOLY_P.rtf</key>
+		<key>Resources/Developer/Library/Xprime/Templates/File Templates/Branch/IFERR ELSE.prgm</key>
 		<data>
-		R0tDcC3qpRVuTnB3ahhfOyFyvZg=
+		GUCN5QEO7olpY9wqZoyBu9kNlAc=
 		</data>
-		<key>Resources/FOR.rtf</key>
+		<key>Resources/Developer/Library/Xprime/Templates/File Templates/Branch/IFERR.prgm</key>
 		<data>
-		rxqnRVbm3AcF6WCoDJ6+gV4m/FI=
+		ezDR/HfKKk9R/xuksbm+gRDfn24=
 		</data>
-		<key>Resources/GETPIX.rtf</key>
+		<key>Resources/Developer/Library/Xprime/Templates/File Templates/Function/EXPORT.prgm</key>
 		<data>
-		JL2HQuMoxo0eDR7WMo1QMAejXSw=
+		BUZvcwGVtvOlRMaI3Cy/2nahdTQ=
 		</data>
-		<key>Resources/GETPIX_P.rtf</key>
+		<key>Resources/Developer/Library/Xprime/Templates/File Templates/Function/KEY.prgm</key>
 		<data>
-		6cep19Q2xMf/aW2sT2jJr3zNx/I=
+		HqvNzzV/ERH7yw3DlIZiOxi0fss=
 		</data>
-		<key>Resources/GROBH.rtf</key>
+		<key>Resources/Developer/Library/Xprime/Templates/File Templates/Function/VIEW.prgm</key>
 		<data>
-		yPvoFW4rEfkZUHqiFX3nw8L+uj4=
+		zfmtToSdDkMXhtHNiYDY++e5P8g=
 		</data>
-		<key>Resources/GROBH_P.rtf</key>
+		<key>Resources/Developer/Library/Xprime/Templates/File Templates/Loop/BREAK.prgm</key>
 		<data>
-		k/twApwalNw2iTOuR6rjB2rG89g=
+		1kQViLR7qMqB1aeAmWrzFGZPTWQ=
 		</data>
-		<key>Resources/GROBW.rtf</key>
+		<key>Resources/Developer/Library/Xprime/Templates/File Templates/Loop/CONTINUE.prgm</key>
 		<data>
-		gv+9r/TCnCGYOmyPXNIjrsTj8nQ=
+		7S/6+da95xeQ4MSq7GTFHeUC6ME=
 		</data>
-		<key>Resources/GROBW_P.rtf</key>
+		<key>Resources/Developer/Library/Xprime/Templates/File Templates/Loop/FOR DOWNTO STEP.prgm</key>
 		<data>
-		yqOPcSafIfTMAbVhsDqSCLs9RAs=
+		mTL5X/XEcE/PKxfj5REmhibSOr0=
 		</data>
-		<key>Resources/GitHub.xpcolortheme</key>
+		<key>Resources/Developer/Library/Xprime/Templates/File Templates/Loop/FOR DOWNTO.prgm</key>
 		<data>
-		89BPxzfUKq2Juy214PB9V6pB3gQ=
+		PaKv+4Zw+BD1d3iX6UdZ09Cv+rs=
 		</data>
-		<key>Resources/HP Connectivity Kit.xpcolortheme</key>
+		<key>Resources/Developer/Library/Xprime/Templates/File Templates/Loop/FOR STEP.prgm</key>
 		<data>
-		+U1gM0zK9MFXGu5MxIoO5g5HqyI=
+		zk0j8621wEAWKIky6pJrs/cX5N4=
 		</data>
-		<key>Resources/IF.rtf</key>
+		<key>Resources/Developer/Library/Xprime/Templates/File Templates/Loop/FOR.prgm</key>
 		<data>
-		az3VjuOq+N4sTTGcefyQSEqtVi4=
+		6rmWjgi0a0msnMY9LMpToXbzlfM=
 		</data>
-		<key>Resources/IFERR.rtf</key>
+		<key>Resources/Developer/Library/Xprime/Templates/File Templates/Loop/REPEAT.prgm</key>
 		<data>
-		rFRUEGIJZ2vHLfrmNZm5yFopSyo=
+		aic3txtTUD1RjowB0Cr3tlugGzo=
 		</data>
-		<key>Resources/IMAGE.rtf</key>
+		<key>Resources/Developer/Library/Xprime/Templates/File Templates/Loop/WHILE.prgm</key>
 		<data>
-		YrgmXg9d1rvsvSEGpuCCGZkqhJ4=
+		314vvRSL7MdARZuCVctl4YxA7HI=
 		</data>
-		<key>Resources/INSTRING.rtf</key>
+		<key>Resources/Developer/Library/Xprime/Templates/File Templates/Variable/CONST.prgm</key>
 		<data>
-		H6L5S6UnOfA7j+bmG1DwPNuBBCQ=
+		qmYuWVE6kVFJIQl1l9IGk6/UQ4s=
 		</data>
-		<key>Resources/INVERT.rtf</key>
+		<key>Resources/Developer/Library/Xprime/Templates/File Templates/Variable/EXPORT.prgm</key>
 		<data>
-		6s44cTRhPAlKQd6xJ/MCZLWSwC0=
+		GyXcVCxqRHfQf0sv2yK56ioi5Bc=
 		</data>
-		<key>Resources/INVERT_P.rtf</key>
+		<key>Resources/Developer/Library/Xprime/Templates/File Templates/Variable/LOCAL.prgm</key>
 		<data>
-		1pBxOFsjoyqi4t2K1TuKd/hzB4Y=
+		V4NmBYwIZsv6gu83Z4TX4wEP2uE=
 		</data>
-		<key>Resources/KILL.rtf</key>
+		<key>Resources/Developer/usr/bin/grob</key>
 		<data>
-		AouZXnsynbTIhaGDixFqcM6rdyQ=
+		tYkXSBHSHUUhlWoH8+rcv9JMnHk=
 		</data>
-		<key>Resources/LEFT.rtf</key>
+		<key>Resources/Developer/usr/bin/ppl+</key>
 		<data>
-		Hubrz8hNNyoHrkqBp4kiFj26YIc=
+		2Q1ZFefn1Zs0tV8j1V7UVg+3lHw=
 		</data>
-		<key>Resources/LINE.rtf</key>
+		<key>Resources/Developer/usr/hpappdir/Fonts.hpappdir/Fonts.hpapp</key>
 		<data>
-		Vf2KrvgO8LNOnT196H5FsW9lYis=
+		Xwj6qybvHmG1nogfQ82mYg4I79Q=
 		</data>
-		<key>Resources/LINE_P.rtf</key>
+		<key>Resources/Developer/usr/hpappdir/Fonts.hpappdir/Fonts.hpappprgm</key>
 		<data>
-		jw95vjLp61l20uVE3c5Fn8NnmDw=
+		uX3oa27E/TzVN1YmRWPrw5a2pmE=
 		</data>
-		<key>Resources/LOCAL.rtf</key>
+		<key>Resources/Developer/usr/hpappdir/Fonts.hpappdir/icon.png</key>
 		<data>
-		6T5U0+2DOl82NqQdqv9Ofu9FaYA=
+		/Fyea5eQpdrEGCcPR8TXrfVzTv8=
 		</data>
-		<key>Resources/LOWER.rtf</key>
+		<key>Resources/Developer/usr/hpappdir/HP.hpappdir/HP.hpapp</key>
 		<data>
-		dvvABuc1IRxkEluEDGCnKlnbPJQ=
+		Xwj6qybvHmG1nogfQ82mYg4I79Q=
 		</data>
-		<key>Resources/MAKELIST.rtf</key>
+		<key>Resources/Developer/usr/hpappdir/HP.hpappdir/HP.hpappprgm</key>
 		<data>
-		C3UAov9zmHM6I+WgLol012DSzJs=
+		zRvKl1vMD6VsGnM3k645he6trWc=
 		</data>
-		<key>Resources/MAKEMAT.rtf</key>
+		<key>Resources/Developer/usr/hpappdir/HP.hpappdir/icon.png</key>
 		<data>
-		yHo7Ywxa7bADeiYC5n7MiEwpjX4=
+		GNJPp5no7TLmc5qjAYmez6DLDFk=
 		</data>
-		<key>Resources/MID.rtf</key>
+		<key>Resources/Developer/usr/hpprgm/ColorSpace.hpprgm</key>
 		<data>
-		ClYJnYrQ1I1SmZwfA92JcA0NfSc=
+		ijJGzS4M/SfRJdRCZQhsCeaOfvU=
 		</data>
-		<key>Resources/PIXOFF.rtf</key>
+		<key>Resources/Developer/usr/hpprgm/GROB.hpprgm</key>
 		<data>
-		HjhgRX9olLzogPoJA1m+YHEwujk=
+		thvxatM+siLyRBuSG4oGUlxeP/8=
 		</data>
-		<key>Resources/PIXOFF_P.rtf</key>
+		<key>Resources/Developer/usr/hpprgm/HP.hpprgm</key>
 		<data>
-		KV7Ngm/zwOXZsU6H+h4iDJo5yK4=
+		QPJYErvRE6hDYyDPQidf9PmSBZU=
 		</data>
-		<key>Resources/PIXON.rtf</key>
+		<key>Resources/Developer/usr/include/cspace.prgm+</key>
 		<data>
-		vfaE75KVLoZP3Vj1cvcL1BM0Kzg=
+		FuRuQLvpLvTcntPZ4G/rsTqGrD8=
 		</data>
-		<key>Resources/PIXON_P.rtf</key>
+		<key>Resources/Developer/usr/include/dictionary.prgm+</key>
 		<data>
-		Mvfe7NhBUIFNR64zyxxOBTAJ8kQ=
+		4OsCsNM726nxBJWsQZZMEf4762Q=
 		</data>
-		<key>Resources/Prime Plus.xpgrammar</key>
+		<key>Resources/Developer/usr/include/hp.prgm+</key>
+		<data>
+		YfH592unnpaqXkxODNG2mlTdccs=
+		</data>
+		<key>Resources/Developer/usr/include/hpprime.prgm+</key>
+		<data>
+		wKU+PLrwHJ/UN7vodx7VQ2vxYHo=
+		</data>
+		<key>Resources/Developer/usr/include/integer.prgm+</key>
+		<data>
+		Ahy3hx2G2cv7pT3WRxlb+A7sI+Y=
+		</data>
+		<key>Resources/Developer/usr/include/io.prgm+</key>
+		<data>
+		wQPBVYv48GPkLWF/AeyaGCqX+2Y=
+		</data>
+		<key>Resources/Developer/usr/include/matrix.prgm+</key>
+		<data>
+		KjLnSnaGRb24U61ZsDByOBiVQcM=
+		</data>
+		<key>Resources/Developer/usr/include/pplang.prgm+</key>
+		<data>
+		cMMK2PFbtjBoNXdnHZmCZsOPELU=
+		</data>
+		<key>Resources/Developer/usr/include/string.prgm+</key>
+		<data>
+		XeoKGYrBoKvWvyuoATl9aZ3Kuac=
+		</data>
+		<key>Resources/Developer/usr/lib/base.re</key>
+		<data>
+		GWqL6A68pioKQhlB5okdrFYjAxE=
+		</data>
+		<key>Resources/Developer/usr/lib/block.re</key>
+		<data>
+		rcg7GeeTSRscbqD9i0bNnzLlkvw=
+		</data>
+		<key>Resources/Developer/usr/lib/branch.re</key>
+		<data>
+		rcg7GeeTSRscbqD9i0bNnzLlkvw=
+		</data>
+		<key>Resources/Developer/usr/lib/function.re</key>
+		<data>
+		P7oGCGL5vrvEStyO3IBXlRrVrpc=
+		</data>
+		<key>Resources/Developer/usr/lib/loop.re</key>
+		<data>
+		AAwwTCSq48s3OvHTqW4Ptm/EEgc=
+		</data>
+		<key>Resources/Developer/usr/lib/type.re</key>
+		<data>
+		4cEFkuPaUkAgUhfQF53m5O8NMWg=
+		</data>
+		<key>Resources/Developer/usr/lib/variable.re</key>
+		<data>
+		+lq/KM28Nf05N3QOk+qHPXtt7F0=
+		</data>
+		<key>Resources/Developer/usr/prgm/ARCADE.prgm</key>
+		<data>
+		9urnZ4Vpoad15qOLxA33mcPTRXI=
+		</data>
+		<key>Resources/Developer/usr/prgm/BBC.prgm</key>
+		<data>
+		sIW1POnploaeeeQwhWCK0Iy8u/4=
+		</data>
+		<key>Resources/Developer/usr/prgm/CGA.prgm</key>
+		<data>
+		mwbybSvxeXjs2bp/LV6ypmA5tZU=
+		</data>
+		<key>Resources/Developer/usr/prgm/EGA.prgm</key>
+		<data>
+		3qtHuFH2F3k33adIsbZYeGgdGks=
+		</data>
+		<key>Resources/Developer/usr/prgm/HD44780.prgm</key>
+		<data>
+		6SJVsN46cPpHV1g0iZmWhihaDk4=
+		</data>
+		<key>Resources/Developer/usr/prgm/VGA.prgm</key>
+		<data>
+		9+M6lUaR5lVJmzxYe11opC2Zpck=
+		</data>
+		<key>Resources/Grammars/Prime Plus.xpgrammar</key>
 		<data>
 		odeZyNPd0hHLR7p3z0J31BHjRcw=
 		</data>
-		<key>Resources/Prime.xpgrammar</key>
+		<key>Resources/Grammars/Prime.xpgrammar</key>
 		<data>
 		pZrlabdJ4OHGPMvwphXZzOMCc1M=
 		</data>
-		<key>Resources/Python.xpgrammar</key>
+		<key>Resources/Grammars/Python.xpgrammar</key>
 		<data>
 		rQ8j7OuLO7my1/S52TtLV2SLIdU=
 		</data>
-		<key>Resources/RECT.rtf</key>
+		<key>Resources/Help/ARC.rtf</key>
 		<data>
-		Z1ZFS43VCQ5uPVgV6Z55IIt5jp8=
+		P0kHkObf9h52YRBNEx3TZbG7x8Y=
 		</data>
-		<key>Resources/RECT_P.rtf</key>
+		<key>Resources/Help/ASC.rtf</key>
 		<data>
-		dupX0kS3a4X4oYpW/KbnNzf1fw0=
+		3DZ9S2iRD1/bo8qmIMknD7hSIdQ=
 		</data>
-		<key>Resources/REPLACE.rtf</key>
+		<key>Resources/Help/BEGIN.rtf</key>
 		<data>
-		ucru0WGzUfYBUtbz6XH3uLUEw4A=
+		QiTMiVD89BiGGEUJJX2VY2CfZYg=
 		</data>
-		<key>Resources/RETURN.rtf</key>
+		<key>Resources/Help/CASE.rtf</key>
 		<data>
-		55/GEeZrAXYHwXHNBRduXFoFbe0=
+		KIQ2xxdcjFSzSWvjH0VY9Vnui0s=
 		</data>
-		<key>Resources/RGB.rtf</key>
+		<key>Resources/Help/CHAR.rtf</key>
 		<data>
-		7DP4MsoMp6P7AFER2q8GgXcgLSA=
+		6oLzS+97cjz7Siogwpq7Azk5tJY=
 		</data>
-		<key>Resources/RIGHT.rtf</key>
+		<key>Resources/Help/C→PX.rtf</key>
 		<data>
-		Cw05Yd11PugMTnfrXbYa4wOQImM=
+		w7SnxTp60t3UJiHfm9xgHCHQGUc=
 		</data>
-		<key>Resources/ROTATE.rtf</key>
+		<key>Resources/Help/DIM.rtf</key>
 		<data>
-		OpnYlN7coMkdbk3OW3Nt0+XbmSA=
+		zVqfEOzA5bchhbGm9uUL0sxgqTg=
 		</data>
-		<key>Resources/STEP.rtf</key>
+		<key>Resources/Help/DIMGROB.rtf</key>
+		<data>
+		/lZDG0Cg4/C6FO1f+M9IcV07g9g=
+		</data>
+		<key>Resources/Help/DOWNTO.rtf</key>
+		<data>
+		XKduxYo+0lGYFWQg0pdOMLmDWYQ=
+		</data>
+		<key>Resources/Help/DRAWMENU.rtf</key>
+		<data>
+		4uHZ/yOXT97oSShx4o8y7U4hlvo=
+		</data>
+		<key>Resources/Help/EXPORT.rtf</key>
+		<data>
+		7+P0E7ItPxg1X6HWTSZn1oqiKeY=
+		</data>
+		<key>Resources/Help/FILLPOLY_P.rtf</key>
+		<data>
+		pxsphNQWCR3i0PbTLnf05ghh2X4=
+		</data>
+		<key>Resources/Help/FOR.rtf</key>
+		<data>
+		12IsdRsdFUi26D29yar4Tx+atcQ=
+		</data>
+		<key>Resources/Help/GETPIX.rtf</key>
+		<data>
+		TG13c2zVD9I9sd8t211RdAx2T34=
+		</data>
+		<key>Resources/Help/GETPIX_P.rtf</key>
+		<data>
+		SFvdzXeatgz6JWS5Iz9HqCIF5Tc=
+		</data>
+		<key>Resources/Help/GROBH.rtf</key>
+		<data>
+		Vpu/Y8PUPv/4ROCIzz0J4JFe9Ew=
+		</data>
+		<key>Resources/Help/GROBH_P.rtf</key>
+		<data>
+		H0FWR0SQbaXY4MiWLbqcurgtHN8=
+		</data>
+		<key>Resources/Help/GROBW.rtf</key>
+		<data>
+		rnuMk4Dp6Wv2KjgyDzrjj8bwHr4=
+		</data>
+		<key>Resources/Help/GROBW_P.rtf</key>
+		<data>
+		3R72qwOXdTrucf70LPjKT8LCEF0=
+		</data>
+		<key>Resources/Help/IF.rtf</key>
+		<data>
+		Z28hB5be3dQ0KbcUhs01xvuzt7w=
+		</data>
+		<key>Resources/Help/IFERR.rtf</key>
+		<data>
+		dQvhzbnmVaRu39Qn9LkkqGDKNjE=
+		</data>
+		<key>Resources/Help/IMAGE.rtf</key>
+		<data>
+		M7o56tOHm8lcjPTseXvowIocH/E=
+		</data>
+		<key>Resources/Help/INSTRING.rtf</key>
+		<data>
+		cF9A9A8EVGqWwTH90YRzKV9jobo=
+		</data>
+		<key>Resources/Help/INVERT.rtf</key>
+		<data>
+		k+kk9dMQ4aaLIZQsosS53BEJ5ys=
+		</data>
+		<key>Resources/Help/INVERT_P.rtf</key>
+		<data>
+		LATGUvDjEo7nfrSBEtFAa4YV5SI=
+		</data>
+		<key>Resources/Help/KILL.rtf</key>
+		<data>
+		vmSggV0ttMnwLQ8fpLIs3FPsEPg=
+		</data>
+		<key>Resources/Help/LEFT.rtf</key>
+		<data>
+		TAqurwkUDUNhDoJqqcPoVsE9cZ8=
+		</data>
+		<key>Resources/Help/LINE.rtf</key>
+		<data>
+		EKHHF8L8gjvJIj100NhhvlvPtpI=
+		</data>
+		<key>Resources/Help/LINE_P.rtf</key>
+		<data>
+		Q4ITyUI8pX8zjssr4ybqalGw2ME=
+		</data>
+		<key>Resources/Help/LOCAL.rtf</key>
+		<data>
+		3P5KrbhOL8Yu972qjiNcEQ7R4Fs=
+		</data>
+		<key>Resources/Help/LOWER.rtf</key>
+		<data>
+		n34WEGFWZU/U4obK3Rq0INFGvhc=
+		</data>
+		<key>Resources/Help/MAKELIST.rtf</key>
+		<data>
+		OjQ3fiaxjPskziDf2RFm9PKf7QU=
+		</data>
+		<key>Resources/Help/MAKEMAT.rtf</key>
+		<data>
+		zM/rnjnTaMezi8HAaioScBZ8KzM=
+		</data>
+		<key>Resources/Help/MID.rtf</key>
+		<data>
+		7z/I/iR1znXm1rgrJOcL9eIhG88=
+		</data>
+		<key>Resources/Help/PIXOFF.rtf</key>
+		<data>
+		Yb2hyr/n7ReaxSslz/zM2B/4ulE=
+		</data>
+		<key>Resources/Help/PIXOFF_P.rtf</key>
+		<data>
+		mujele6A8O6BrdRgQZ9vsMcYexQ=
+		</data>
+		<key>Resources/Help/PIXON.rtf</key>
+		<data>
+		J5lFj5uT/MRD6IETveEqPOvF+co=
+		</data>
+		<key>Resources/Help/PIXON_P.rtf</key>
+		<data>
+		1+ssGeMGUrqslI5b/pb8s+mYOVE=
+		</data>
+		<key>Resources/Help/RECT.rtf</key>
+		<data>
+		Vkm9ryE76A1H7x4Cdtha0+MLoN8=
+		</data>
+		<key>Resources/Help/RECT_P.rtf</key>
+		<data>
+		nPROMzuY+XsevoqIiG0cno5kHh8=
+		</data>
+		<key>Resources/Help/REPLACE.rtf</key>
+		<data>
+		e7YQrh+YsVm7Mr0YYR6Bk0GsGaE=
+		</data>
+		<key>Resources/Help/RETURN.rtf</key>
+		<data>
+		X0rA9nCLKy5o+mcc98D8mGinCO4=
+		</data>
+		<key>Resources/Help/RGB.rtf</key>
+		<data>
+		xSgN8UU2xqOENCeepn5jOqZJ4JI=
+		</data>
+		<key>Resources/Help/RIGHT.rtf</key>
+		<data>
+		l0l0ShwRq7ZZC7TDWuwurxo7oS8=
+		</data>
+		<key>Resources/Help/ROTATE.rtf</key>
+		<data>
+		SlLcywDXNPM0bFSbqz9+ueSXHY8=
+		</data>
+		<key>Resources/Help/STEP.rtf</key>
 		<data>
 		sCTr1/U1kL6qKYH+NulcSM5q1rs=
 		</data>
-		<key>Resources/STRING.rtf</key>
+		<key>Resources/Help/STRING.rtf</key>
 		<data>
 		IKRMMWzixPChAw/FRmEz3C4jvvQ=
 		</data>
-		<key>Resources/STRINGFROMID.rtf</key>
+		<key>Resources/Help/STRINGFROMID.rtf</key>
 		<data>
-		xGDUWLx8WzmRCpvFW+fgbggSvdg=
+		QiokAeYiX18Xpjara3CCHbVBXI0=
 		</data>
-		<key>Resources/SUBGROB.rtf</key>
+		<key>Resources/Help/SUBGROB.rtf</key>
 		<data>
-		vjoNA7ihzpWSgJt4KmtKRlKa+NU=
+		NgRSNJ/Dfb7tgHHpUJra/FbwKWo=
 		</data>
-		<key>Resources/SUBGROB_P.rtf</key>
+		<key>Resources/Help/SUBGROB_P.rtf</key>
 		<data>
-		uwknJzaQ1atsttj485HD5Cd/UCY=
+		OiNWeaG9yTd7hD/9G7SuVxYQJ/g=
 		</data>
-		<key>Resources/TEXT.rtf</key>
+		<key>Resources/Help/TEXT.rtf</key>
 		<data>
-		DlH8dKn9cLThMDGblGVjoHNNRvE=
+		Hu0xekVR08RdsdZonB5AoBjracY=
 		</data>
-		<key>Resources/TEXTOUT.rtf</key>
+		<key>Resources/Help/TEXTOUT.rtf</key>
 		<data>
-		bUk2ADs3tEX8hsVoTUl9+dPSBCQ=
+		f9DB8a8+9rY+Qq22/peOS7hfTYI=
 		</data>
-		<key>Resources/TEXTOUT_P.rtf</key>
+		<key>Resources/Help/TEXTOUT_P.rtf</key>
 		<data>
-		vaPv/85wNhPnEcI0/m5dy9nR5N4=
+		Satz5mpCR26B6Y3gbulwfKci36c=
 		</data>
-		<key>Resources/TRIANGLE_P.rtf</key>
+		<key>Resources/Help/TRIANGLE_P.rtf</key>
 		<data>
-		4aAPaIIOxfWo0VSvrUHpRI5IgzE=
+		947Hs1UoQmsbhiDMHTB2OCIGuYE=
 		</data>
-		<key>Resources/UPPER.rtf</key>
+		<key>Resources/Help/UPPER.rtf</key>
 		<data>
-		N8Vhu/eRKXEa2mMDv+0y/zyLEDI=
+		pdPR+fjbHowbzlwIvohObrzE2JM=
+		</data>
+		<key>Resources/Help/VIEW.rtf</key>
+		<data>
+		O1qqkHn3MJ+1f6fFoo+XelfHBo8=
+		</data>
+		<key>Resources/Themes/Default (Dark).xpcolortheme</key>
+		<data>
+		e1CI9L/KoaVLWvIo82tCyXgFcOw=
+		</data>
+		<key>Resources/Themes/Default (Light).xpcolortheme</key>
+		<data>
+		SXjj0p5SeaSUzkduZp51u/DrLNY=
+		</data>
+		<key>Resources/Themes/GitHub.xpcolortheme</key>
+		<data>
+		89BPxzfUKq2Juy214PB9V6pB3gQ=
+		</data>
+		<key>Resources/Themes/HP Connectivity Kit.xpcolortheme</key>
+		<data>
+		+U1gM0zK9MFXGu5MxIoO5g5HqyI=
 		</data>
 		<key>Resources/Untitled.prgm+</key>
 		<data>
 		DMHilN5aOcGQ6sH2AewgtZ9Wy00=
 		</data>
-		<key>Resources/VIEW.rtf</key>
-		<data>
-		284a2feeeUuikM6gVPmfZhYfihw=
-		</data>
-		<key>Resources/cspace.prgm+</key>
-		<data>
-		FuRuQLvpLvTcntPZ4G/rsTqGrD8=
-		</data>
 		<key>Resources/default.metallib</key>
 		<data>
 		i1DwX2YeRC4IL3Hh9mZMHqKS4rQ=
 		</data>
-		<key>Resources/dictionary.prgm+</key>
-		<data>
-		4OsCsNM726nxBJWsQZZMEf4762Q=
-		</data>
-		<key>Resources/hp.prgm+</key>
-		<data>
-		YfH592unnpaqXkxODNG2mlTdccs=
-		</data>
-		<key>Resources/hpprime.prgm+</key>
-		<data>
-		wKU+PLrwHJ/UN7vodx7VQ2vxYHo=
-		</data>
-		<key>Resources/integer.prgm+</key>
-		<data>
-		Ahy3hx2G2cv7pT3WRxlb+A7sI+Y=
-		</data>
-		<key>Resources/io.prgm+</key>
-		<data>
-		wQPBVYv48GPkLWF/AeyaGCqX+2Y=
-		</data>
-		<key>Resources/matrix.prgm+</key>
-		<data>
-		KjLnSnaGRb24U61ZsDByOBiVQcM=
-		</data>
-		<key>Resources/pplang.prgm+</key>
-		<data>
-		cMMK2PFbtjBoNXdnHZmCZsOPELU=
-		</data>
-		<key>Resources/string.prgm+</key>
-		<data>
-		XeoKGYrBoKvWvyuoATl9aZ3Kuac=
-		</data>
 	</dict>
 	<key>files2</key>
 	<dict>
-		<key>Developer/Library/Xprime/Templates/Application Template/icon.png</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			+2kzGQ8ronW7/f/0UVHElMhGehRVWb3xFMir/X/iEbI=
-			</data>
-		</dict>
-		<key>Developer/Library/Xprime/Templates/Application Template/template.hpapp</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			9LwFHtTID21WFOol6Q3rtTYX2VsWiNoUBuE7YuttgWo=
-			</data>
-		</dict>
-		<key>Developer/Library/Xprime/Templates/File Templates/Block/BEGIN END.prgm</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			ClHns0441ovBbUXa1kb6pYTbsCkbANxIfhiLSq7VrMM=
-			</data>
-		</dict>
-		<key>Developer/Library/Xprime/Templates/File Templates/Block/KILL.prgm</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			Bn/3t07tBHQqeEqtyA7HddSEX1RUOQ6JF6RXUV3kJp8=
-			</data>
-		</dict>
-		<key>Developer/Library/Xprime/Templates/File Templates/Block/RETURN.prgm</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			S9WbChNEiokr11frQYItX0lk+AdSdy1osDKZcslPOP8=
-			</data>
-		</dict>
-		<key>Developer/Library/Xprime/Templates/File Templates/Branch/CASE.prgm</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			Mzoy+lFjI3N3/OxdfX2aHgiyhFxsz29eJ1iIEDY+A3g=
-			</data>
-		</dict>
-		<key>Developer/Library/Xprime/Templates/File Templates/Branch/IF THEN ELSE.prgm</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			6wtoxN4XvHXeR/kYSR9kurCQPNPkPMGX6fSCkLryvIE=
-			</data>
-		</dict>
-		<key>Developer/Library/Xprime/Templates/File Templates/Branch/IF THEN.prgm</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			H8NcY8a6uyu5vycjJ71Flu1kNoJ2qkGXCyTahs0QY4Y=
-			</data>
-		</dict>
-		<key>Developer/Library/Xprime/Templates/File Templates/Branch/IFERR ELSE.prgm</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			ae6AWEm72rdZQ3sQtJeFc4Se46HvK/ZnwPQtEJzMdSQ=
-			</data>
-		</dict>
-		<key>Developer/Library/Xprime/Templates/File Templates/Branch/IFERR.prgm</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			uoVdbn9gIakxqZ6Wb9YtrymqlIjrssK3CKq8ubCcyRc=
-			</data>
-		</dict>
-		<key>Developer/Library/Xprime/Templates/File Templates/Function/EXPORT.prgm</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			p8lcpTxTAXXCvKQthvK0Dpdqx3vEWSKZ+2TH4z9ELZA=
-			</data>
-		</dict>
-		<key>Developer/Library/Xprime/Templates/File Templates/Function/KEY.prgm</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			o5PqelbJo/hDnNFuKfIspndF2dEm9onPCicrZ9wTGag=
-			</data>
-		</dict>
-		<key>Developer/Library/Xprime/Templates/File Templates/Function/VIEW.prgm</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			M0/aXbE1CI8qeGQLKXXdR3OSb/V3O3LOja4pUG7qYhg=
-			</data>
-		</dict>
-		<key>Developer/Library/Xprime/Templates/File Templates/Loop/BREAK.prgm</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			IM+7nu1ASgNNHHCzWysEv0noez7i8vn+l3uHIB4IBH0=
-			</data>
-		</dict>
-		<key>Developer/Library/Xprime/Templates/File Templates/Loop/CONTINUE.prgm</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			TfaA0kMlc0sHhwqlfwYDQQVBHkya95pHfYmEPxksnIo=
-			</data>
-		</dict>
-		<key>Developer/Library/Xprime/Templates/File Templates/Loop/FOR DOWNTO STEP.prgm</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			XGanAJ8mIFufmICVX6KwQC8TE9d9OBG6BLD5WhIwr1w=
-			</data>
-		</dict>
-		<key>Developer/Library/Xprime/Templates/File Templates/Loop/FOR DOWNTO.prgm</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			2L7kWRD6o8uiIiBaes+QVXse8IjUWpI2Iwp3fWThXOk=
-			</data>
-		</dict>
-		<key>Developer/Library/Xprime/Templates/File Templates/Loop/FOR STEP.prgm</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			nfbRfIsFYZo4TETGZcHWzfxt5I36WCLBstHb2tl4Rj8=
-			</data>
-		</dict>
-		<key>Developer/Library/Xprime/Templates/File Templates/Loop/FOR.prgm</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			JjR9tqoh0KwrhkZdT0l3hSE/ZN/jZLZPAEJ15l+0+EM=
-			</data>
-		</dict>
-		<key>Developer/Library/Xprime/Templates/File Templates/Loop/REPEAT.prgm</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			HlwHAA52mVykGX3FhBjrsVR7AKqjbBEHXOgq5O51VrY=
-			</data>
-		</dict>
-		<key>Developer/Library/Xprime/Templates/File Templates/Loop/WHILE.prgm</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			1tB8fUCzxZnmFJZl/3vZtPA2ML5J0t/2wLi/sEsozt4=
-			</data>
-		</dict>
-		<key>Developer/Library/Xprime/Templates/File Templates/Variable/CONST.prgm</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			OC+rASAvzGKTao7puQy8/p7YMmlv/vhU3AB4by5RwqM=
-			</data>
-		</dict>
-		<key>Developer/Library/Xprime/Templates/File Templates/Variable/EXPORT.prgm</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			WrGXWVrqjYq33XTFY+ZPnzPda8L8ooe9r3pNQk64VJ8=
-			</data>
-		</dict>
-		<key>Developer/Library/Xprime/Templates/File Templates/Variable/LOCAL.prgm</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			Buthw9nA3qOYxLOrnj9ntAOIY+cRKj1M/9DB0ZxfEaw=
-			</data>
-		</dict>
-		<key>Developer/usr/bin/grob</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			OS+7RJwbhfxIq6nrkZQ5G1Nh5Eo6WW0au8RppuPbcVs=
-			</data>
-		</dict>
-		<key>Developer/usr/bin/ppl+</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			lqxmsQV/MKYPsk1g4XdqYxXKwue/fq/oEuzrIIGVZCg=
-			</data>
-		</dict>
-		<key>Developer/usr/hpprgm/ColorSpace.hpprgm</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			eTAr7sKWw6AvUFpcGBpZhUaBWPH52psgXQai90R8qt8=
-			</data>
-		</dict>
-		<key>Developer/usr/hpprgm/GROB.hpprgm</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			FFoa+0AiMxiveysjxuo89GU5SNU8j5xmuG1j91PFJPs=
-			</data>
-		</dict>
-		<key>Developer/usr/hpprgm/HP.hpprgm</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			d7RWRB76uLX48gjcm5ItwPv4ZgHGGoq3hufy/eboBsE=
-			</data>
-		</dict>
-		<key>Developer/usr/include/cspace.prgm+</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			fRJ+8CxKZjCPDFKkAR4YLb34MEdr0/w1Io94Iz96K2o=
-			</data>
-		</dict>
-		<key>Developer/usr/include/dictionary.prgm+</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			RcKKu/yqVo3NCKdKua8+5zaLNQ8VF/15MQx5B1ouaBE=
-			</data>
-		</dict>
-		<key>Developer/usr/include/hp.prgm+</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			hIWyKQOegS1EzHYSG3fILhIiQ/qeXI4gS8UKBqnFvq8=
-			</data>
-		</dict>
-		<key>Developer/usr/include/hpprime.prgm+</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			ZxAabn0UdPGDTJWiDeYKy/s5C4ZG51cCgkNBdYRQuY4=
-			</data>
-		</dict>
-		<key>Developer/usr/include/integer.prgm+</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			CocowKSmnC5Oq+NfxYnsHTcTZV/tSjnx2/e28FZC+GI=
-			</data>
-		</dict>
-		<key>Developer/usr/include/io.prgm+</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			gr2MPV9sF0/6obPDfvP4Nxz31wEnDBdrPJ2LQ2Bg7bE=
-			</data>
-		</dict>
-		<key>Developer/usr/include/matrix.prgm+</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			h/8oQ4su4FdJJjWwbk7rZO3pfFEGFViQwSRYQgtSXKM=
-			</data>
-		</dict>
-		<key>Developer/usr/include/pplang.prgm+</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			WpPWA/GJz9bN4q6XTqwCpMZeBUQ/cVnLU++Wi3872kM=
-			</data>
-		</dict>
-		<key>Developer/usr/include/string.prgm+</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			tBEDzdO76ykqUoFzr7zCTbAskyg/QLMhab4dI2Cw5M8=
-			</data>
-		</dict>
-		<key>Developer/usr/lib/base.re</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			dPO8z8xqaDSP/cdTJ5c/VQgIpkXX4oA5wSFlOuxDiUg=
-			</data>
-		</dict>
-		<key>Developer/usr/lib/block.re</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			AbpHGcgLb+kRsJGnwFEktk7uzpZOCcBY74+YBdrKVGs=
-			</data>
-		</dict>
-		<key>Developer/usr/lib/branch.re</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			AbpHGcgLb+kRsJGnwFEktk7uzpZOCcBY74+YBdrKVGs=
-			</data>
-		</dict>
-		<key>Developer/usr/lib/function.re</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			+uqVgFir+pV/PtVIeh8PcIZBTRTFiqEsBa74OnSteTE=
-			</data>
-		</dict>
-		<key>Developer/usr/lib/loop.re</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			hR4ClhlBw46zkYIREIvsJylod1TjwKbUQibCt7MimCw=
-			</data>
-		</dict>
-		<key>Developer/usr/lib/type.re</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			AJnMmh94029htvEyJhkJTNdMp14FtexN0xQJjn9j/fw=
-			</data>
-		</dict>
-		<key>Developer/usr/lib/variable.re</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			RotWoTnwoeShSQCCxS8ukfL7ozXrc3M5oFfimOJA0rM=
-			</data>
-		</dict>
-		<key>Developer/usr/prgm/ARCADE.prgm</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			dAAT7qlGR8QIUBqolO6t2tVBK0XVQ35xxc7K1yFwEqg=
-			</data>
-		</dict>
-		<key>Developer/usr/prgm/BBC.prgm</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			caN0kVqnjqlTsDAkVljnCp2RfAcu6lWd3m2OqhF6cok=
-			</data>
-		</dict>
-		<key>Developer/usr/prgm/CGA.prgm</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			Cm/fpiN9TBZo5vYRbQmic8Ok6xAFZH4SdUtGftrkKkQ=
-			</data>
-		</dict>
-		<key>Developer/usr/prgm/EGA.prgm</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			keji6+QOGBzkLSVmnLmpIfJcyeKkUwI09n4+egAGh7s=
-			</data>
-		</dict>
-		<key>Developer/usr/prgm/HD44780.prgm</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			R10CrTQPqfAw2jdHTl7W8QUkUTPhwaW+SPEvrw9Clss=
-			</data>
-		</dict>
-		<key>Developer/usr/prgm/VGA.prgm</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			+8TS3jUnQ4G0vo+rafDIRLl7LzRZOe+oVwLQPqcKmR8=
-			</data>
-		</dict>
-		<key>Resources/ARC.rtf</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			gwFZt/LVcQE/SN6U4Eb8kpoN9zwL/IVkCWIbB7j74V8=
-			</data>
-		</dict>
-		<key>Resources/ASC.rtf</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			cV1ZMYmOoSdiJi6Z1Ut4C8h6mGRXlR1q2QEP45fuZcU=
-			</data>
-		</dict>
 		<key>Resources/AppIcon.icns</key>
 		<dict>
 			<key>hash2</key>
@@ -728,74 +549,53 @@
 			QNS20OSW2v1PteuOJzjYZ38wJO4MlQdx7ulS+7+g0ME=
 			</data>
 		</dict>
-		<key>Resources/BEGIN.rtf</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			5YnfSrGklMNrITYB/zb03pEQZAkiUz1uWKXdvfZfMvM=
-			</data>
-		</dict>
 		<key>Resources/Base.lproj/Main.storyboardc/HsO-bO-Dfd-view-1RK-mx-rDE.nib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			fwFDWBgtIblTYG3Mur3JNpo+YoClI0S0lZjcmdcirDs=
+			8brutYWrYOdjCxu6Moop2UDn36ZQAGMjFs9U/mfR3bk=
 			</data>
 		</dict>
 		<key>Resources/Base.lproj/Main.storyboardc/Info.plist</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			rcZTtd4asKap9DctQ1P6WpTz5SeV6GC64EsqoDacxgQ=
+			N5NOM/7Hp8eyX8VncmRHkR5xEqurZK5C7Q8fuWwoN0U=
 			</data>
 		</dict>
 		<key>Resources/Base.lproj/Main.storyboardc/MainMenu.nib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			KTS5i8nF3lCc1TjHwMUPIxvsdYvhvBIiE/0wP5TCNdA=
+			FDV8AbSHTeVT7yEWBZ10W4U4EM0ufwKPmoZ7uYxZX50=
 			</data>
 		</dict>
 		<key>Resources/Base.lproj/Main.storyboardc/MainViewController.nib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			Zg17bMrn+A/RKDtKUCdrBxFUbYDEUdROqMmX2vSnWZk=
+			TKX5+OS06JKVyFsbtTzKxllDdWWcu5sRUvUYT53ChXk=
 			</data>
 		</dict>
 		<key>Resources/Base.lproj/Main.storyboardc/MainWindowController.nib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			UG/xF3PhDMmqvHutF0yNGopBSqOr6faZ1LiJmh9hnoA=
+			gkuMYdlUNym9+D8KF+CJpAcOToQ1Tqy87mUrX1eQTLw=
 			</data>
 		</dict>
 		<key>Resources/Base.lproj/Main.storyboardc/NSWindowController-CFc-li-Drx.nib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			P1GtqoBPU/+O7I49mlAC4s2PG35ZkO8k3kMbWkOMf8E=
+			UXxt/INnk6R8YkSpDVAZj1ciWubHv6xq7/4wBo7eQ1s=
 			</data>
 		</dict>
 		<key>Resources/Base.lproj/Main.storyboardc/XfG-lQ-9wD-view-m2S-Jp-Qdl.nib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			jp23yXhEYaEDZs4MgyA6VOPtltim5cKidu2xk7PSZFo=
-			</data>
-		</dict>
-		<key>Resources/CASE.rtf</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			l2Yh8+jIYl7otUBcgsV62sqhUnrFi8v2FoTzCmovtCw=
-			</data>
-		</dict>
-		<key>Resources/CHAR.rtf</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			jAvTHGvCCD1ZOIEZOUcyqGaNuIqILLzP3HV/I/nTgUw=
+			ca3drmWyCAVYFVMZOPUgwOIlUDao/SqBdMpNVqO9CQM=
 			</data>
 		</dict>
 		<key>Resources/Credits.rtf</key>
@@ -805,403 +605,844 @@
 			jVbkj3iHRgZXwChdkc6l6VlfuJfTpKG1/37euuleNbI=
 			</data>
 		</dict>
-		<key>Resources/C→PX.rtf</key>
+		<key>Resources/Developer/Library/Xprime/Templates/Application Template/icon.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			rCHz2alvHVc2mgnQPIqjp+4UQiBGDsAzi+UqqY+rshw=
+			+2kzGQ8ronW7/f/0UVHElMhGehRVWb3xFMir/X/iEbI=
 			</data>
 		</dict>
-		<key>Resources/DIM.rtf</key>
+		<key>Resources/Developer/Library/Xprime/Templates/Application Template/template.hpapp</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			MFjfp7emqmTx8y0m+Fc4zte79ZPFpyIbYRaJm92Vp3w=
+			9LwFHtTID21WFOol6Q3rtTYX2VsWiNoUBuE7YuttgWo=
 			</data>
 		</dict>
-		<key>Resources/DIMGROB.rtf</key>
+		<key>Resources/Developer/Library/Xprime/Templates/File Templates/Block/BEGIN END.prgm</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			bw1Vb7qQNyC1qTc7rKVvw+hSDZk1od1CHVvYx3ZVSu0=
+			ClHns0441ovBbUXa1kb6pYTbsCkbANxIfhiLSq7VrMM=
 			</data>
 		</dict>
-		<key>Resources/DOWNTO.rtf</key>
+		<key>Resources/Developer/Library/Xprime/Templates/File Templates/Block/KILL.prgm</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			sD1t8k6BeTl+BJ7B9S+/ynlktSABHgwxGlKlMt5gNUo=
+			Bn/3t07tBHQqeEqtyA7HddSEX1RUOQ6JF6RXUV3kJp8=
 			</data>
 		</dict>
-		<key>Resources/DRAWMENU.rtf</key>
+		<key>Resources/Developer/Library/Xprime/Templates/File Templates/Block/RETURN.prgm</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			reaLyNanv/9kiDEEV+He+Dy9evA04JRv+doMQrsS7h4=
+			S9WbChNEiokr11frQYItX0lk+AdSdy1osDKZcslPOP8=
 			</data>
 		</dict>
-		<key>Resources/Default (Dark).xpcolortheme</key>
+		<key>Resources/Developer/Library/Xprime/Templates/File Templates/Branch/CASE.prgm</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			eCbjzO74r14epBJhNRuSGy/K1C6oLI1mI0vQaOVpA5U=
+			Mzoy+lFjI3N3/OxdfX2aHgiyhFxsz29eJ1iIEDY+A3g=
 			</data>
 		</dict>
-		<key>Resources/Default (Light).xpcolortheme</key>
+		<key>Resources/Developer/Library/Xprime/Templates/File Templates/Branch/IF THEN ELSE.prgm</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			t4nrxvQLpHxU5KIMN0PuXBw0Jmy3o3uNWag8NN21jjw=
+			6wtoxN4XvHXeR/kYSR9kurCQPNPkPMGX6fSCkLryvIE=
 			</data>
 		</dict>
-		<key>Resources/EXPORT.rtf</key>
+		<key>Resources/Developer/Library/Xprime/Templates/File Templates/Branch/IF THEN.prgm</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			oxgDX89SD9JPajEaBZYJMZ8QAI4puo7/KjVeBpY9i2s=
+			H8NcY8a6uyu5vycjJ71Flu1kNoJ2qkGXCyTahs0QY4Y=
 			</data>
 		</dict>
-		<key>Resources/FILLPOLY_P.rtf</key>
+		<key>Resources/Developer/Library/Xprime/Templates/File Templates/Branch/IFERR ELSE.prgm</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			pvwCiWLi84XqKF0UA2E3WbQ22SvRyYZiwPG0qny4rQg=
+			ae6AWEm72rdZQ3sQtJeFc4Se46HvK/ZnwPQtEJzMdSQ=
 			</data>
 		</dict>
-		<key>Resources/FOR.rtf</key>
+		<key>Resources/Developer/Library/Xprime/Templates/File Templates/Branch/IFERR.prgm</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			1SpfUYuKs9YoA38xS3p+OqD3jRQV5HvSVD3Ht5Pr+pQ=
+			uoVdbn9gIakxqZ6Wb9YtrymqlIjrssK3CKq8ubCcyRc=
 			</data>
 		</dict>
-		<key>Resources/GETPIX.rtf</key>
+		<key>Resources/Developer/Library/Xprime/Templates/File Templates/Function/EXPORT.prgm</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			tsLrGbashJEYZHUa/GEsMyxCx2ipdS4hz1yjyFYa6KM=
+			p8lcpTxTAXXCvKQthvK0Dpdqx3vEWSKZ+2TH4z9ELZA=
 			</data>
 		</dict>
-		<key>Resources/GETPIX_P.rtf</key>
+		<key>Resources/Developer/Library/Xprime/Templates/File Templates/Function/KEY.prgm</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			1O2kuP6is0Yj1OlBbj/k6+RAZsmTU/A/U4mCPM3drAA=
+			o5PqelbJo/hDnNFuKfIspndF2dEm9onPCicrZ9wTGag=
 			</data>
 		</dict>
-		<key>Resources/GROBH.rtf</key>
+		<key>Resources/Developer/Library/Xprime/Templates/File Templates/Function/VIEW.prgm</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			VaGxsCUS/6iEXTGO6VAjZhXTseqRNIgi/JHnKx8Kzh8=
+			M0/aXbE1CI8qeGQLKXXdR3OSb/V3O3LOja4pUG7qYhg=
 			</data>
 		</dict>
-		<key>Resources/GROBH_P.rtf</key>
+		<key>Resources/Developer/Library/Xprime/Templates/File Templates/Loop/BREAK.prgm</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			yMVQtL5pD/ZNqIRiGVKkFqq5pKB0UxUc2iW/OVQNuiU=
+			IM+7nu1ASgNNHHCzWysEv0noez7i8vn+l3uHIB4IBH0=
 			</data>
 		</dict>
-		<key>Resources/GROBW.rtf</key>
+		<key>Resources/Developer/Library/Xprime/Templates/File Templates/Loop/CONTINUE.prgm</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			Mq67Mu5fg/Ym0J6pCJy/wgeeD19msy2AiWTp1D0/tVc=
+			TfaA0kMlc0sHhwqlfwYDQQVBHkya95pHfYmEPxksnIo=
 			</data>
 		</dict>
-		<key>Resources/GROBW_P.rtf</key>
+		<key>Resources/Developer/Library/Xprime/Templates/File Templates/Loop/FOR DOWNTO STEP.prgm</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			qVddRdaFtaT4Xw0mjuumIjPb6jzWsnziVC3fRn36qtA=
+			XGanAJ8mIFufmICVX6KwQC8TE9d9OBG6BLD5WhIwr1w=
 			</data>
 		</dict>
-		<key>Resources/GitHub.xpcolortheme</key>
+		<key>Resources/Developer/Library/Xprime/Templates/File Templates/Loop/FOR DOWNTO.prgm</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			ShPKRUsaN/4E7AmUGjCg52nT64+LkHpWlNruaQHfFUg=
+			2L7kWRD6o8uiIiBaes+QVXse8IjUWpI2Iwp3fWThXOk=
 			</data>
 		</dict>
-		<key>Resources/HP Connectivity Kit.xpcolortheme</key>
+		<key>Resources/Developer/Library/Xprime/Templates/File Templates/Loop/FOR STEP.prgm</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			30xz5bUlrdRy6DFa4FVt4jb6p1D/EkYwfwKaULOwiIU=
+			nfbRfIsFYZo4TETGZcHWzfxt5I36WCLBstHb2tl4Rj8=
 			</data>
 		</dict>
-		<key>Resources/IF.rtf</key>
+		<key>Resources/Developer/Library/Xprime/Templates/File Templates/Loop/FOR.prgm</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			4ND5MohzvxEDBtzwiL37TYHb45Ip0+ScsFaOZMWg41U=
+			JjR9tqoh0KwrhkZdT0l3hSE/ZN/jZLZPAEJ15l+0+EM=
 			</data>
 		</dict>
-		<key>Resources/IFERR.rtf</key>
+		<key>Resources/Developer/Library/Xprime/Templates/File Templates/Loop/REPEAT.prgm</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			LPFPsZzCDGXtsSk0/CQHnbc6qcE//ivqKVj29OFxccc=
+			HlwHAA52mVykGX3FhBjrsVR7AKqjbBEHXOgq5O51VrY=
 			</data>
 		</dict>
-		<key>Resources/IMAGE.rtf</key>
+		<key>Resources/Developer/Library/Xprime/Templates/File Templates/Loop/WHILE.prgm</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			9u0Jk+7JhFUJRma7wnliXXqVhhw7sHf2AuU/p8buZqg=
+			1tB8fUCzxZnmFJZl/3vZtPA2ML5J0t/2wLi/sEsozt4=
 			</data>
 		</dict>
-		<key>Resources/INSTRING.rtf</key>
+		<key>Resources/Developer/Library/Xprime/Templates/File Templates/Variable/CONST.prgm</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			2JCfrUM/O2GPbfr+vlclluyw6OtO5Gq4VEbo93M5iBM=
+			OC+rASAvzGKTao7puQy8/p7YMmlv/vhU3AB4by5RwqM=
 			</data>
 		</dict>
-		<key>Resources/INVERT.rtf</key>
+		<key>Resources/Developer/Library/Xprime/Templates/File Templates/Variable/EXPORT.prgm</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			gTldEXtAHXLxdSM+X1AdmvDNZD4JaDAlYnURg63JNCo=
+			WrGXWVrqjYq33XTFY+ZPnzPda8L8ooe9r3pNQk64VJ8=
 			</data>
 		</dict>
-		<key>Resources/INVERT_P.rtf</key>
+		<key>Resources/Developer/Library/Xprime/Templates/File Templates/Variable/LOCAL.prgm</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			1o1VuhuouG3PY6F1X4DKXz/FxoaOJdYEludm2UY2ryg=
+			Buthw9nA3qOYxLOrnj9ntAOIY+cRKj1M/9DB0ZxfEaw=
 			</data>
 		</dict>
-		<key>Resources/KILL.rtf</key>
+		<key>Resources/Developer/usr/bin/grob</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			V7xH9sVJ6V7siGRwXIwNPUas3zUBfkf5jCp+RjFGIMk=
+			zjktHcuQUZfjfMuXspHBwIMQRxOup/yFOc1XtkQsv4s=
 			</data>
 		</dict>
-		<key>Resources/LEFT.rtf</key>
+		<key>Resources/Developer/usr/bin/ppl+</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			GROmQSdRzcMWs5Cmqr60IxKOuDiFHcZOIlyi8ChhAXc=
+			UYuMmgYiDBLvmRxwRtO14o0wTflm4FKxEJAQbRpQKBg=
 			</data>
 		</dict>
-		<key>Resources/LINE.rtf</key>
+		<key>Resources/Developer/usr/hpappdir/Fonts.hpappdir/Fonts.hpapp</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			ZFfuQCrzb87MxlT/YkgkNo44h4Q1ryCIBC4wJeQmjYY=
+			9LwFHtTID21WFOol6Q3rtTYX2VsWiNoUBuE7YuttgWo=
 			</data>
 		</dict>
-		<key>Resources/LINE_P.rtf</key>
+		<key>Resources/Developer/usr/hpappdir/Fonts.hpappdir/Fonts.hpappprgm</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			6tkCi/g5Qp+cOIJeEItxgSG+Gr4Ukdlh6VIPYT4xqac=
+			r0oUYWTuTHwWHn67zoG02unoUNk72Yh2/mad3TDwTJQ=
 			</data>
 		</dict>
-		<key>Resources/LOCAL.rtf</key>
+		<key>Resources/Developer/usr/hpappdir/Fonts.hpappdir/icon.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			+WoMJcmV5mV2OubJ50vPNWif5YsZHcpvShn2WIlzMAA=
+			vt/VUQ5hXS16d46zR1DYuSs/I4uymdeFgjDlMDcyWW8=
 			</data>
 		</dict>
-		<key>Resources/LOWER.rtf</key>
+		<key>Resources/Developer/usr/hpappdir/HP.hpappdir/HP.hpapp</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			t4mAatCS5QqnL+5DfUJIdEMUoguVoqgzOm5wWw7/q/Q=
+			9LwFHtTID21WFOol6Q3rtTYX2VsWiNoUBuE7YuttgWo=
 			</data>
 		</dict>
-		<key>Resources/MAKELIST.rtf</key>
+		<key>Resources/Developer/usr/hpappdir/HP.hpappdir/HP.hpappprgm</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			X4dpxuuA2kFeOeRNryucrjGv/qv+lyASAw+5b5tNVmI=
+			wMtAze2yJdxABM7XMblGS7qOfHVn6Msy2dWYzs0wAaM=
 			</data>
 		</dict>
-		<key>Resources/MAKEMAT.rtf</key>
+		<key>Resources/Developer/usr/hpappdir/HP.hpappdir/icon.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			99Bi3rWOAOY0y/QRB+b9GJ7baktqgsGIWpkdquauLm0=
+			+2kzGQ8ronW7/f/0UVHElMhGehRVWb3xFMir/X/iEbI=
 			</data>
 		</dict>
-		<key>Resources/MID.rtf</key>
+		<key>Resources/Developer/usr/hpprgm/ColorSpace.hpprgm</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			DIrci+FA1pkbRj3HaooU1QIWgTKVv96plGs+FOb72TA=
+			MSm88qt4+MDIUZk2IgfwKoPhyP0O4vtWc6MeZDFHZaM=
 			</data>
 		</dict>
-		<key>Resources/PIXOFF.rtf</key>
+		<key>Resources/Developer/usr/hpprgm/GROB.hpprgm</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			y96DeuYvGSzvdGhN8VuUB3qh3JSHFC9kPd2ve2S2P4M=
+			5g2edekvHzJhdOF/bZ5VbWtrvMbuJhCRsF21t855mKU=
 			</data>
 		</dict>
-		<key>Resources/PIXOFF_P.rtf</key>
+		<key>Resources/Developer/usr/hpprgm/HP.hpprgm</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			z4UOiGK1LJCAcjENIYkUB12+NhLWbzWEs5HPiZPktww=
+			/bNZrRMB4slH8ryBQiBb2DwswKGw/moxj7XLpDVfl+M=
 			</data>
 		</dict>
-		<key>Resources/PIXON.rtf</key>
+		<key>Resources/Developer/usr/include/cspace.prgm+</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			ZfK4OWcQRAGFeKcLG6w0Req5Obw6iJYPKtV6mxdiQl4=
+			fRJ+8CxKZjCPDFKkAR4YLb34MEdr0/w1Io94Iz96K2o=
 			</data>
 		</dict>
-		<key>Resources/PIXON_P.rtf</key>
+		<key>Resources/Developer/usr/include/dictionary.prgm+</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			TBAWSk7SUKnb0z5d8i768ogeKHMMbwH7RplqZRVfB8w=
+			RcKKu/yqVo3NCKdKua8+5zaLNQ8VF/15MQx5B1ouaBE=
 			</data>
 		</dict>
-		<key>Resources/Prime Plus.xpgrammar</key>
+		<key>Resources/Developer/usr/include/hp.prgm+</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			hIWyKQOegS1EzHYSG3fILhIiQ/qeXI4gS8UKBqnFvq8=
+			</data>
+		</dict>
+		<key>Resources/Developer/usr/include/hpprime.prgm+</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			ZxAabn0UdPGDTJWiDeYKy/s5C4ZG51cCgkNBdYRQuY4=
+			</data>
+		</dict>
+		<key>Resources/Developer/usr/include/integer.prgm+</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			CocowKSmnC5Oq+NfxYnsHTcTZV/tSjnx2/e28FZC+GI=
+			</data>
+		</dict>
+		<key>Resources/Developer/usr/include/io.prgm+</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			gr2MPV9sF0/6obPDfvP4Nxz31wEnDBdrPJ2LQ2Bg7bE=
+			</data>
+		</dict>
+		<key>Resources/Developer/usr/include/matrix.prgm+</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			h/8oQ4su4FdJJjWwbk7rZO3pfFEGFViQwSRYQgtSXKM=
+			</data>
+		</dict>
+		<key>Resources/Developer/usr/include/pplang.prgm+</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			WpPWA/GJz9bN4q6XTqwCpMZeBUQ/cVnLU++Wi3872kM=
+			</data>
+		</dict>
+		<key>Resources/Developer/usr/include/string.prgm+</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			tBEDzdO76ykqUoFzr7zCTbAskyg/QLMhab4dI2Cw5M8=
+			</data>
+		</dict>
+		<key>Resources/Developer/usr/lib/base.re</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			dPO8z8xqaDSP/cdTJ5c/VQgIpkXX4oA5wSFlOuxDiUg=
+			</data>
+		</dict>
+		<key>Resources/Developer/usr/lib/block.re</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			AbpHGcgLb+kRsJGnwFEktk7uzpZOCcBY74+YBdrKVGs=
+			</data>
+		</dict>
+		<key>Resources/Developer/usr/lib/branch.re</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			AbpHGcgLb+kRsJGnwFEktk7uzpZOCcBY74+YBdrKVGs=
+			</data>
+		</dict>
+		<key>Resources/Developer/usr/lib/function.re</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			+uqVgFir+pV/PtVIeh8PcIZBTRTFiqEsBa74OnSteTE=
+			</data>
+		</dict>
+		<key>Resources/Developer/usr/lib/loop.re</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			hR4ClhlBw46zkYIREIvsJylod1TjwKbUQibCt7MimCw=
+			</data>
+		</dict>
+		<key>Resources/Developer/usr/lib/type.re</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			AJnMmh94029htvEyJhkJTNdMp14FtexN0xQJjn9j/fw=
+			</data>
+		</dict>
+		<key>Resources/Developer/usr/lib/variable.re</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			RotWoTnwoeShSQCCxS8ukfL7ozXrc3M5oFfimOJA0rM=
+			</data>
+		</dict>
+		<key>Resources/Developer/usr/prgm/ARCADE.prgm</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			+Hx+B4j7lATwDam2yMpvJABNzINXX9Xs3ediII7JFaA=
+			</data>
+		</dict>
+		<key>Resources/Developer/usr/prgm/BBC.prgm</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			Q1bT4TDtNmvUjalINAo++qI6E2+HHsZDU97QseDKbhc=
+			</data>
+		</dict>
+		<key>Resources/Developer/usr/prgm/CGA.prgm</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			C5vyduXoivVJ21HuhA0bTIIkyGzOP0pHKaPoMDtJyUg=
+			</data>
+		</dict>
+		<key>Resources/Developer/usr/prgm/EGA.prgm</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			3L8PE07xsP3CA5SvnM6LZSjyWfRD2nx1p2j5rEagy0c=
+			</data>
+		</dict>
+		<key>Resources/Developer/usr/prgm/HD44780.prgm</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			MnBZiG+m4iseqgBDUuyx8TglEBLDRyHgvMjkSX3wxC8=
+			</data>
+		</dict>
+		<key>Resources/Developer/usr/prgm/VGA.prgm</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			KWHIqxY5nb0B+p00IFKCRo0NRpp0xNnEysrBF0sF/Wk=
+			</data>
+		</dict>
+		<key>Resources/Grammars/Prime Plus.xpgrammar</key>
 		<dict>
 			<key>hash2</key>
 			<data>
 			dlUSITYaLaTXp/2wT80nsVRRh7vocWtfbAsKS/KhX5A=
 			</data>
 		</dict>
-		<key>Resources/Prime.xpgrammar</key>
+		<key>Resources/Grammars/Prime.xpgrammar</key>
 		<dict>
 			<key>hash2</key>
 			<data>
 			jT2Spcru/tb4W6uGZ8m2tFVOBLLp8VYPvirhkWoVC/M=
 			</data>
 		</dict>
-		<key>Resources/Python.xpgrammar</key>
+		<key>Resources/Grammars/Python.xpgrammar</key>
 		<dict>
 			<key>hash2</key>
 			<data>
 			jBjl7CkS01hccXN9po+zL1s2cSQxkGeIT3NW9IZrCH4=
 			</data>
 		</dict>
-		<key>Resources/RECT.rtf</key>
+		<key>Resources/Help/ARC.rtf</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			cPriXSSsUTJDjNfVhJYgX3sR6Lf99a3LF3BOJ594aaQ=
+			aF00Rtr0Z+ZAnDDzc60UXemsROFUw0qTQ1f5jBDniDU=
 			</data>
 		</dict>
-		<key>Resources/RECT_P.rtf</key>
+		<key>Resources/Help/ASC.rtf</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			M/WTtf/TSf2XUFHAFjRDZAQEUW2pmdynJNyX/8HJnNs=
+			4vdBchw5hbmPBQEKFDgyJdJRxaomS68+7m4Ua9Y1cRo=
 			</data>
 		</dict>
-		<key>Resources/REPLACE.rtf</key>
+		<key>Resources/Help/BEGIN.rtf</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			1AwmkSr42xEwRdDl8zSpAql/UlMnZxxEuvwtpfe3DgI=
+			5YnfSrGklMNrITYB/zb03pEQZAkiUz1uWKXdvfZfMvM=
 			</data>
 		</dict>
-		<key>Resources/RETURN.rtf</key>
+		<key>Resources/Help/CASE.rtf</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			rlzvMi4zqZrbCfzFKFa78zCntKAtSHFNz3u0ndbzWe0=
+			pECGRFWvOXAopVa+jeiExePOEpm1qbg+aeyoUmkxgjQ=
 			</data>
 		</dict>
-		<key>Resources/RGB.rtf</key>
+		<key>Resources/Help/CHAR.rtf</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			JsifdNiMn9xKegVuGTbFz7sMgfZghBo6FBnURnBYclg=
+			El/yBglDaeHwcPY1uIW67uVm3D6Dwgd76cdIsHIFXPM=
 			</data>
 		</dict>
-		<key>Resources/RIGHT.rtf</key>
+		<key>Resources/Help/C→PX.rtf</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			ZsDMK5yfAwg32wdUkqTI/EgJosQv25kHFfBfRGgOmwU=
+			D1feufvav7meVx73Z8vhI/T5CPW41zIGOhq/MGxU+kE=
 			</data>
 		</dict>
-		<key>Resources/ROTATE.rtf</key>
+		<key>Resources/Help/DIM.rtf</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			I0ay7/HOnOhKRLWHlj1WFVYmxsTb6Q0TJ+knEXt5jsQ=
+			MFjfp7emqmTx8y0m+Fc4zte79ZPFpyIbYRaJm92Vp3w=
 			</data>
 		</dict>
-		<key>Resources/STEP.rtf</key>
+		<key>Resources/Help/DIMGROB.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			6Fs09jlfzC4Up78puDSvgIJrcApV8FOJaoX5pijCKH4=
+			</data>
+		</dict>
+		<key>Resources/Help/DOWNTO.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			S6h++jywujq2etZF4tVCrpewq8nRMbsgu2xBJSpP12E=
+			</data>
+		</dict>
+		<key>Resources/Help/DRAWMENU.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			reaLyNanv/9kiDEEV+He+Dy9evA04JRv+doMQrsS7h4=
+			</data>
+		</dict>
+		<key>Resources/Help/EXPORT.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			7hUCTesNxtKOLyI9tJTDjpvfLbXAdV4bx2D0Y734gb0=
+			</data>
+		</dict>
+		<key>Resources/Help/FILLPOLY_P.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			XPV9X4RLhPWTEmqwHCsDOI2cabMYXioR79F0/6/cXwM=
+			</data>
+		</dict>
+		<key>Resources/Help/FOR.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			IXN+aByLaZt/54z1ayIh6J+qcvPItX4PAk+SXlJHP30=
+			</data>
+		</dict>
+		<key>Resources/Help/GETPIX.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			2ipb1lEn4G96YPZJamYlLcAm4i4bG8Wia19fQADCp3k=
+			</data>
+		</dict>
+		<key>Resources/Help/GETPIX_P.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			dvOhLOHQkyLRxaZOMEBLfxHZscPhWmxor09iEv6qrtI=
+			</data>
+		</dict>
+		<key>Resources/Help/GROBH.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			Ro0KVm/4YsacMHU+Cqaa56AcgXVxXfUP85uikZvBiWs=
+			</data>
+		</dict>
+		<key>Resources/Help/GROBH_P.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			Q1/TEto5tWDNto1tIlAtu4yLrBc/HYBEQ7c3aEwmBfI=
+			</data>
+		</dict>
+		<key>Resources/Help/GROBW.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			nU+0Am+h27Qnyw1n0TKZ8v6D+WsIofRrGsLp6xCb2fk=
+			</data>
+		</dict>
+		<key>Resources/Help/GROBW_P.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			L41TQycqXzBzcE//kUnbUTSE4PcZeIfXANzJODS0mjU=
+			</data>
+		</dict>
+		<key>Resources/Help/IF.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			ocUVit2R2Jh45Zv6pDftXxxE44XkSjIeElZLAA1tKjs=
+			</data>
+		</dict>
+		<key>Resources/Help/IFERR.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			ODX2OuOIQBxOlJdPz/cDJHLEPkg7uRpdKmAVdL/WO0M=
+			</data>
+		</dict>
+		<key>Resources/Help/IMAGE.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			w/xaMwE2/L/UkeKOW6AgJDhZUvPyMFtUEMeWIhDTc+Q=
+			</data>
+		</dict>
+		<key>Resources/Help/INSTRING.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			HhcvDJX6JmLraRCxbB1bQ+u9dsikWy062tyaQK4LRIs=
+			</data>
+		</dict>
+		<key>Resources/Help/INVERT.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			VovyCqjm2uwSAeDPkIFd2vu5YYb1g34dUK/00hDCZ4I=
+			</data>
+		</dict>
+		<key>Resources/Help/INVERT_P.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			ALCDmgMcY0wrm//AVMdXLy/tWex92JhpwP4Qn2PFMbo=
+			</data>
+		</dict>
+		<key>Resources/Help/KILL.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			sdaagdOJc03NHYO3otgdfwOegUM5GC9v80GFGgycAPI=
+			</data>
+		</dict>
+		<key>Resources/Help/LEFT.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			gdY4wygUoBqJHyUX+CkxJQS4lPobIFCZXawZ3CaN3+s=
+			</data>
+		</dict>
+		<key>Resources/Help/LINE.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			I/nMpbHkejFSb++W0NybCmKeLCHk7ZoehmWNRFnZuLo=
+			</data>
+		</dict>
+		<key>Resources/Help/LINE_P.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			Mxt6sb6uWJojDPOLU9QTX0lXLfM0ejWkrDoxPDZlhX0=
+			</data>
+		</dict>
+		<key>Resources/Help/LOCAL.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			bL2xXByZJdMjRjkfnwOVJUr+qwkY0doKZGLBT8ZKATw=
+			</data>
+		</dict>
+		<key>Resources/Help/LOWER.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			nG7n3CSKJAAQ5496M+4g1IsAGYKNbGb5S+aXBDIGo3w=
+			</data>
+		</dict>
+		<key>Resources/Help/MAKELIST.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			HCofcdtlEdwS8kG+ze0n6tHKXp4G665+dSyodHhHbJY=
+			</data>
+		</dict>
+		<key>Resources/Help/MAKEMAT.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			9gN6OvSo9+VFrxo0DmrAsQGuVZmCUO3E9DdtljFBnJE=
+			</data>
+		</dict>
+		<key>Resources/Help/MID.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			JzFz7yYCF8OoxgrkyvF9CZ0G8pqWtRcgPC75kLB9GWI=
+			</data>
+		</dict>
+		<key>Resources/Help/PIXOFF.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			3PTksr9T6rITGpV5qDC6yhzc0wdDgDnCwsGKMKfDcBE=
+			</data>
+		</dict>
+		<key>Resources/Help/PIXOFF_P.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			4//8CerjsHAwIfYrpY3yVc80Z7Zi0QM6k4f2LZgC4sU=
+			</data>
+		</dict>
+		<key>Resources/Help/PIXON.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			nqjTkxdlMBesudPxzL/0fPw9KqOe6XnFr7K0jvq3LMM=
+			</data>
+		</dict>
+		<key>Resources/Help/PIXON_P.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			sq56lrRNeDGcX9yI+bbwzjBMRgOTDLCGSf0iCXPDUQY=
+			</data>
+		</dict>
+		<key>Resources/Help/RECT.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			ZP85Dr6cEWwawKfri9D+RYVE1svGQhVkwk8j3T62r64=
+			</data>
+		</dict>
+		<key>Resources/Help/RECT_P.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			rSKEHUcEa1qoPQXQZrn1lADjstpm72rd8iutGjGgJMY=
+			</data>
+		</dict>
+		<key>Resources/Help/REPLACE.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			ZQdgfFcTuhYNNuR/rnk7z/Z+/bdResMxcsHEYcY11Cs=
+			</data>
+		</dict>
+		<key>Resources/Help/RETURN.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			FOZW4CLdEu9NnKtJxnlZPYzOiprilx3HbA/XQZVMGcg=
+			</data>
+		</dict>
+		<key>Resources/Help/RGB.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			WPGeRCm6f02TgJDjJ78ix/4IxXDHcv0r0AmC3uPVfCE=
+			</data>
+		</dict>
+		<key>Resources/Help/RIGHT.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			1v+jh7lOwYHweJSeDYJ73PvXUENR/L92FSSX0t6+Jq0=
+			</data>
+		</dict>
+		<key>Resources/Help/ROTATE.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			8+T56AN2NhaGtg+qNsKHrXI/woYHkZcqkWuUyZR94sg=
+			</data>
+		</dict>
+		<key>Resources/Help/STEP.rtf</key>
 		<dict>
 			<key>hash2</key>
 			<data>
 			/vGcjDDGsKYd3jkzUmXShTRs1iPgdg4m/EsZGsy/KsU=
 			</data>
 		</dict>
-		<key>Resources/STRING.rtf</key>
+		<key>Resources/Help/STRING.rtf</key>
 		<dict>
 			<key>hash2</key>
 			<data>
 			wB6HwyzvUq9HZyI/ec6BHu8kHOWQNiabQcZaPITVmM4=
 			</data>
 		</dict>
-		<key>Resources/STRINGFROMID.rtf</key>
+		<key>Resources/Help/STRINGFROMID.rtf</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			sbOFCPlVQlWb/vW4SuvP5WW4nHm0Y7Mwa+I0CMipM5M=
+			viTTeerEcQ3KFkkvxZS4juQr4QobeO6wZisurZ93NI4=
 			</data>
 		</dict>
-		<key>Resources/SUBGROB.rtf</key>
+		<key>Resources/Help/SUBGROB.rtf</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			ouK+ARQNyyurGAhjWbOudt1+nD6DPyIxA6Z+mUJWTi8=
+			tV45uYZQZI2suPa8Hrx2E5ufElU/I5PUKJgAQXhYy4s=
 			</data>
 		</dict>
-		<key>Resources/SUBGROB_P.rtf</key>
+		<key>Resources/Help/SUBGROB_P.rtf</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			5F0YiH7OBZJ5ykBEfuNdTj88KvR8D6rYJq6Cpbqp5mM=
+			OikXgjIBLdJchsqfBqArDR0UMOZbronJ7L74Dt2Y5yE=
 			</data>
 		</dict>
-		<key>Resources/TEXT.rtf</key>
+		<key>Resources/Help/TEXT.rtf</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			/AewjJGUHUWxx166sc5SAnJM1+dvFc3tgtwh241+j6s=
+			/voG+Sa0tCpDsRDuURUL87VDKfI2MIoTbbwlorxfb8Y=
 			</data>
 		</dict>
-		<key>Resources/TEXTOUT.rtf</key>
+		<key>Resources/Help/TEXTOUT.rtf</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			nLjKyl7J7TJb708n3m19KOS3nh2XVewma6LBpAV061g=
+			8OP2wi0v68hbI+G1FoV3tcH01K5EAA6tm4VPdo9Jc/g=
 			</data>
 		</dict>
-		<key>Resources/TEXTOUT_P.rtf</key>
+		<key>Resources/Help/TEXTOUT_P.rtf</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			c7vil0K/k6EG+/ZIaJTVlaYwth2IPnp0aGw0rcf6p6g=
+			mM5YXXUdjOgpmzgYNhFYHLkpzIVXIyTaP5qC7xqFXIc=
 			</data>
 		</dict>
-		<key>Resources/TRIANGLE_P.rtf</key>
+		<key>Resources/Help/TRIANGLE_P.rtf</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			NJmDbB5KgELMGmgWFptrRAGCvOeRBP5Sdg77tF0rJbc=
+			Rhc3Vin4K/vlXVXlec4nQ6nbucOtKrIpWTX4wKFRac4=
 			</data>
 		</dict>
-		<key>Resources/UPPER.rtf</key>
+		<key>Resources/Help/UPPER.rtf</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			9Ux3pvkItjQu5f2i4GokYRJ8LjViiioSrcAqEx3zBTw=
+			i0FbGUwoHsGqrN5GUHLdP/GTDQQIVALos11OM7SsZ/w=
+			</data>
+		</dict>
+		<key>Resources/Help/VIEW.rtf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			rhNtExzVpFm6RiTo9xOJGccB5f10uyWpNSv5acJV4QY=
+			</data>
+		</dict>
+		<key>Resources/Themes/Default (Dark).xpcolortheme</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			eCbjzO74r14epBJhNRuSGy/K1C6oLI1mI0vQaOVpA5U=
+			</data>
+		</dict>
+		<key>Resources/Themes/Default (Light).xpcolortheme</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			t4nrxvQLpHxU5KIMN0PuXBw0Jmy3o3uNWag8NN21jjw=
+			</data>
+		</dict>
+		<key>Resources/Themes/GitHub.xpcolortheme</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			ShPKRUsaN/4E7AmUGjCg52nT64+LkHpWlNruaQHfFUg=
+			</data>
+		</dict>
+		<key>Resources/Themes/HP Connectivity Kit.xpcolortheme</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			30xz5bUlrdRy6DFa4FVt4jb6p1D/EkYwfwKaULOwiIU=
 			</data>
 		</dict>
 		<key>Resources/Untitled.prgm+</key>
@@ -1211,81 +1452,11 @@
 			4KzpzcBGJV/0HG5n1Y9aKm3h/EZHw303TjMxaLTARNI=
 			</data>
 		</dict>
-		<key>Resources/VIEW.rtf</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			jgpS2fXzJhwKireu1J3MxXOJ0qGHoOP58uGDQyjuKMQ=
-			</data>
-		</dict>
-		<key>Resources/cspace.prgm+</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			fRJ+8CxKZjCPDFKkAR4YLb34MEdr0/w1Io94Iz96K2o=
-			</data>
-		</dict>
 		<key>Resources/default.metallib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
 			VJ/H3EYWsT/Kg4gKJpVgICIL7m99CUHObsbQxRb1+wE=
-			</data>
-		</dict>
-		<key>Resources/dictionary.prgm+</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			RcKKu/yqVo3NCKdKua8+5zaLNQ8VF/15MQx5B1ouaBE=
-			</data>
-		</dict>
-		<key>Resources/hp.prgm+</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			hIWyKQOegS1EzHYSG3fILhIiQ/qeXI4gS8UKBqnFvq8=
-			</data>
-		</dict>
-		<key>Resources/hpprime.prgm+</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			ZxAabn0UdPGDTJWiDeYKy/s5C4ZG51cCgkNBdYRQuY4=
-			</data>
-		</dict>
-		<key>Resources/integer.prgm+</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			CocowKSmnC5Oq+NfxYnsHTcTZV/tSjnx2/e28FZC+GI=
-			</data>
-		</dict>
-		<key>Resources/io.prgm+</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			gr2MPV9sF0/6obPDfvP4Nxz31wEnDBdrPJ2LQ2Bg7bE=
-			</data>
-		</dict>
-		<key>Resources/matrix.prgm+</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			h/8oQ4su4FdJJjWwbk7rZO3pfFEGFViQwSRYQgtSXKM=
-			</data>
-		</dict>
-		<key>Resources/pplang.prgm+</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			WpPWA/GJz9bN4q6XTqwCpMZeBUQ/cVnLU++Wi3872kM=
-			</data>
-		</dict>
-		<key>Resources/string.prgm+</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			tBEDzdO76ykqUoFzr7zCTbAskyg/QLMhab4dI2Cw5M8=
 			</data>
 		</dict>
 	</dict>
