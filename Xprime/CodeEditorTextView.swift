@@ -53,7 +53,7 @@ struct GrammarPattern: Codable {
 final class CodeEditorTextView: NSTextView {
     var theme: Theme?
     var grammar: Grammar?
-
+    
     
     private var _smartSubtitution: Bool = false
     var smartSubtitution: Bool {
@@ -170,15 +170,15 @@ final class CodeEditorTextView: NSTextView {
         undoManager.registerUndo(withTarget: target) { target in
             let currentValue = target[keyPath: keyPath]
             self.registerUndo(target: target,
-                         oldValue: currentValue,
-                         keyPath: keyPath,
-                         undoManager: undoManager,
-                         actionName: actionName)
+                              oldValue: currentValue,
+                              keyPath: keyPath,
+                              undoManager: undoManager,
+                              actionName: actionName)
             target[keyPath: keyPath] = previousValue
         }
         undoManager.setActionName(actionName)
     }
-
+    
     
     // MARK: - Override
     
@@ -267,7 +267,7 @@ final class CodeEditorTextView: NSTextView {
         }
         
         let delegate = NSApplication.shared.delegate as! AppDelegate
-      
+        
         for menuItem in delegate.mainMenu.item(withTitle: "Editor")?.submenu?.item(withTitle: "Grammar")!.submenu!.items ?? [] {
             menuItem.state = menuItem.title == url.deletingPathExtension().lastPathComponent ? .on : .off
         }
@@ -372,7 +372,7 @@ final class CodeEditorTextView: NSTextView {
         
         let text = string as NSString
         let fullRange = NSRange(location: 0, length: text.length)
-    
+        
         // Reset all text color first
         textStorage.beginEditing()
         textStorage.setAttributes(baseAttributes, range: fullRange)
@@ -390,7 +390,7 @@ final class CodeEditorTextView: NSTextView {
                 }
             }
         }
-
+        
         textStorage.endEditing()
     }
     
@@ -404,59 +404,89 @@ final class CodeEditorTextView: NSTextView {
     }
     
     private func handleOptionClick(_ event: NSEvent) {
-        func showQuickHelp(for symbol: String, at point: NSPoint) {
-            let vc = QuickHelpViewController(symbol: symbol)
-
-            let popover = NSPopover()
-            popover.behavior = .transient
-            popover.contentViewController = vc
-
-            popover.show(
-                relativeTo: NSRect(origin: point, size: .zero),
-                of: self,
-                preferredEdge: .maxY
-            )
+        let point = convert(event.locationInWindow, from: nil)
+        
+        guard let symbol = word(at: point),
+              !symbol.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).isEmpty else {
+            return
         }
         
-        let point = convert(event.locationInWindow, from: nil)
-        guard let word = word(at: point) else { return }
-        showQuickHelp(for: word, at: point)
+        // Now it can find this method because it's in the class scope
+        self.showQuickHelp(for: symbol, at: point)
     }
     
+    private func showQuickHelp(for symbol: String, at point: NSPoint) {
+        let vc = QuickHelpViewController(symbol: symbol)
+        
+        let popover = NSPopover()
+        popover.behavior = .transient
+        popover.contentViewController = vc
+        popover.show(
+            relativeTo: NSRect(origin: point, size: .zero),
+            of: self,
+            preferredEdge: .maxY
+        )
+    }
     
+    private var trackingArea: NSTrackingArea?
     override func updateTrackingAreas() {
         super.updateTrackingAreas()
-        addTrackingArea(NSTrackingArea(
+        
+        // Remove the old area if it exists
+        if let oldArea = trackingArea {
+            removeTrackingArea(oldArea)
+        }
+        
+        // Create and add the new one
+        let newArea = NSTrackingArea(
             rect: bounds,
             options: [.mouseMoved, .activeInKeyWindow],
             owner: self,
             userInfo: nil
-        ))
+        )
+        
+        addTrackingArea(newArea)
+        self.trackingArea = newArea
     }
-
+    
     override func mouseMoved(with event: NSEvent) {
         let point = convert(event.locationInWindow, from: nil)
-
+        
         if let _ = word(at: point), event.modifierFlags.contains(.option) {
             NSCursor.contextualMenu.set()
         } else {
             NSCursor.current.set()
         }
     }
-
     
-    private func word(at point: CGPoint) -> String? {
-        guard let layoutManager = layoutManager,
-              let textContainer = textContainer else { return nil }
+    func word(at point: CGPoint) -> String? {
+        guard let layoutManager = self.layoutManager,
+              let textContainer = self.textContainer else { return nil }
         
-        let glyphIndex = layoutManager.glyphIndex(for: point, in: textContainer)
-        let charIndex = layoutManager.characterIndexForGlyph(at: glyphIndex)
-        let wordRange = (string as NSString).rangeOfWord(at: charIndex)
-        let word = (string as NSString).substring(with: wordRange)
+        // 1. Adjust for the text container's position within the view
+        let containerOrigin = self.textContainerOrigin
+        let localPoint = CGPoint(x: point.x - containerOrigin.x, y: point.y - containerOrigin.y)
         
-        guard charIndex != NSNotFound else { return nil }
+        // 2. Get the index
+        let index = layoutManager.characterIndex(for: localPoint,
+                                                 in: textContainer,
+                                                 fractionOfDistanceBetweenInsertionPoints: nil)
         
-        return word
+        // 3. SAFETY CHECK: The crash preventer
+        if index >= self.string.count || index == NSNotFound {
+            return nil
+        }
+        
+        // 4. Correct method: Call on 'self' (the NSTextView)
+        let wordRange = self.selectionRange(forProposedRange: NSRange(location: index, length: 0),
+                                            granularity: .selectByWord)
+        
+        // 5. Extract safely
+        if wordRange.location != NSNotFound && (wordRange.location + wordRange.length) <= (self.string as NSString).length {
+            return (self.string as NSString).substring(with: wordRange)
+        }
+        
+        return nil
     }
 }
 
@@ -465,7 +495,7 @@ extension NSString {
     func rangeOfWord(at index: Int) -> NSRange {
         _ = NSRange(location: 0, length: length)
         guard index >= 0 && index < length else { return NSRange(location: NSNotFound, length: 0) }
-
+        
         let tokenizer = CFStringTokenizerCreate(
             kCFAllocatorDefault,
             self,
@@ -473,7 +503,7 @@ extension NSString {
             CFOptionFlags(kCFStringTokenizerUnitWord),
             nil
         )
-
+        
         CFStringTokenizerGoToTokenAtIndex(tokenizer, index)
         let cfRange = CFStringTokenizerGetCurrentTokenRange(tokenizer)
         if cfRange.location == kCFNotFound {
