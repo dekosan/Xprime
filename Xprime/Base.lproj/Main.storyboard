@@ -30,6 +30,13 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="wFC-TO-SCJ"/>
+                                        <menuItem title="Developer Tools..." id="ZcX-JW-Pzd">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <segue destination="Qnp-eU-JNK" kind="modal" id="oCq-uz-hyH"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="Dlo-Hf-EQO"/>
                                         <menuItem title="Services" id="NMo-om-nkz">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <menu key="submenu" title="Services" systemMenu="services" id="hz9-B4-Xy5"/>
@@ -774,6 +781,57 @@
             <point key="canvasLocation" x="-745" y="-766"/>
         </scene>
         <!--Window Controller-->
+        <scene sceneID="zH6-S8-jeO">
+            <objects>
+                <windowController id="Qnp-eU-JNK" sceneMemberID="viewController">
+                    <window key="window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="7Sc-Yg-SE2">
+                        <windowStyleMask key="styleMask" titled="YES"/>
+                        <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+                        <rect key="contentRect" x="211" y="269" width="480" height="270"/>
+                        <rect key="screenRect" x="0.0" y="0.0" width="1512" height="948"/>
+                        <view key="contentView" id="jAn-ly-x9p">
+                            <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                        </view>
+                        <connections>
+                            <outlet property="delegate" destination="Qnp-eU-JNK" id="TOX-0l-RVg"/>
+                        </connections>
+                    </window>
+                    <connections>
+                        <segue destination="Gkt-Fd-z1u" kind="relationship" relationship="window.shadowedContentViewController" id="LLr-64-c1e"/>
+                    </connections>
+                </windowController>
+                <customObject id="HWC-eh-Lyv" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1075" y="-1021"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="I0s-yX-Ymg">
+            <objects>
+                <viewController id="Gkt-Fd-z1u" sceneMemberID="viewController">
+                    <view key="view" id="gIg-ra-mZ1">
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L9Q-dc-3ai" customClass="CustomButton" customModule="Xprime" customModuleProvider="target">
+                                <rect key="frame" x="364" y="20" width="96" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" title="Close" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="vR3-h9-knO">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                    <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
+                                </buttonCell>
+                            </button>
+                        </subviews>
+                    </view>
+                </viewController>
+                <customObject id="21N-4S-2h1" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-434" y="-1033"/>
+        </scene>
+        <!--Window Controller-->
         <scene sceneID="0zq-Fv-lwY">
             <objects>
                 <customObject id="yqd-22-Lvs" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
@@ -1144,7 +1202,7 @@ Gw
                                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="icon" id="3v8-6I-Ist"/>
                                             </imageView>
                                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="o4M-ON-b8V">
-                                                <rect key="frame" x="17" y="255.5" width="24" height="24"/>
+                                                <rect key="frame" x="17" y="256.5" width="24" height="24"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                 <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="inset.filled.topthird.square" catalog="system" imagePosition="overlaps" alignment="center" imageScaling="proportionallyDown" inset="2" id="AfA-QU-4Ov">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
