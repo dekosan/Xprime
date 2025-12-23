@@ -447,7 +447,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     private func archiveProcess() {
         guard let projectName = projectName , let parentURL = parentURL else { return }
         
-        let url: URL!
+        let url: URL
         
         let dirA = FileManager.default.homeDirectoryForCurrentUser
             .appendingPathComponent("Documents/HP Prime/Calculators/Prime")
