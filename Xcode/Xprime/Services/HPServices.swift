@@ -59,7 +59,7 @@ fileprivate func launchApplication(named appName: String, arguments: [String] = 
 //
 //        }
 
-enum HP {
+enum HPServices {
     static let sdkURL = URL(fileURLWithPath: Bundle.main.bundleURL.path).appendingPathComponent("Contents/Resources/Developer/usr")
 
     static var isVirtualCalculatorInstalled: Bool {
@@ -98,14 +98,14 @@ enum HP {
         let user = AppSettings.calculatorName
         
         if hpPrimeCalculatorExists(named: user) {
-            if HP.isConnectivityKitInstalled == false {
+            if HPServices.isConnectivityKitInstalled == false {
                 return nil
             }
             directoryURL = homeURL
                 .appendingPathComponent("Documents/HP Connectivity Kit/Calculators")
                 .appendingPathComponent(user)
         } else {
-            if HP.isVirtualCalculatorInstalled == false {
+            if HPServices.isVirtualCalculatorInstalled == false {
                 return nil
             }
             directoryURL = homeURL
@@ -283,7 +283,7 @@ enum HP {
     static func loadHPPrgm(at url: URL) -> String? {
         
         if url.pathExtension.lowercased() == "hpprgm" || url.pathExtension.lowercased() == "hpappprgm" {
-            let commandURL = HP.sdkURL
+            let commandURL = HPServices.sdkURL
                 .appendingPathComponent("bin")
                 .appendingPathComponent("ppl+")
             
@@ -342,7 +342,7 @@ enum HP {
     
     static func preProccess(at sourceURL: URL, to destinationURL: URL, compress: Bool = false) -> (out: String?, err: String?) {
     
-        let command = HP.sdkURL
+        let command = HPServices.sdkURL
             .appendingPathComponent("bin")
             .appendingPathComponent("ppl+")
             .path
@@ -354,12 +354,12 @@ enum HP {
         }
         
         if AppSettings.headerSearchPath.isEmpty == false {
-            let path = AppSettings.headerSearchPath.replacingOccurrences(of: "$(SDK)", with: HP.sdkURL.path)
+            let path = AppSettings.headerSearchPath.replacingOccurrences(of: "$(SDK)", with: HPServices.sdkURL.path)
             arguments.append(contentsOf: ["-I\(path)"])
         }
         
         if AppSettings.librarySearchPath.isEmpty == false {
-            let path = AppSettings.librarySearchPath.replacingOccurrences(of: "$(SDK)", with: HP.sdkURL.path)
+            let path = AppSettings.librarySearchPath.replacingOccurrences(of: "$(SDK)", with: HPServices.sdkURL.path)
             arguments.append(contentsOf: ["-L\(path)"])
         }
         

@@ -309,7 +309,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     // MARK: - Action-handling methods
     
     private func openDocument(url: URL) {
-        guard let contents = HP.loadHPPrgm(at: url) else { return }
+        guard let contents = HPServices.loadHPPrgm(at: url) else { return }
         
         UserDefaults.standard.set(url.path, forKey: "lastOpenedFilePath")
         
@@ -378,7 +378,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             guard result == .OK, let url = savePanel.url else { return }
 
             do {
-                try HP.savePrgm(at: url, content: self.codeEditorTextView.string)
+                try HPServices.savePrgm(at: url, content: self.codeEditorTextView.string)
                 self.currentURL = url
                 self.documentIsModified = false
                 
@@ -407,7 +407,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         }
         
         do {
-            try HP.savePrgm(at: url, content: codeEditorTextView.string)
+            try HPServices.savePrgm(at: url, content: codeEditorTextView.string)
             currentURL = url
             if let projectName = self.projectName {
                 XprimeProjectService.save(to: url.deletingLastPathComponent(), named: projectName)
@@ -428,13 +428,13 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         else { return }
         
         do {
-            try HP.restoreMissingAppFiles(in: parentURL, named: projectName)
+            try HPServices.restoreMissingAppFiles(in: parentURL, named: projectName)
         } catch {
             outputTextView.string = "Failed to build for archiving: \(error)"
             return
         }
         
-        let result = HP.preProccess(at: currentURL, to: parentURL
+        let result = HPServices.preProccess(at: currentURL, to: parentURL
             .appendingPathComponent(projectName)
             .appendingPathExtension("hpappdir")
             .appendingPathComponent(projectName)
@@ -466,7 +466,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         }
 
         
-        let result = HP.archiveHPAppDirectory(in: url, named: projectName, to: parentURL)
+        let result = HPServices.archiveHPAppDirectory(in: url, named: projectName, to: parentURL)
         
         if let out = result.out, !out.isEmpty {
             self.outputTextView.string += out
@@ -482,7 +482,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         var requiredFiles: [String] = []
         var cleanedText = text
         
-        let basePath = HP.sdkURL
+        let basePath = HPServices.sdkURL
             .appendingPathComponent("hpprgm")
             .path
 
@@ -517,7 +517,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         var requiredApps: [String] = []
         var cleanedText = text
         
-        let basePath = HP.sdkURL
+        let basePath = HPServices.sdkURL
             .appendingPathComponent("hpappdir")
             .path
 
@@ -549,7 +549,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     private func installRequiredPrograms(requiredFiles: [String]) {
         for file in requiredFiles {
             do {
-                try HP.installHPPrgm(at: URL(fileURLWithPath: file))
+                try HPServices.installHPPrgm(at: URL(fileURLWithPath: file))
                 outputTextView.string += "Installed: \(file)\n"
             } catch {
                 outputTextView.string += "Error installing \(file).hpprgm: \(error)"
@@ -560,7 +560,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     private func installRequiredApps(requiredApps: [String]) {
         for file in requiredApps {
             do {
-                try HP.installHPAppDirectory(at: URL(fileURLWithPath: file))
+                try HPServices.installHPAppDirectory(at: URL(fileURLWithPath: file))
                 outputTextView.string += "Installed: \(file)\n"
             } catch {
                 outputTextView.string += "Error installing \(file).hpappdir: \(error)"
@@ -578,7 +578,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             .appendingPathExtension("hpprgm")
         
         
-        let result = HP.preProccess(at: sourceURL, to: destinationURL,  compress: AppSettings.compressHPPRGM)
+        let result = HPServices.preProccess(at: sourceURL, to: destinationURL,  compress: AppSettings.compressHPPRGM)
         outputTextView.string = result.err ?? ""
     }
     
@@ -680,11 +680,11 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                 let prgmURL = projectDir.appendingPathComponent(projectName + ".prgm+")
                 
                 if let url = Bundle.main.resourceURL?.appendingPathComponent("Untitled.prgm+") {
-                    self.codeEditorTextView.string = HP.loadHPPrgm(at: url) ?? ""
+                    self.codeEditorTextView.string = HPServices.loadHPPrgm(at: url) ?? ""
                 }
                 
                 // Save the .prgm+ file
-                try HP.savePrgm(
+                try HPServices.savePrgm(
                     at: prgmURL,
                     content: self.codeEditorTextView.string
                 )
@@ -710,7 +710,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     
     @IBAction func newDocument(_ sender: Any) {
         if let url = Bundle.main.resourceURL?.appendingPathComponent("Untitled.prgm+") {
-            codeEditorTextView.string = HP.loadHPPrgm(at: url) ?? ""
+            codeEditorTextView.string = HPServices.loadHPPrgm(at: url) ?? ""
             currentURL = nil
             if let window = self.view.window {
                 window.title = "Untitled.prgm+"
@@ -763,7 +763,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             allowedExtensions: ["hpprgm"],
             defaultName: defaultName
         ) { outputURL in
-            HP.preProccess(at: currentURL, to: outputURL, compress: AppSettings.compressHPPRGM)
+            HPServices.preProccess(at: currentURL, to: outputURL, compress: AppSettings.compressHPPRGM)
         }
     }
     
@@ -783,7 +783,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             allowedExtensions: ["prgm"],
             defaultName: defaultName
         ) { outputURL in
-            HP.preProccess(at: currentURL, to: outputURL)
+            HPServices.preProccess(at: currentURL, to: outputURL)
         }
     }
     
@@ -803,7 +803,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             }
             destination = destination.appendingPathExtension("hpappdir.zip")
             
-            let result = HP.archiveHPAppDirectory(in: parentURL, named: projectName, to: destination)
+            let result = HPServices.archiveHPAppDirectory(in: parentURL, named: projectName, to: destination)
             
             if let out = result.out, !out.isEmpty {
                 return (out, nil)
@@ -820,7 +820,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     }
     
     @IBAction func revertDocumentToSaved(_ sender: Any) {
-        if let contents = HP.loadHPPrgm(at: currentURL!) {
+        if let contents = HPServices.loadHPPrgm(at: currentURL!) {
             codeEditorTextView.string = contents
             self.documentIsModified = false
             updateDocumentIconButtonImage()
@@ -847,9 +847,9 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         
         performBuild()
         
-        if HP.hpPrgmExists(atPath: parentURL.path, named: projectName) {
+        if HPServices.hpPrgmExists(atPath: parentURL.path, named: projectName) {
             installHPPrgmFileToCalculator(sender)
-            HP.launchVirtualCalculator()
+            HPServices.launchVirtualCalculator()
         }
     }
     
@@ -882,7 +882,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         
         performBuild()
         
-        if HP.hpPrgmExists(atPath: parentURL.path, named: projectName) {
+        if HPServices.hpPrgmExists(atPath: parentURL.path, named: projectName) {
             installHPPrgmFileToCalculator(sender)
         }
     }
@@ -906,7 +906,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             .appendingPathExtension("hpprgm")
         outputTextView.string = "Installing: \(programURL.lastPathComponent)\n"
         do {
-            try HP.installHPPrgm(at: programURL, forUser: AppSettings.calculatorName)
+            try HPServices.installHPPrgm(at: programURL, forUser: AppSettings.calculatorName)
         } catch {
             let alert = NSAlert()
             alert.messageText = "Error"
@@ -924,7 +924,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             .appendingPathExtension("hpappdir")
         outputTextView.string = "Installing: \(appDirURL.lastPathComponent)\n"
         do {
-            try HP.installHPAppDirectory(at: appDirURL, forUser: AppSettings.calculatorName)
+            try HPServices.installHPAppDirectory(at: appDirURL, forUser: AppSettings.calculatorName)
         } catch {
             let alert = NSAlert()
             alert.messageText = "Error"
@@ -951,7 +951,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         }
         let destinationURL = URL(fileURLWithPath: "/dev/stdout")
         
-        let result = HP.preProccess(at: sourceURL, to: destinationURL)
+        let result = HPServices.preProccess(at: sourceURL, to: destinationURL)
         if let out = result.out, !out.isEmpty {
             outputTextView.string = "Converting...\n"
             codeEditorTextView.string = out
@@ -980,7 +980,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         
         openPanel.begin { result in
             guard result == .OK, let url = openPanel.url else { return }
-            let command = HP.sdkURL
+            let command = HPServices.sdkURL
                 .appendingPathComponent("bin")
                 .appendingPathComponent("grob")
                 .path
@@ -1006,7 +1006,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         openPanel.begin { result in
             guard result == .OK, let url = openPanel.url else { return }
             
-            let command = HP.sdkURL
+            let command = HPServices.sdkURL
                 .appendingPathComponent("bin")
                 .appendingPathComponent("font")
                 .path
@@ -1031,7 +1031,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         openPanel.begin { result in
             guard result == .OK, let url = openPanel.url else { return }
             
-            if let contents = HP.loadHPPrgm(at: url) {
+            if let contents = HPServices.loadHPPrgm(at: url) {
                 self.codeEditorTextView.insertCode(self.codeEditorTextView.removePragma(contents))
             }
         }
@@ -1061,7 +1061,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         
         
         
-        if let contents = HP.loadHPPrgm(at: url) {
+        if let contents = HPServices.loadHPPrgm(at: url) {
             codeEditorTextView.insertCode(contents)
         }
     }
@@ -1098,7 +1098,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     }
     
     @IBAction func showCalculatorFolderInFinder(_ sender: Any) {
-        guard let url = HP.hpPrimeDirectory(forUser: AppSettings.calculatorName) else {
+        guard let url = HPServices.hpPrimeDirectory(forUser: AppSettings.calculatorName) else {
             return
         }
         url.revealInFinder()
@@ -1115,7 +1115,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             return
         }
         
-        let command = HP.sdkURL
+        let command = HPServices.sdkURL
             .appendingPathComponent("bin")
             .appendingPathComponent("ppl+")
             .path
@@ -1176,24 +1176,24 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         case #selector(installHPPrgmFileToCalculator(_:)):
             menuItem.title = "Install Program"
             if let projectName = projectName {
-                if HP.hpPrgmIsInstalled(named: projectName) {
+                if HPServices.hpPrgmIsInstalled(named: projectName) {
                     menuItem.title = "Update Program"
                 }
             }
             if let parentURL = parentURL, let projectName = projectName {
-                return HP.hpPrgmExists(atPath: parentURL.path, named: projectName)
+                return HPServices.hpPrgmExists(atPath: parentURL.path, named: projectName)
             }
             return false
             
         case #selector(installHPAppDirectoryToCalculator(_:)):
             menuItem.title = "Install Application"
             if let projectName = projectName {
-                if HP.hpAppDirectoryIsInstalled(named: projectName) {
+                if HPServices.hpAppDirectoryIsInstalled(named: projectName) {
                     menuItem.title = "Update Application"
                 }
             }
             if let parentURL = parentURL, let projectName = projectName {
-                return HP.hpAppDirIsComplete(atPath: parentURL.path, named: projectName)
+                return HPServices.hpAppDirIsComplete(atPath: parentURL.path, named: projectName)
             }
             return false
             
@@ -1211,7 +1211,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             
         case #selector(exportAsArchive(_:)), #selector(archiveWithoutBuilding(_:)):
             if let projectName = projectName, let parentURL = parentURL {
-                return HP.hpAppDirIsComplete(atPath: parentURL.path, named: projectName)
+                return HPServices.hpAppDirIsComplete(atPath: parentURL.path, named: projectName)
             }
             return false
             

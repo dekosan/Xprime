@@ -55,11 +55,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSToolbarItemValidation, NSM
     // MARK: - Interface Builder Action Handlers
     
     @IBAction func launchHPConnectiveKit(_ sender: Any) {
-        HP.launchConnectivityKit()
+        HPServices.launchConnectivityKit()
     }
     
     @IBAction func launchHPPrimeVirtualCalculator(_ sender: Any) {
-        HP.launchVirtualCalculator()
+        HPServices.launchVirtualCalculator()
     }
 
     // MARK: - Action Handlers
@@ -68,10 +68,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSToolbarItemValidation, NSM
     internal func validateToolbarItem(_ item: NSToolbarItem) -> Bool {
         switch item.action {
         case #selector(launchHPConnectiveKit(_:)):
-            return HP.isConnectivityKitInstalled
+            return HPServices.isConnectivityKitInstalled
             
         case #selector(launchHPPrimeVirtualCalculator(_:)):
-            return HP.isVirtualCalculatorInstalled
+            return HPServices.isVirtualCalculatorInstalled
         default:
             break
         }
@@ -81,10 +81,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSToolbarItemValidation, NSM
     internal func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
         switch menuItem.action {
         case #selector(launchHPConnectiveKit(_:)):
-            return HP.isConnectivityKitInstalled
+            return HPServices.isConnectivityKitInstalled
             
         case #selector(launchHPPrimeVirtualCalculator(_:)):
-            return HP.isVirtualCalculatorInstalled
+            return HPServices.isVirtualCalculatorInstalled
             
         default:
             break
