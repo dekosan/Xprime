@@ -10,35 +10,35 @@
 		</data>
 		<key>Resources/Assets.car</key>
 		<data>
-		A1apeumGlcqTxKRPed+qa3le53c=
+		J9ZhVFiyWhw1uRNcxeK5zMiM7k0=
 		</data>
 		<key>Resources/Base.lproj/Main.storyboardc/HsO-bO-Dfd-view-1RK-mx-rDE.nib</key>
 		<data>
-		v+xu5HDU9o+PsBaHgIt62mBrCLY=
+		B/CPIRnvuEQWQccqW3Fpz382E7M=
 		</data>
 		<key>Resources/Base.lproj/Main.storyboardc/Info.plist</key>
 		<data>
-		IF3I2RIqPYjl79xJ26zAb6NNK3o=
+		lAtUyOSV2i8ESE4bJ/x30Isj86A=
 		</data>
 		<key>Resources/Base.lproj/Main.storyboardc/MainMenu.nib</key>
 		<data>
-		UhybxQBwJRroA8Ml3T+J12TEGA0=
+		0trwSDE1s7/Q/seJO0IbyjXuqWw=
 		</data>
 		<key>Resources/Base.lproj/Main.storyboardc/MainViewController.nib</key>
 		<data>
-		UD6eusXEfzOvBJMXiCwG2JwQTnI=
+		SQBKbUXdScBi0ObgyB5Ag43n5oo=
 		</data>
 		<key>Resources/Base.lproj/Main.storyboardc/MainWindowController.nib</key>
 		<data>
-		lRQ1tdYzd0b3nePes2OxrXbCoSQ=
+		R5WLHCxQtnkXAAssSAta76MJ6/o=
 		</data>
 		<key>Resources/Base.lproj/Main.storyboardc/NSWindowController-CFc-li-Drx.nib</key>
 		<data>
-		cMXiSl2WyipWRF+TMiuwn2t+nG0=
+		nSOvCEIfWgVqXNs1Q6ctu01aPGA=
 		</data>
 		<key>Resources/Base.lproj/Main.storyboardc/XfG-lQ-9wD-view-m2S-Jp-Qdl.nib</key>
 		<data>
-		bhP61OTtAaan/Ci/SZV112sgKkQ=
+		g4jnvhyEHx62OMxW82Ktdnu4/x0=
 		</data>
 		<key>Resources/Credits.rtf</key>
 		<data>
@@ -46,7 +46,7 @@
 		</data>
 		<key>Resources/Developer/Library/Xprime/Templates/Application Template/icon.png</key>
 		<data>
-		GNJPp5no7TLmc5qjAYmez6DLDFk=
+		tn99BgQN36xnD2+pCXP7T553C+I=
 		</data>
 		<key>Resources/Developer/Library/Xprime/Templates/Application Template/template.hpapp</key>
 		<data>
@@ -140,13 +140,17 @@
 		<data>
 		V4NmBYwIZsv6gu83Z4TX4wEP2uE=
 		</data>
+		<key>Resources/Developer/usr/bin/font</key>
+		<data>
+		pHyu7Vz4TSnqr3V9usSy/EnjBwA=
+		</data>
 		<key>Resources/Developer/usr/bin/grob</key>
 		<data>
-		tYkXSBHSHUUhlWoH8+rcv9JMnHk=
+		HSZsmJyhAEAM1n55zqNyST9QMsw=
 		</data>
 		<key>Resources/Developer/usr/bin/ppl+</key>
 		<data>
-		2Q1ZFefn1Zs0tV8j1V7UVg+3lHw=
+		9E4vSmF+qFbK1Mbm85EsPUDkL3s=
 		</data>
 		<key>Resources/Developer/usr/hpappdir/Fonts.hpappdir/Fonts.hpapp</key>
 		<data>
@@ -154,7 +158,7 @@
 		</data>
 		<key>Resources/Developer/usr/hpappdir/Fonts.hpappdir/Fonts.hpappprgm</key>
 		<data>
-		uX3oa27E/TzVN1YmRWPrw5a2pmE=
+		Ulsy90L99Go0pn4B+euTIQ4BrFs=
 		</data>
 		<key>Resources/Developer/usr/hpappdir/Fonts.hpappdir/icon.png</key>
 		<data>
@@ -166,7 +170,7 @@
 		</data>
 		<key>Resources/Developer/usr/hpappdir/HP.hpappdir/HP.hpappprgm</key>
 		<data>
-		zRvKl1vMD6VsGnM3k645he6trWc=
+		6xpVQWK7cF+7JsOZrLHBPKxqT4k=
 		</data>
 		<key>Resources/Developer/usr/hpappdir/HP.hpappdir/icon.png</key>
 		<data>
@@ -174,15 +178,15 @@
 		</data>
 		<key>Resources/Developer/usr/hpprgm/ColorSpace.hpprgm</key>
 		<data>
-		ijJGzS4M/SfRJdRCZQhsCeaOfvU=
+		fFRlKrNpr6XRMaLCVBx3cQcHhRY=
 		</data>
 		<key>Resources/Developer/usr/hpprgm/GROB.hpprgm</key>
 		<data>
-		thvxatM+siLyRBuSG4oGUlxeP/8=
+		Et7DXNI2AP+pEscGKmTTB5SnpcE=
 		</data>
 		<key>Resources/Developer/usr/hpprgm/HP.hpprgm</key>
 		<data>
-		QPJYErvRE6hDYyDPQidf9PmSBZU=
+		o80ztAH20QSZ3xjIxZKJH/aOK0E=
 		</data>
 		<key>Resources/Developer/usr/include/cspace.prgm+</key>
 		<data>
@@ -222,7 +226,7 @@
 		</data>
 		<key>Resources/Developer/usr/lib/base.re</key>
 		<data>
-		GWqL6A68pioKQhlB5okdrFYjAxE=
+		58a7G11eXEnCv4IxksY6z78I2XY=
 		</data>
 		<key>Resources/Developer/usr/lib/block.re</key>
 		<data>
@@ -247,30 +251,6 @@
 		<key>Resources/Developer/usr/lib/variable.re</key>
 		<data>
 		+lq/KM28Nf05N3QOk+qHPXtt7F0=
-		</data>
-		<key>Resources/Developer/usr/prgm/ARCADE.prgm</key>
-		<data>
-		9urnZ4Vpoad15qOLxA33mcPTRXI=
-		</data>
-		<key>Resources/Developer/usr/prgm/BBC.prgm</key>
-		<data>
-		sIW1POnploaeeeQwhWCK0Iy8u/4=
-		</data>
-		<key>Resources/Developer/usr/prgm/CGA.prgm</key>
-		<data>
-		mwbybSvxeXjs2bp/LV6ypmA5tZU=
-		</data>
-		<key>Resources/Developer/usr/prgm/EGA.prgm</key>
-		<data>
-		3qtHuFH2F3k33adIsbZYeGgdGks=
-		</data>
-		<key>Resources/Developer/usr/prgm/HD44780.prgm</key>
-		<data>
-		6SJVsN46cPpHV1g0iZmWhihaDk4=
-		</data>
-		<key>Resources/Developer/usr/prgm/VGA.prgm</key>
-		<data>
-		9+M6lUaR5lVJmzxYe11opC2Zpck=
 		</data>
 		<key>Resources/Grammars/Prime Plus.xpgrammar</key>
 		<data>
@@ -370,7 +350,7 @@
 		</data>
 		<key>Resources/Help/IMAGE.rtf</key>
 		<data>
-		M7o56tOHm8lcjPTseXvowIocH/E=
+		TP7fbRC0mvxC/w3mF6NMP9XWaz4=
 		</data>
 		<key>Resources/Help/INSTRING.rtf</key>
 		<data>
@@ -486,7 +466,7 @@
 		</data>
 		<key>Resources/Help/TEXT.rtf</key>
 		<data>
-		Hu0xekVR08RdsdZonB5AoBjracY=
+		K8VUsAEf6ZziLlYqndJGWV5R+2U=
 		</data>
 		<key>Resources/Help/TEXTOUT.rtf</key>
 		<data>
@@ -530,7 +510,7 @@
 		</data>
 		<key>Resources/default.metallib</key>
 		<data>
-		i1DwX2YeRC4IL3Hh9mZMHqKS4rQ=
+		9ycLNnfgsWN0flGT0ArmFh0vaAI=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -546,56 +526,56 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			QNS20OSW2v1PteuOJzjYZ38wJO4MlQdx7ulS+7+g0ME=
+			Pze9W46Lvss4pEW0f0rghaDP5ZBhjjEQecI4LifF0CY=
 			</data>
 		</dict>
 		<key>Resources/Base.lproj/Main.storyboardc/HsO-bO-Dfd-view-1RK-mx-rDE.nib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			8brutYWrYOdjCxu6Moop2UDn36ZQAGMjFs9U/mfR3bk=
+			gl7+Ob5z+kAJGWrpqXZsMjjdKffdBNDztqB8UU9yJX8=
 			</data>
 		</dict>
 		<key>Resources/Base.lproj/Main.storyboardc/Info.plist</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			N5NOM/7Hp8eyX8VncmRHkR5xEqurZK5C7Q8fuWwoN0U=
+			iCVDA1+IlkG3kG85m2Z57a42LfvUS9yCILvjZTP2WEg=
 			</data>
 		</dict>
 		<key>Resources/Base.lproj/Main.storyboardc/MainMenu.nib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			FDV8AbSHTeVT7yEWBZ10W4U4EM0ufwKPmoZ7uYxZX50=
+			kSmiTh2tNp36S6eL+CEsDOPlLMeb5lLTAx5mucSGaa4=
 			</data>
 		</dict>
 		<key>Resources/Base.lproj/Main.storyboardc/MainViewController.nib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			TKX5+OS06JKVyFsbtTzKxllDdWWcu5sRUvUYT53ChXk=
+			v+ZTlX8w0SIzx6vGj2IGq4p2wQk8flfaqJ0z6iwNzjs=
 			</data>
 		</dict>
 		<key>Resources/Base.lproj/Main.storyboardc/MainWindowController.nib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			gkuMYdlUNym9+D8KF+CJpAcOToQ1Tqy87mUrX1eQTLw=
+			s0BdU313GaON9M2q0p6Avx/lveTv8ob815mOqEOdkzc=
 			</data>
 		</dict>
 		<key>Resources/Base.lproj/Main.storyboardc/NSWindowController-CFc-li-Drx.nib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			UXxt/INnk6R8YkSpDVAZj1ciWubHv6xq7/4wBo7eQ1s=
+			/AqdGsQAfnmb4n1/7Ltd3j6kOkboP6iMFUcTmZpA9NY=
 			</data>
 		</dict>
 		<key>Resources/Base.lproj/Main.storyboardc/XfG-lQ-9wD-view-m2S-Jp-Qdl.nib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			ca3drmWyCAVYFVMZOPUgwOIlUDao/SqBdMpNVqO9CQM=
+			Bb+oUhPrL11QdkoZrKYMd0RM+1igoQv07GBuAemE/Ng=
 			</data>
 		</dict>
 		<key>Resources/Credits.rtf</key>
@@ -609,7 +589,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			+2kzGQ8ronW7/f/0UVHElMhGehRVWb3xFMir/X/iEbI=
+			8RVbjngxOCahaIHgOGysQcxvgMzNwhXIikHrfuG60i4=
 			</data>
 		</dict>
 		<key>Resources/Developer/Library/Xprime/Templates/Application Template/template.hpapp</key>
@@ -773,18 +753,25 @@
 			Buthw9nA3qOYxLOrnj9ntAOIY+cRKj1M/9DB0ZxfEaw=
 			</data>
 		</dict>
+		<key>Resources/Developer/usr/bin/font</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			aV0fGEgo5cX2jLJs+LLFVvFR/iIi3oGXB3U9ewEIfic=
+			</data>
+		</dict>
 		<key>Resources/Developer/usr/bin/grob</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			zjktHcuQUZfjfMuXspHBwIMQRxOup/yFOc1XtkQsv4s=
+			MVKdKvHYEFQFqHJmwUwII/cDLO/vKDZ+15tiyIOVWQg=
 			</data>
 		</dict>
 		<key>Resources/Developer/usr/bin/ppl+</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			UYuMmgYiDBLvmRxwRtO14o0wTflm4FKxEJAQbRpQKBg=
+			5k336Ge/IqBBZZzoHoH+rLX8nk//+1M2hdD3rBLQKn8=
 			</data>
 		</dict>
 		<key>Resources/Developer/usr/hpappdir/Fonts.hpappdir/Fonts.hpapp</key>
@@ -798,7 +785,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			r0oUYWTuTHwWHn67zoG02unoUNk72Yh2/mad3TDwTJQ=
+			qOAQx1gg40jM/pfqY9u15Tfkfja6URJBZjCQYO6UG/g=
 			</data>
 		</dict>
 		<key>Resources/Developer/usr/hpappdir/Fonts.hpappdir/icon.png</key>
@@ -819,7 +806,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			wMtAze2yJdxABM7XMblGS7qOfHVn6Msy2dWYzs0wAaM=
+			31Q1NZGKmPYxxoczwLv7Zgf97mt9fp3wCuuWMUPUkFs=
 			</data>
 		</dict>
 		<key>Resources/Developer/usr/hpappdir/HP.hpappdir/icon.png</key>
@@ -833,21 +820,21 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			MSm88qt4+MDIUZk2IgfwKoPhyP0O4vtWc6MeZDFHZaM=
+			+7x3qXA46kDYkXfcxQBv7hRfKS8yS75NVQS7jlvf8E0=
 			</data>
 		</dict>
 		<key>Resources/Developer/usr/hpprgm/GROB.hpprgm</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			5g2edekvHzJhdOF/bZ5VbWtrvMbuJhCRsF21t855mKU=
+			T590ZVW7YqA/ue/MNl1tSIHQvhLMUx3JZe8OTxAlT3U=
 			</data>
 		</dict>
 		<key>Resources/Developer/usr/hpprgm/HP.hpprgm</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			/bNZrRMB4slH8ryBQiBb2DwswKGw/moxj7XLpDVfl+M=
+			AKKpbNqHI8akhl3/gXw+MvjCwjoe6txvP3Yihb6g3lE=
 			</data>
 		</dict>
 		<key>Resources/Developer/usr/include/cspace.prgm+</key>
@@ -917,7 +904,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			dPO8z8xqaDSP/cdTJ5c/VQgIpkXX4oA5wSFlOuxDiUg=
+			h8bJ3IH75FgVtJTmRB7fC27awn8MFgbv3YNutpOBsM4=
 			</data>
 		</dict>
 		<key>Resources/Developer/usr/lib/block.re</key>
@@ -960,48 +947,6 @@
 			<key>hash2</key>
 			<data>
 			RotWoTnwoeShSQCCxS8ukfL7ozXrc3M5oFfimOJA0rM=
-			</data>
-		</dict>
-		<key>Resources/Developer/usr/prgm/ARCADE.prgm</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			+Hx+B4j7lATwDam2yMpvJABNzINXX9Xs3ediII7JFaA=
-			</data>
-		</dict>
-		<key>Resources/Developer/usr/prgm/BBC.prgm</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			Q1bT4TDtNmvUjalINAo++qI6E2+HHsZDU97QseDKbhc=
-			</data>
-		</dict>
-		<key>Resources/Developer/usr/prgm/CGA.prgm</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			C5vyduXoivVJ21HuhA0bTIIkyGzOP0pHKaPoMDtJyUg=
-			</data>
-		</dict>
-		<key>Resources/Developer/usr/prgm/EGA.prgm</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			3L8PE07xsP3CA5SvnM6LZSjyWfRD2nx1p2j5rEagy0c=
-			</data>
-		</dict>
-		<key>Resources/Developer/usr/prgm/HD44780.prgm</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			MnBZiG+m4iseqgBDUuyx8TglEBLDRyHgvMjkSX3wxC8=
-			</data>
-		</dict>
-		<key>Resources/Developer/usr/prgm/VGA.prgm</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			KWHIqxY5nb0B+p00IFKCRo0NRpp0xNnEysrBF0sF/Wk=
 			</data>
 		</dict>
 		<key>Resources/Grammars/Prime Plus.xpgrammar</key>
@@ -1176,7 +1121,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			w/xaMwE2/L/UkeKOW6AgJDhZUvPyMFtUEMeWIhDTc+Q=
+			B5pt23UEWRZchOoh+eTNFhyzSmN8JBQDOpJXPSSSWj4=
 			</data>
 		</dict>
 		<key>Resources/Help/INSTRING.rtf</key>
@@ -1379,7 +1324,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			/voG+Sa0tCpDsRDuURUL87VDKfI2MIoTbbwlorxfb8Y=
+			1Dlq+N8zEGHWRzy888w9wDN03u9omjlrqbElA8JuOBE=
 			</data>
 		</dict>
 		<key>Resources/Help/TEXTOUT.rtf</key>
@@ -1456,7 +1401,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			VJ/H3EYWsT/Kg4gKJpVgICIL7m99CUHObsbQxRb1+wE=
+			7B58VSl+I7bmRP4lTeFCwjU7v/cjTrnc45g70ZXCJAc=
 			</data>
 		</dict>
 	</dict>
