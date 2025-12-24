@@ -34,13 +34,19 @@ struct AppSettings {
         case selectedTheme
         case selectedGrammar
         case HPPrime
-        case compressHPPRGM
+        case compression
         case calculatorName
+        case archiveProjectAppOnly
     }
     
-    static var compressHPPRGM: Bool {
-        get { defaults.object(forKey: Key.compressHPPRGM.rawValue) as? Bool ?? false }
-        set { defaults.set(newValue, forKey: Key.compressHPPRGM.rawValue) }
+    static var archiveProjectAppOnly: Bool {
+        get { defaults.object(forKey: Key.archiveProjectAppOnly.rawValue) as? Bool ?? false }
+        set { defaults.set(newValue, forKey: Key.archiveProjectAppOnly.rawValue) }
+    }
+    
+    static var compression: Bool {
+        get { defaults.object(forKey: Key.compression.rawValue) as? Bool ?? false }
+        set { defaults.set(newValue, forKey: Key.compression.rawValue) }
     }
 
     static var librarySearchPath: String {

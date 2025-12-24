@@ -30,88 +30,162 @@ final class SettingsViewController: NSViewController, NSTextFieldDelegate {
     @IBOutlet weak var headerSearchPath: NSTextField!
     @IBOutlet weak var macOS: NSButton!
     @IBOutlet weak var Wine: NSButton!
-    @IBOutlet weak var compressHPPRGM: NSButton!
-    @IBOutlet weak var calculatorName: NSTextField!
+    @IBOutlet weak var compressionSwitch: NSSwitch!
     @IBOutlet weak var calculator: NSImageView!
+    @IBOutlet weak var archiveProjectAppOnly: NSSwitch!
+    
+    @IBOutlet weak var calculatorComboButton: NSComboButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        updateUIFromSettings()
-        calculatorName.delegate = self
-    }
-  
-    func controlTextDidChange(_ obj: Notification) {
-        guard let textField = obj.object as? NSTextField else { return }
-
-        switch textField.tag {
-        case 3:
-            if HPServices.hpPrimeCalculatorExists(named: textField.stringValue) {
-                calculator.image = NSImage(named: "ConnectivityKit")
-                return
-            }
-            calculator.image = NSImage(named: "VirtualCalculator")
-        default:
-            break
-        }
-    }
-    
-    @IBAction func platform(_ sender: Any) {
-    }
-    
-    @IBAction func defaultHeaderSearchPath(_ sender: Any) {
-        headerSearchPath.stringValue = "$(SDK)/include"
-    }
-    
-    @IBAction func defaultLibarySearchPath(_ sender: Any) {
-        librarySearchPath.stringValue = "$(SDK)/lib"
-    }
-    
-    @IBAction func close(_ sender: Any) {
-        AppSettings.librarySearchPath = librarySearchPath.stringValue
-        AppSettings.headerSearchPath = headerSearchPath.stringValue
         
-        AppSettings.HPPrime = macOS.state == .on ? "macOS" : "Wine"
-        AppSettings.compressHPPRGM = compressHPPRGM.state == .on
+        librarySearchPath.delegate = self
+        headerSearchPath.delegate = self
         
-        if HPServices.hpPrimeCalculatorExists(named: calculatorName.stringValue) {
-            AppSettings.calculatorName = calculatorName.stringValue
-        } else {
-            AppSettings.calculatorName = "Prime"
-        }
-        
-        self.view.window?.close()
-    }
-
-    @IBAction func cancel(_ sender: Any) {
-        self.view.window?.close()
-    }
-    
-    private func updateUIFromSettings() {
         librarySearchPath.stringValue = AppSettings.librarySearchPath
         headerSearchPath.stringValue = AppSettings.headerSearchPath
         
         if !FileManager.default.fileExists(atPath: "/Applications/Wine.app/Contents/MacOS/wine") {
             macOS.isEnabled = false
             Wine.isEnabled = false
-        }
-        
-        if AppSettings.HPPrime == "macOS" {
-            macOS.state = .on
-            Wine.state = .off
+            AppSettings.HPPrime = "macOS"
         } else {
-            macOS.state = .off
-            Wine.state = .on
+            if AppSettings.HPPrime == "macOS" {
+                macOS.state = .on
+                Wine.state = .off
+            } else {
+                macOS.state = .off
+                Wine.state = .on
+            }
         }
         
-        compressHPPRGM.state = AppSettings.compressHPPRGM ? .on : .off
-        calculatorName.stringValue = AppSettings.calculatorName
+        compressionSwitch.state = AppSettings.compression ? .on : .off
+        archiveProjectAppOnly.state = AppSettings.archiveProjectAppOnly ? .on : .off
         
         if HPServices.hpPrimeCalculatorExists(named: AppSettings.calculatorName) {
             calculator.image = NSImage(named: "ConnectivityKit")
         } else {
             calculator.image = NSImage(named: "VirtualCalculator")
         }
+        
+        let menu = NSMenu()
+        menu.addItem(withTitle: "Virtual Calculator", action: #selector(optionSelected(_:)), keyEquivalent: "")
+        menu.addItem(withTitle: "HP Connectivity Kit", action: #selector(optionSelected(_:)), keyEquivalent: "")
+        menu.addItem(.separator())
+       
+        
+        let connectivityKitURL = FileManager.default.homeDirectoryForCurrentUser
+            .appendingPathComponent("Documents/HP Connectivity Kit/Calculators")
+        
+        let contents = try? FileManager.default.contentsOfDirectory(
+            at: connectivityKitURL,
+            includingPropertiesForKeys: [.isDirectoryKey],
+            options: [.skipsHiddenFiles]
+        )
+
+        contents?
+            .filter { (try? $0.resourceValues(forKeys: [.isDirectoryKey]).isDirectory) == true }
+            .forEach { url in
+                if url.lastPathComponent != "Prime" && url.lastPathComponent != "HP Prime" {
+                    menu.addItem(
+                        withTitle: url.lastPathComponent,
+                        action: #selector(optionSelected(_:)),
+                        keyEquivalent: ""
+                    )
+                }
+            }
+
+        calculatorComboButton.menu = menu
+        if let defaultItem = menu.items.first {
+            calculatorComboButton.title = defaultItem.title
+        }
+        
+        switch AppSettings.calculatorName {
+        case "Prime":
+            calculatorComboButton.title = "Virtual Calculator"
+            break;
+            
+        case "HP Prime":
+            calculatorComboButton.title = "HP Connectivity Kit"
+            break;
+            
+        default:
+            calculatorComboButton.title = AppSettings.calculatorName
+        }
+        
+    }
+  
+    func controlTextDidChange(_ obj: Notification) {
+        guard let textField = obj.object as? NSTextField else { return }
+
+        switch textField.tag {
+        case 1:
+            AppSettings.headerSearchPath = textField.stringValue
+            break;
+        case 2:
+            AppSettings.librarySearchPath = textField.stringValue
+            break;
+        default:
+            break
+        }
     }
     
+    @IBAction func calculatorComboButtonTapped(_ sender: NSComboButton) {
+        // Handle selection or present menu items here
+    }
     
+    @objc func optionSelected(_ sender: NSMenuItem) {
+        calculatorComboButton.title = sender.title
+        if sender.title == "Virtual Calculator" {
+            calculator.image = NSImage(named: "VirtualCalculator")
+            AppSettings.calculatorName = "Prime"
+        } else {
+            if sender.title == "Connectivity Kit" {
+                AppSettings.calculatorName = "HP Prime"
+            } else {
+                AppSettings.calculatorName = sender.title
+            }
+            calculator.image = NSImage(named: "ConnectivityKit")
+        }
+    }
+
+    
+    @IBAction func platform(_ sender: NSButton) {
+        if sender.title == "macOS" {
+            AppSettings.HPPrime = sender.state == .on ? "macOS" : "Wine"
+        } else {
+            AppSettings.HPPrime = sender.state == .on ? "Wine" : "macOS"
+        }
+    }
+    
+    @IBAction func compressionSwitchToggled(_ sender: NSSwitch) {
+        AppSettings.compression = sender.state == .on
+    }
+    
+    @IBAction func archiveProjectAppOnlySwitchToggled(_ sender: NSSwitch) {
+        AppSettings.archiveProjectAppOnly = sender.state == .on
+    }
+    
+    @IBAction func defaultSettings(_ sender: Any) {
+        headerSearchPath.stringValue = "$(SDK)/include"
+        librarySearchPath.stringValue = "$(SDK)/lib"
+        macOS.state = .on
+        Wine.state = .off
+        compressionSwitch.state = .off
+        calculatorComboButton.title = "Virtual Calculator"
+        calculator.image = NSImage(named: "VirtualCalculator")
+        
+        AppSettings.headerSearchPath = "$(SDK)/include"
+        AppSettings.librarySearchPath = "$(SDK)/lib"
+        AppSettings.HPPrime = "macOS"
+        AppSettings.compression = false
+        AppSettings.calculatorName = "Virtual Calculator"
+        AppSettings.archiveProjectAppOnly = true
+    }
+    
+ 
+    @IBAction func close(_ sender: Any) {
+        self.view.window?.close()
+    }
 }
+

@@ -49,16 +49,6 @@ fileprivate func launchApplication(named appName: String, arguments: [String] = 
 }
 
 
-
-//        guard let enumerator = FileManager.default.enumerator(atPath: parentURL.path) else { return }
-//        for case let fileURL as URL in enumerator where fileURL.pathExtension == "hpprgm" {
-//            let fileName = fileURL.deletingPathExtension().lastPathComponent
-//            if fileName == name {
-//                continue
-//            }
-//
-//        }
-
 enum HPServices {
     static let sdkURL = URL(fileURLWithPath: Bundle.main.bundleURL.path).appendingPathComponent("Contents/Resources/Developer/usr")
 

@@ -25,18 +25,18 @@
 import Cocoa
 
 @IBDesignable
-open class CustomButton: NSButton {
-	public required init?(coder: NSCoder) {
-		super.init(coder: coder)
-		setup()
-	}
+open class CustomComboButton: NSComboButton {
+    public required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setup()
+    }
 
-	override init(frame: CGRect) {
-		super.init(frame: frame)
-		setup()
-	}
-
-	private func setup() {
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setup()
+    }
+    
+    private func setup() {
         wantsLayer = true
         
         if let layer = layer {
@@ -44,9 +44,9 @@ open class CustomButton: NSButton {
             layer.cornerRadius = 6
             layer.borderWidth = 1
             layer.borderColor = .init(gray: 0.25, alpha: 1.0)
-            layer.backgroundColor = .init(gray: 0.05, alpha: 1.0)
+            layer.backgroundColor = .init(gray: 0, alpha: 1.0)
         }
         
-		needsDisplay = true
-	}
+        needsDisplay = true
+    }
 }

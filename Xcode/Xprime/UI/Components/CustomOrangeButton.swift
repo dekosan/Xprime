@@ -25,28 +25,25 @@
 import Cocoa
 
 @IBDesignable
-open class CustomButton: NSButton {
-	public required init?(coder: NSCoder) {
-		super.init(coder: coder)
-		setup()
-	}
+open class CustomOrangeButton: CustomButton {
+    public required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setup()
+    }
 
-	override init(frame: CGRect) {
-		super.init(frame: frame)
-		setup()
-	}
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setup()
+    }
 
-	private func setup() {
+    private func setup() {
         wantsLayer = true
         
         if let layer = layer {
-            layer.masksToBounds = false
-            layer.cornerRadius = 6
-            layer.borderWidth = 1
-            layer.borderColor = .init(gray: 0.25, alpha: 1.0)
-            layer.backgroundColor = .init(gray: 0.05, alpha: 1.0)
+            layer.borderColor = .init(red: 0.625, green: 0.25, blue: 0.0, alpha: 1.0)
+            layer.backgroundColor = .init(red: 1.0, green: 0.4, blue: 0.0, alpha: 1.0)
         }
         
-		needsDisplay = true
-	}
+        needsDisplay = true
+    }
 }

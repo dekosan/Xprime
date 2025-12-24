@@ -28,6 +28,7 @@ fileprivate struct Project: Codable {
     let lib: String
     let calculator: String
     let bin: String
+    let archiveProjectAppOnly: Bool
 }
 
 enum XprimeProjectService {
@@ -53,7 +54,7 @@ enum XprimeProjectService {
             return
         }
         
-        AppSettings.compressHPPRGM = project.compression
+        AppSettings.compression = project.compression
         AppSettings.headerSearchPath = project.include
         AppSettings.librarySearchPath = project.lib
         AppSettings.calculatorName = project.calculator
@@ -63,11 +64,12 @@ enum XprimeProjectService {
     static func save(to dirURL: URL, named name: String) {
         let projectURL = dirURL.appendingPathComponent(name + ".xprimeproj")
         let project = Project(
-            compression: AppSettings.compressHPPRGM,
+            compression: AppSettings.compression,
             include: AppSettings.headerSearchPath,
             lib: AppSettings.librarySearchPath,
             calculator: AppSettings.calculatorName,
-            bin: ""
+            bin: "",
+            archiveProjectAppOnly: AppSettings.archiveProjectAppOnly
         )
         do {
             let encoder = JSONEncoder()

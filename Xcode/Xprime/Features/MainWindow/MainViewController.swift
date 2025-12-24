@@ -439,7 +439,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             .appendingPathExtension("hpappdir")
             .appendingPathComponent(projectName)
             .appendingPathExtension("hpappprgm"),
-            compress: AppSettings.compressHPPRGM
+            compress: AppSettings.compression
         )
         outputTextView.string = result.err ?? ""
     }
@@ -578,7 +578,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             .appendingPathExtension("hpprgm")
         
         
-        let result = HPServices.preProccess(at: sourceURL, to: destinationURL,  compress: AppSettings.compressHPPRGM)
+        let result = HPServices.preProccess(at: sourceURL, to: destinationURL,  compress: AppSettings.compression)
         outputTextView.string = result.err ?? ""
     }
     
@@ -763,7 +763,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             allowedExtensions: ["hpprgm"],
             defaultName: defaultName
         ) { outputURL in
-            HPServices.preProccess(at: currentURL, to: outputURL, compress: AppSettings.compressHPPRGM)
+            HPServices.preProccess(at: currentURL, to: outputURL, compress: AppSettings.compression)
         }
     }
     
