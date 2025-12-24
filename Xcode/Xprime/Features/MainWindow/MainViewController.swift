@@ -457,7 +457,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             .appendingPathComponent(projectName)
             .appendingPathExtension("hpappdir")
         
-        if dirA.isNewer(than: dirB) {
+        if dirA.isNewer(than: dirB), AppSettings.archiveProjectAppOnly == false {
             url = dirA.deletingLastPathComponent()
             self.outputTextView.string = "Archiving from the virtual calculator directory.\n"
         } else {
