@@ -22,9 +22,9 @@ function toRtf(text) {
         .replace(/&lt;=/g, '≤}')      // ≤
         .replace(/&gt;/g, '>')        // >
         .replace(/&lt;/g, '<')        // <
-        .replace(/[\u0080-\uFFFF]/g, c => `\\u${c.charCodeAt(0)}?`); // Unicode
-//        .replace(/\n +/g, '\\par ');
-//        .replace(/\r?\n/g, '\\par ');  // line breaks
+        .replace(/[\u0080-\uFFFF]/g, c => `\\u${c.charCodeAt(0)}?`) // Unicode
+        .replace(/\n +/g, '\\par ')
+        .replace(/\r?\n/g, '\\par ');  // line breaks
 }
 
 function toFileName(name) {
