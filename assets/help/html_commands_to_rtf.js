@@ -4,7 +4,7 @@ const path = require('path');
 const html = fs.readFileSync('commands.html', 'utf8');
 
 // Ensure output folder exists
-const outputDir = path.join(__dirname, 'rtf_output');
+const outputDir = path.join(__dirname, '../../Xcode/Xprime/Resources/Help');
 if (!fs.existsSync(outputDir)) {
     fs.mkdirSync(outputDir);
 }
@@ -21,8 +21,11 @@ function toRtf(text) {
         .replace(/[\u0080-\uFFFF]/g, c => `\\u${c.charCodeAt(0)}?`) // Unicode
         .replace(/&gt;/g, '>')        // >
         .replace(/&lt;/g, '<')        // <
+        .replace(/&quot;/g, '"')      // "
+        .replace(/&apos;/g, '\'')     // "
+        .replace(/&nbsp;/g, ' ')      // "
         .replace(/\n +/g, '\\par ')
-        .replace(/\r?\n/g, '\\par ');  // line breaks
+        .replace(/\r?\n/g, '\\par '); // line breaks
 }
 
 function toFileName(name) {
