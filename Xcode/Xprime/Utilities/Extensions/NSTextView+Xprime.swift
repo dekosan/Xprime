@@ -25,13 +25,29 @@ import Cocoa
 extension NSTextView {
     func syntaxHighlight() {
         guard let textStorage = textStorage else { return }
+        
+        lazy var baseAttributes: [NSAttributedString.Key: Any] = {
+            let font = NSFont.systemFont(ofSize: 13, weight: .regular)
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.lineSpacing = 0
+            paragraphStyle.paragraphSpacing = 0
+            paragraphStyle.alignment = .left
+            
+            return [
+                .font: font,
+                .foregroundColor: NSColor.textColor,
+                .kern: 0,
+                .ligature: 0,
+                .paragraphStyle: paragraphStyle
+            ]
+        }()
 
         let text = textStorage.string as NSString
         let fullRange = NSRange(location: 0, length: text.length)
 
         let patterns: [(pattern: String, color: NSColor)] = [
             (#"(?m)\b(BEGIN|END|RETURN|KILL|IF|THEN|ELSE|XOR|OR|AND|NOT|CASE|DEFAULT|IFERR|IFTE|FOR|FROM|STEP|DOWNTO|TO|DO|WHILE|REPEAT|UNTIL|BREAK|CONTINUE|EXPORT|CONST|LOCAL|KEY)\b"#, .systemBlue),
-            (#"(?mi)[%a-z\u0080-\uFFFF][\w\u0080-\uFFFF]*(?=\s*\()"#, .systemOrange),
+            (#"(?mi)[%a-z\u0080-\uFFFF][\w\u0080-\uFFFF]*(?=\()"#, .systemOrange),
             (#"[\u0080-\uFFFF]+"#, .systemOrange),
             (#"[▶:=+\-*/<>≠≤≥]+"#, .systemGray),
             (#"[{}()\[\]]+"#, .systemGray),
@@ -45,6 +61,7 @@ extension NSTextView {
         // Reset color to default (important)
         let defaultColor = textColor ?? .labelColor
         textStorage.addAttribute(.foregroundColor, value: defaultColor, range: fullRange)
+        textStorage.setAttributes(baseAttributes, range: fullRange)
 
         // Apply syntax highlighting
         for (pattern, color) in patterns {

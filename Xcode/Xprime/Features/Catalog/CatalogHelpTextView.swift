@@ -40,7 +40,8 @@ final class CatalogHelpTextView: NSTextView {
     
     // MARK: - Setup
     private func setupEditor() {
-        font = NSFont.monospacedSystemFont(ofSize: 13, weight: .regular)
+        font = NSFont.systemFont(ofSize: 13, weight: .regular, width: .standard)
+//        font = NSFont.monospacedSystemFont(ofSize: 13, weight: .regular)
         isAutomaticQuoteSubstitutionEnabled = false
         isAutomaticDataDetectionEnabled = false
         isAutomaticDashSubstitutionEnabled = false

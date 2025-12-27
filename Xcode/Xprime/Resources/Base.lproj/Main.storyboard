@@ -59,7 +59,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="500" height="218"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <textView wantsLayer="YES" importsGraphics="NO" richText="NO" verticallyResizable="YES" spellingCorrection="YES" smartInsertDelete="YES" id="v61-61-qWD" customClass="CatalogHelpTextView" customModule="Xprime" customModuleProvider="target">
+                                        <textView wantsLayer="YES" focusRingType="none" editable="NO" selectable="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" allowsCharacterPickerTouchBarItem="NO" textCompletion="NO" id="v61-61-qWD" customClass="CatalogHelpTextView" customModule="Xprime" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="0.0" width="500" height="218"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -1213,7 +1213,7 @@ Gw
                                             <rect key="frame" x="0.0" y="0.0" width="800" height="0.0"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <textView wantsLayer="YES" editable="NO" importsGraphics="NO" richText="NO" verticallyResizable="NO" spellingCorrection="YES" smartInsertDelete="YES" id="d5b-pO-KOi" customClass="OutputTextView" customModule="Xprime" customModuleProvider="target">
+                                                <textView wantsLayer="YES" focusRingType="none" editable="NO" selectable="NO" importsGraphics="NO" richText="NO" verticallyResizable="NO" allowsCharacterPickerTouchBarItem="NO" textCompletion="NO" id="d5b-pO-KOi" customClass="OutputTextView" customModule="Xprime" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="0.0" width="800" height="14"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -1317,7 +1317,7 @@ Gw
         <image name="folder" catalog="system" width="18" height="14"/>
         <image name="gear" catalog="system" width="17" height="16"/>
         <image name="hammer" catalog="system" width="20" height="18"/>
-        <image name="hammer.fill" catalog="system" width="19" height="17"/>
+        <image name="hammer.fill" catalog="system" width="15" height="14"/>
         <image name="icon" width="38" height="38"/>
         <image name="inset.filled.topthird.square" catalog="system" width="15" height="14"/>
         <image name="long.text.page.and.pencil.fill" catalog="system" width="17" height="19"/>
