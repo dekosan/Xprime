@@ -34,8 +34,8 @@ final class QuickHelpViewController: NSViewController {
     required init?(coder: NSCoder) { fatalError() }
 
     override func loadView() {
-        guard let rtfURL = Bundle.main.url(forResource: symbol.uppercased(), withExtension: "rtf", subdirectory: "Help") else {
-            print("⚠️ No .rtf file found.")
+        guard let txtURL = Bundle.main.url(forResource: symbol.uppercased(), withExtension: "txt", subdirectory: "Help") else {
+            print("⚠️ No .txt file found.")
             return
         }
         
@@ -43,24 +43,17 @@ final class QuickHelpViewController: NSViewController {
         textView.isEditable = false
         textView.isSelectable = false
         textView.drawsBackground = false
-
-        if let data = try? Data(contentsOf: rtfURL),
-           let attr = try? NSAttributedString(
-            data: data,
-            options: [.documentType: NSAttributedString.DocumentType.rtf],
-            documentAttributes: nil
-           ) {
-            let mutable = NSMutableAttributedString(attributedString: attr)
-            
-            mutable.enumerateAttribute(.foregroundColor,
-                                       in: NSRange(location: 0, length: mutable.length)) { _, range, _ in
-                mutable.addAttribute(.foregroundColor,
-                                     value: NSColor.labelColor,
-                                     range: range)
-            }
-            textView.textStorage?.setAttributedString(mutable)
+        
+        do {
+            let text = try String(contentsOf: txtURL, encoding: .utf8)
+            textView.string = text
+        } catch {
+            // Failed to read TXT contents. Clear the view and optionally log.
+            #if DEBUG
+            NSLog("Failed to load TXT for command \(command): \(error.localizedDescription)")
+            #endif
+            return
         }
-            
     
         let view = NSView()
         textView.syntaxHighlight()

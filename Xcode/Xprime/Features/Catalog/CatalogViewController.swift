@@ -36,7 +36,7 @@ final class CatalogViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        guard let resourceURLs = Bundle.main.urls(forResourcesWithExtension: "rtf", subdirectory: "Help") else {
+        guard let resourceURLs = Bundle.main.urls(forResourcesWithExtension: "txt", subdirectory: "Help") else {
             return
         }
         
@@ -65,14 +65,14 @@ final class CatalogViewController: NSViewController {
     }
     
     private func loadHelp(for command: String) {
-        guard let rtfURL = Bundle.main.url(forResource: command, withExtension: "rtf", subdirectory: "Help") else {
-            // ⚠️ No .rtf file found.
+        guard let txtURL = Bundle.main.url(forResource: command, withExtension: "txt", subdirectory: "Help") else {
+            // ⚠️ No .txt file found.
             catalogHelpTextView.string = ""
             return
         }
         
         do {
-            let text = try String(rtfContentsOf: rtfURL)
+            let text = try String(contentsOf: txtURL, encoding: .utf8)
             catalogHelpTextView.string = text
             catalogHelpTextView.syntaxHighlight()
             catalogHelpTextView.highlightBold("Syntax:")
@@ -96,13 +96,13 @@ final class CatalogViewController: NSViewController {
     private func populateCatalogComboButtonMenu() {
         var catalog: [String] = []
         
-        guard let resourceURLs = Bundle.main.urls(forResourcesWithExtension: "rtf", subdirectory: "Help") else {
+        guard let resourceURLs = Bundle.main.urls(forResourcesWithExtension: "txt", subdirectory: "Help") else {
             return
         }
         
         for fileURL in resourceURLs {
             let command = fileURL.deletingPathExtension().lastPathComponent
-            catalog.append(command)
+            catalog.append(command.customPercentDecoded())
         }
         
         catalog.sort {
@@ -124,7 +124,7 @@ final class CatalogViewController: NSViewController {
     
     @objc func catalogSelectItem(_ sender: NSMenuItem) {
         catalogComboButton.title = sender.title
-        loadHelp(for: sender.title)
+        loadHelp(for: sender.title.customPercentEncoded())
     }
 }
 
