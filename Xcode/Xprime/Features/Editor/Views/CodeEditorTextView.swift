@@ -48,22 +48,6 @@ final class CodeEditorTextView: NSTextView {
     var weight: NSFont.Weight = .medium
     var editorForegroundColor = NSColor(.white)
     
-//    lazy var baseAttributes: [NSAttributedString.Key: Any] = {
-//        let font = NSFont.monospacedSystemFont(ofSize: 12, weight: weight)
-//        let paragraphStyle = NSMutableParagraphStyle()
-//        paragraphStyle.lineSpacing = 0
-//        paragraphStyle.paragraphSpacing = 0
-//        paragraphStyle.alignment = .left
-//        
-//        return [
-//            .font: font,
-//            .foregroundColor: NSColor.textColor,
-//            .kern: 0,
-//            .ligature: 0,
-//            .paragraphStyle: paragraphStyle
-//        ]
-//    }()
-    
     private let syntaxHighlighter = SyntaxHighlighter()
     
     // MARK: - Initializers
