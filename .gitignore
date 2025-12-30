@@ -5,3 +5,4 @@ rtf_output
 build
 make
 *.pkg
+ignore

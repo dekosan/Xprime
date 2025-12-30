@@ -128,7 +128,7 @@ end;
 export START()
 begin
     MAD::Init;
-    WAIT;
+    WAIT();
     MAD::Draw;
-    WAIT;
+    WAIT();
 end;
