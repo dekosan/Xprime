@@ -11,6 +11,6 @@ Xprime **25**
 <a href="https://insoft.uk/action/?method=downlink&path=macos&file=Xprime_v1_0_5.pkg">Version 1.0.5 (20251225)</a>
 
 Xprime **26**
-<a href="https://insoft.uk/action/?method=downlink&path=macos&file=Xprime.pkg">Version 1.0.6 Preview (20251229)</a>
+<a href="https://insoft.uk/action/?method=downlink&path=macos&file=Xprime.pkg">Version 1.0.6 Preview (20251230)</a>
 
 
