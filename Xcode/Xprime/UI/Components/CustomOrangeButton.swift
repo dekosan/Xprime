@@ -38,7 +38,6 @@ open class CustomOrangeButton: CustomButton {
         wantsLayer = true
         
         if let layer = layer {
-            layer.borderColor = .init(red: 0.625, green: 0.25, blue: 0.0, alpha: 1.0)
             layer.backgroundColor = .init(red: 1.0, green: 0.4, blue: 0.0, alpha: 1.0)
         }
         

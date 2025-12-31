@@ -192,6 +192,12 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                 currentURL = nil
             }
         }
+        
+        guard let window = view.window else { return }
+        
+        window.isOpaque = false
+        window.backgroundColor = NSColor(white: 0, alpha: 0.9)
+        window.titlebarAppearsTransparent = true
     }
     
    
@@ -1236,6 +1242,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         sender.state = codeEditorTextView.smartSubtitution ? .on : .off
     }
     
+    // MARK: - Output Information
     
     @IBAction func toggleOutput(_ sender: NSButton) {
         let shouldShow = outputScrollView.isHidden
@@ -1243,6 +1250,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         if shouldShow {
             outputScrollView.isHidden = false
             sender.contentTintColor = .systemBlue
+            outputScrollView.hasVerticalScroller = true
         } else {
             outputScrollView.isHidden = true
             sender.contentTintColor = .systemGray

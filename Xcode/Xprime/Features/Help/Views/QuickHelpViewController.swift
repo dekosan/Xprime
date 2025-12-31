@@ -38,44 +38,55 @@ final class QuickHelpViewController: NSViewController {
             print("⚠️ No .txt file found.")
             return
         }
-        
+
+        // Create a scroll view
+        let scrollView = NSScrollView()
+        scrollView.hasVerticalScroller = true
+        scrollView.hasHorizontalScroller = false
+        scrollView.autohidesScrollers = true
+        scrollView.drawsBackground = false   // Make scroll view background transparent
+
+        // Create the text view
         let textView = NSTextView()
         textView.isEditable = false
         textView.isSelectable = false
-        textView.drawsBackground = false
-        
+        textView.drawsBackground = false     // Make text view background transparent
+
         do {
             let text = try String(contentsOf: txtURL, encoding: .utf8)
             textView.string = text
         } catch {
-            // Failed to read TXT contents. Clear the view and optionally log.
             #if DEBUG
-            NSLog("Failed to load TXT for command \(command): \(error.localizedDescription)")
+            NSLog("Failed to load TXT for symbol \(symbol): \(error.localizedDescription)")
             #endif
             return
         }
-    
-        let view = NSView()
+
+        // Apply highlighting
         textView.syntaxHighlight()
         textView.highlightBold("Syntax:", caseInsensitive: false)
         textView.highlightBold("Example:", caseInsensitive: false)
         textView.highlightBold("Note:", caseInsensitive: false)
-        view.addSubview(textView)
-        
-        textView.translatesAutoresizingMaskIntoConstraints = false
+
+        // Embed text view in scroll view
+        scrollView.documentView = textView
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+
+        let view = NSView()
+        view.wantsLayer = true
+        view.layer?.backgroundColor = NSColor.clear.cgColor   // Transparent background
+        view.addSubview(scrollView)
+
         NSLayoutConstraint.activate([
-            textView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-            textView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
-            textView.topAnchor.constraint(equalTo: view.topAnchor, constant: 10),
-            textView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            scrollView.topAnchor.constraint(equalTo: view.topAnchor, constant: 10),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10),
         ])
 
         self.view = view
         preferredContentSize = NSSize(width: 500, height: 250)
-        
-        
     }
-    
 }
 
 

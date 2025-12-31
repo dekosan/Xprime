@@ -41,7 +41,6 @@ final class CatalogHelpTextView: NSTextView {
     // MARK: - Setup
     private func setupEditor() {
         font = NSFont.systemFont(ofSize: 13, weight: .regular, width: .standard)
-//        font = NSFont.monospacedSystemFont(ofSize: 13, weight: .regular)
         isAutomaticQuoteSubstitutionEnabled = false
         isAutomaticDataDetectionEnabled = false
         isAutomaticDashSubstitutionEnabled = false
@@ -51,6 +50,6 @@ final class CatalogHelpTextView: NSTextView {
         isContinuousSpellCheckingEnabled = false
         
         textContainerInset = NSSize(width: 20, height: 20)
-        backgroundColor = NSColor.black
+        backgroundColor = NSColor.clear
     }
 }

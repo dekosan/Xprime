@@ -84,16 +84,17 @@ final class EditorThemeApplier {
         editor.font = .monospacedSystemFont(ofSize: 12 , weight: editor.weight)
         
 
+        editor.colors["Functions"] = color(for: "Functions")
         editor.colors["Keywords"] = color(for: "Keywords")
+        editor.colors["Namespace"] = color(for: "Namespace")
         editor.colors["Symbols"] = color(for: "Symbols")
         editor.colors["Operators"] = color(for: "Operators")
         editor.colors["Brackets"] = color(for: "Brackets")
+        editor.colors["Units"] = color(for: "Units")
         editor.colors["Numbers"] = color(for: "Numbers")
         editor.colors["Strings"] = color(for: "Strings")
-        editor.colors["Comments"] = color(for: "Comments")
         editor.colors["Backquotes"] = color(for: "Backquotes")
         editor.colors["Preprocessor Statements"] = color(for: "Preprocessor Statements")
-        editor.colors["Functions"] = color(for: "Functions")
-        editor.colors["Namespace"] = color(for: "Namespace")
+        editor.colors["Comments"] = color(for: "Comments")
     }
 }

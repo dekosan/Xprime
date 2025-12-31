@@ -73,6 +73,12 @@
             "settings": {
                 "foreground": "#f09748"
             }
+        },
+        {
+            "scope": ["Units"],
+            "settings": {
+                "foreground": "#ffffff"
+            }
         }
     ]
 }

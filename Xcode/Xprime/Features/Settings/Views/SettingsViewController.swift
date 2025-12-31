@@ -23,7 +23,7 @@
 import Cocoa
 
 
-final class SettingsViewController: NSViewController, NSTextFieldDelegate {
+final class SettingsViewController: NSViewController, NSTextFieldDelegate, NSComboBoxDelegate {
     
     
     @IBOutlet weak var librarySearchPath: NSTextField!
@@ -34,7 +34,9 @@ final class SettingsViewController: NSViewController, NSTextFieldDelegate {
     @IBOutlet weak var calculator: NSImageView!
     @IBOutlet weak var archiveProjectAppOnly: NSSwitch!
     
-    @IBOutlet weak var calculatorComboButton: NSComboButton!
+    @IBOutlet weak var calculatorComboBox: NSComboBox!
+    
+    // MARK: - View
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,55 +78,111 @@ final class SettingsViewController: NSViewController, NSTextFieldDelegate {
             self.calculator.image = NSImage(named: "VirtualCalculator")
         }
         
-        let menu = NSMenu()
-        menu.addItem(withTitle: "Virtual Calculator", action: #selector(optionSelected(_:)), keyEquivalent: "")
-        menu.addItem(withTitle: "HP Connectivity Kit", action: #selector(optionSelected(_:)), keyEquivalent: "")
-        menu.addItem(.separator())
        
         
+        
+        populateCalculatorComboBoxItems()
+        
+        calculatorComboBox.delegate = self
+        calculatorComboBox.usesDataSource = false
+        calculatorComboBox.focusRingType = .none
+        calculatorComboBox.numberOfVisibleItems = 20
+        calculatorComboBox.isEditable = false
+        calculatorComboBox.isSelectable = false
+        
+        
+    }
+    
+    override func viewDidAppear() {
+        super.viewDidAppear()
+        
+        guard let window = view.window else { return }
+        
+        window.titleVisibility = .hidden
+        window.isOpaque = false
+        window.backgroundColor = NSColor(white: 0, alpha: 0.9)
+        window.titlebarAppearsTransparent = true
+        window.center()
+        window.level = .floating
+        window.hasShadow = true
+    }
+    
+    // MARK: - Calculator Selection
+    
+    
+    func handleInput(_ text: String) {
+        if text == "Virtual Calculator" {
+            calculator.image = NSImage(named: "VirtualCalculator")
+            UserDefaults.standard.set("Prime", forKey: "calculator")
+        } else {
+            if text == "Connectivity Kit" {
+                UserDefaults.standard.set("HP Prime", forKey: "calculator")
+            } else {
+                UserDefaults.standard.set(text, forKey: "calculator")
+            }
+            calculator.image = NSImage(named: "ConnectivityKit")
+        }
+    }
+    
+    func comboBoxSelectionDidChange(_ notification: Notification) {
+        guard let comboBox = notification.object as? NSComboBox else { return }
+
+        let index = comboBox.indexOfSelectedItem
+        guard index >= 0 else { return }
+
+        let value = comboBox.itemObjectValue(at: index) as? String ?? ""
+        handleInput(value)
+
+        DispatchQueue.main.async {
+            if let editor = comboBox.currentEditor() {
+                let length = editor.string.count
+                editor.selectedRange = NSRange(location: length, length: 0)
+            }
+        }
+    }
+    
+    private func populateCalculatorComboBoxItems() {
         let connectivityKitURL = FileManager.default.homeDirectoryForCurrentUser
             .appendingPathComponent("Documents/HP Connectivity Kit/Calculators")
         
-        let contents = try? FileManager.default.contentsOfDirectory(
+
+        let content = try? FileManager.default.contentsOfDirectory(
             at: connectivityKitURL,
             includingPropertiesForKeys: [.isDirectoryKey],
-            options: [.skipsHiddenFiles]
+            options: [.skipsHiddenFiles],
         )
+            .map { $0.deletingPathExtension().lastPathComponent.customPercentDecoded() }
+            .sorted { $0.localizedCaseInsensitiveCompare($1) == .orderedAscending }
 
-        contents?
-            .filter { (try? $0.resourceValues(forKeys: [.isDirectoryKey]).isDirectory) == true }
-            .forEach { url in
-                if url.lastPathComponent != "Prime" && url.lastPathComponent != "HP Prime" {
-                    menu.addItem(
-                        withTitle: url.lastPathComponent,
-                        action: #selector(optionSelected(_:)),
-                        keyEquivalent: ""
-                    )
-                }
-            }
-
-        calculatorComboButton.menu = menu
-        if let defaultItem = menu.items.first {
-            calculatorComboButton.title = defaultItem.title
+        guard var content = content else {
+            return
         }
+        content.removeAll(where: { $0.contains("HP Prime") })
+        calculatorComboBox.addItems(withObjectValues: content)
+        
+        let calculator = UserDefaults.standard.object(forKey: "calculator") as? String ?? "Prime"
         
         switch calculator {
         case "Prime":
-            calculatorComboButton.title = "Virtual Calculator"
-            break;
+            let index = calculatorComboBox.indexOfItem(withObjectValue: "Virtual Calculator")
+            calculatorComboBox.selectItem(at: index)
+            break
             
         case "HP Prime":
-            calculatorComboButton.title = "HP Connectivity Kit"
-            break;
+            let index = calculatorComboBox.indexOfItem(withObjectValue: "Connectivity Kit")
+            calculatorComboBox.selectItem(at: index)
+            break
             
         default:
-            calculatorComboButton.title = calculator
+            let index = calculatorComboBox.indexOfItem(withObjectValue: calculator)
+            calculatorComboBox.selectItem(at: index)
         }
-        
     }
+    
+    // MARK: - Include or Lib Paths
   
-    func controlTextDidChange(_ obj: Notification) {
-        guard let textField = obj.object as? NSTextField else { return }
+    func controlTextDidChange(_ notification: Notification) {
+        guard let textField = notification.object as? NSTextField else { return }
 
         switch textField.tag {
         case 1:
@@ -138,24 +196,6 @@ final class SettingsViewController: NSViewController, NSTextFieldDelegate {
         }
     }
     
-    @IBAction func calculatorComboButtonTapped(_ sender: NSComboButton) {
-        // Handle selection or present menu items here
-    }
-    
-    @objc func optionSelected(_ sender: NSMenuItem) {
-        calculatorComboButton.title = sender.title
-        if sender.title == "Virtual Calculator" {
-            calculator.image = NSImage(named: "VirtualCalculator")
-            UserDefaults.standard.set("Prime", forKey: "calculator")
-        } else {
-            if sender.title == "Connectivity Kit" {
-                UserDefaults.standard.set("HP Prime", forKey: "calculator")
-            } else {
-                UserDefaults.standard.set(sender.title, forKey: "calculator")
-            }
-            calculator.image = NSImage(named: "ConnectivityKit")
-        }
-    }
 
     
     @IBAction func platform(_ sender: NSButton) {
@@ -181,7 +221,7 @@ final class SettingsViewController: NSViewController, NSTextFieldDelegate {
         Wine.state = .off
         archiveProjectAppOnly.state = .on
         compressionSwitch.state = .off
-        calculatorComboButton.title = "Virtual Calculator"
+        calculatorComboBox.selectItem(withObjectValue: "Virtual Calculator")
         calculator.image = NSImage(named: "VirtualCalculator")
         
         UserDefaults.standard.set(false, forKey: "compression")

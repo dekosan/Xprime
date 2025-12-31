@@ -11,7 +11,7 @@
         <!--Window Controller-->
         <scene sceneID="ny5-wf-xwW">
             <objects>
-                <windowController id="WAc-gE-cXI" customClass="CatalogWindowController" customModule="Xprime" customModuleProvider="target" sceneMemberID="viewController">
+                <windowController id="WAc-gE-cXI" sceneMemberID="viewController">
                     <window key="window" title="Catalog" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="Cje-Vg-2ry">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
@@ -41,18 +41,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="500" height="270"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <searchField wantsLayer="YES" focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="anj-vi-r0l">
-                                <rect key="frame" x="20" y="226" width="175" height="24"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" usesSingleLineMode="YES" bezelStyle="round" id="E2i-He-Hzy">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </searchFieldCell>
-                                <connections>
-                                    <action selector="searchCatalog:" target="um3-nH-PU9" id="ROF-aA-U72"/>
-                                </connections>
-                            </searchField>
                             <scrollView fixedFrame="YES" borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fXT-8R-zZu">
                                 <rect key="frame" x="0.0" y="0.0" width="500" height="218"/>
                                 <autoresizingMask key="autoresizingMask"/>
@@ -79,18 +67,19 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
-                            <comboButton verticalHuggingPriority="750" fixedFrame="YES" baseWritingDirection="leftToRight" alignment="left" title="Catalog" imageScaling="proportionallyDown" translatesAutoresizingMaskIntoConstraints="NO" id="4NY-x3-YIS">
-                                <rect key="frame" x="211" y="226" width="269" height="24"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <menu key="menu" id="d2n-sD-61U"/>
-                                <connections>
-                                    <action selector="selectCatalogItem:" target="um3-nH-PU9" id="BBQ-Zu-43v"/>
-                                </connections>
-                            </comboButton>
+                            <comboBox focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rFV-E7-Bvp">
+                                <rect key="frame" x="19" y="215" width="242" height="27"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" buttonBordered="NO" completes="NO" numberOfVisibleItems="5" id="2Z9-bZ-lPp">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </comboBoxCell>
+                            </comboBox>
                         </subviews>
                     </view>
                     <connections>
-                        <outlet property="catalogComboButton" destination="4NY-x3-YIS" id="lAp-XC-lg5"/>
+                        <outlet property="catalogComboBox" destination="rFV-E7-Bvp" id="PQE-2T-o9V"/>
                         <outlet property="catalogHelpTextView" destination="v61-61-qWD" id="JfY-iO-Cex"/>
                     </connections>
                 </viewController>
@@ -873,7 +862,7 @@
         <scene sceneID="0zq-Fv-lwY">
             <objects>
                 <customObject id="yqd-22-Lvs" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-                <windowController showSeguePresentationStyle="single" id="CFc-li-Drx" customClass="SettingsWindowController" customModule="Xprime" customModuleProvider="target" sceneMemberID="viewController">
+                <windowController showSeguePresentationStyle="single" id="CFc-li-Drx" sceneMemberID="viewController">
                     <window key="window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="SUG-Wu-9FC">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
                         <rect key="contentRect" x="190" y="269" width="580" height="42"/>
@@ -995,7 +984,7 @@ DQ
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sbg-M2-TtD">
                                 <rect key="frame" x="196" y="209" width="126" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="radio" title="macOS" bezelStyle="regularSquare" imagePosition="left" alignment="left" borderStyle="border" inset="2" id="iMM-UH-cRP">
+                                <buttonCell key="cell" type="radio" title="macOS" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="iMM-UH-cRP">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
@@ -1006,7 +995,7 @@ DQ
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8jj-eN-5T8">
                                 <rect key="frame" x="330" y="209" width="126" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="radio" title="Wine" bezelStyle="regularSquare" imagePosition="left" alignment="left" borderStyle="border" inset="2" id="vqI-t6-XaB">
+                                <buttonCell key="cell" type="radio" title="Wine" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="vqI-t6-XaB">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
@@ -1021,14 +1010,6 @@ DQ
                                     <action selector="compressionSwitchToggled:" target="HsO-bO-Dfd" id="C3r-y7-cuf"/>
                                 </connections>
                             </switch>
-                            <comboButton verticalHuggingPriority="750" fixedFrame="YES" baseWritingDirection="leftToRight" alignment="left" title="Calculator" imageScaling="proportionallyDown" translatesAutoresizingMaskIntoConstraints="NO" id="CP0-kK-Xg2">
-                                <rect key="frame" x="196" y="125" width="260" height="24"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <menu key="menu" id="2uy-Io-hVa"/>
-                                <connections>
-                                    <action selector="calculatorComboButtonTapped:" target="HsO-bO-Dfd" id="Upz-45-EQ2"/>
-                                </connections>
-                            </comboButton>
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zef-RL-Kg5" customClass="CustomOrangeButton" customModule="Xprime" customModuleProvider="target">
                                 <rect key="frame" x="21" y="20" width="164" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -1050,13 +1031,26 @@ Gw
                                     <action selector="archiveProjectAppOnlySwitchToggled:" target="HsO-bO-Dfd" id="Wgk-UC-lrt"/>
                                 </connections>
                             </switch>
+                            <comboBox focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mxv-Wr-GZm">
+                                <rect key="frame" x="196" y="122" width="264" height="27"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" buttonBordered="NO" completes="NO" numberOfVisibleItems="5" id="EEJ-1g-6TJ">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    <objectValues>
+                                        <string>Virtual Calculator</string>
+                                        <string>HP Connectivity Kit</string>
+                                    </objectValues>
+                                </comboBoxCell>
+                            </comboBox>
                         </subviews>
                     </view>
                     <connections>
                         <outlet property="Wine" destination="8jj-eN-5T8" id="yPH-Rb-VSU"/>
                         <outlet property="archiveProjectAppOnly" destination="Wkk-xl-gFE" id="SjO-w7-955"/>
                         <outlet property="calculator" destination="xvT-fO-El7" id="VWa-CH-xtl"/>
-                        <outlet property="calculatorComboButton" destination="CP0-kK-Xg2" id="gU1-qT-6Eo"/>
+                        <outlet property="calculatorComboBox" destination="Mxv-Wr-GZm" id="ch7-GU-4da"/>
                         <outlet property="compressionSwitch" destination="6oT-8I-3MV" id="TZd-uA-EdJ"/>
                         <outlet property="headerSearchPath" destination="DNH-Ob-HLu" id="QEq-Ni-dgO"/>
                         <outlet property="librarySearchPath" destination="cz6-Uo-L19" id="xhy-9E-eDk"/>
@@ -1142,9 +1136,9 @@ Gw
                                 </toolbarItem>
                             </allowedToolbarItems>
                             <defaultToolbarItems>
+                                <toolbarItem reference="HOg-w3-6bH"/>
                                 <toolbarItem reference="J6a-Hn-bWN"/>
                                 <toolbarItem reference="vRb-OI-uPy"/>
-                                <toolbarItem reference="HOg-w3-6bH"/>
                                 <toolbarItem reference="0uA-kt-18g"/>
                                 <toolbarItem reference="qhn-5s-CEp"/>
                                 <toolbarItem reference="gjC-nA-X2d"/>
@@ -1182,6 +1176,7 @@ Gw
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="textColor" red="0.99131000000000002" green="0.56076000000000004" blue="0.24611" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                     <color key="backgroundColor" red="0.16078431372549018" green="0.16470588235294117" blue="0.18431372549019609" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <size key="minSize" width="800" height="0.0"/>
                                                     <size key="maxSize" width="10000" height="10000000"/>
                                                 </textView>
                                             </subviews>
@@ -1196,7 +1191,7 @@ Gw
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                     </scrollView>
-                                    <scrollView hidden="YES" misplaced="YES" borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" id="1cy-3f-AfV">
+                                    <scrollView hidden="YES" fixedFrame="YES" borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" id="1cy-3f-AfV">
                                         <rect key="frame" x="0.0" y="1" width="800" height="0.0"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                         <clipView key="contentView" drawsBackground="NO" id="aWt-Hd-0t0">
@@ -1212,11 +1207,7 @@ Gw
                                                     <size key="maxSize" width="10000" height="10000"/>
                                                 </textView>
                                             </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </clipView>
-                                        <constraints>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="100" id="110-Ml-VBt"/>
-                                        </constraints>
                                         <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="7yt-uS-snv">
                                             <rect key="frame" x="-100" y="-100" width="240" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
@@ -1247,7 +1238,7 @@ Gw
                                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="o4M-ON-b8V">
                                                 <rect key="frame" x="17" y="256.5" width="24" height="24"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                                <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="inset.filled.topthird.square" catalog="system" imagePosition="overlaps" alignment="center" imageScaling="proportionallyDown" inset="2" id="AfA-QU-4Ov">
+                                                <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="inset.filled.bottomthird.square" catalog="system" imagePosition="overlaps" alignment="center" imageScaling="proportionallyDown" inset="2" id="AfA-QU-4Ov">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
@@ -1307,9 +1298,9 @@ Gw
         <image name="folder" catalog="system" width="18" height="14"/>
         <image name="gear" catalog="system" width="17" height="16"/>
         <image name="hammer" catalog="system" width="20" height="18"/>
-        <image name="hammer.fill" catalog="system" width="15" height="14"/>
+        <image name="hammer.fill" catalog="system" width="19" height="17"/>
         <image name="icon" width="38" height="38"/>
-        <image name="inset.filled.topthird.square" catalog="system" width="15" height="14"/>
+        <image name="inset.filled.bottomthird.square" catalog="system" width="15" height="14"/>
         <image name="long.text.page.and.pencil.fill" catalog="system" width="17" height="19"/>
         <image name="paintbrush" catalog="system" width="17" height="18"/>
         <image name="photo" catalog="system" width="18" height="14"/>

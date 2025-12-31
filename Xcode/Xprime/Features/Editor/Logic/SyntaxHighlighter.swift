@@ -40,6 +40,10 @@ final class SyntaxHighlighter {
         textStorage.setAttributes(baseAttributes, range: fullRange)
         textStorage.foregroundColor = defaultColor
 
+        /*
+         The order in which highlighting matches are applied is determined by their
+         sequence in the grammar pattern list.
+         */
         for pattern in grammar.patterns where !pattern.match.isEmpty {
             guard let color = colors[pattern.name] else { continue }
 

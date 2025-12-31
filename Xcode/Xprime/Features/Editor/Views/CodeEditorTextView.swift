@@ -34,18 +34,20 @@ final class CodeEditorTextView: NSTextView {
     }
     
     var colors: [String: NSColor] = [
-        "Symbols": .black,
-        "Brackets": .black,
-        "Numbers": .black,
-        "Namespace": .black,
+        "Functions": .black,
         "Keywords": .black,
+        "Namespace": .black,
+        "Symbols": .black,
+        "Operators": .black,
+        "Brackets": .black,
+        "Units": .black,
+        "Numbers": .black,
         "Strings": .black,
-        "Comments": .black,
         "Backquotes": .black,
         "Preprocessor Statements": .black,
-        "Functions": .black,
-        "Operators": .black
+        "Comments": .black
     ]
+   
     var weight: NSFont.Weight = .medium
     var editorForegroundColor = NSColor(.white)
     

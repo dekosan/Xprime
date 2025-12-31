@@ -39,10 +39,12 @@ open class CustomButton: NSButton {
         
         if let layer = layer {
             layer.masksToBounds = false
-            layer.cornerRadius = 6
+            layer.cornerRadius = frame.height / 2.0
             layer.borderWidth = 1
-            layer.borderColor = .init(gray: 0.25, alpha: 1.0)
-            layer.backgroundColor = .init(gray: 0.05, alpha: 1.0)
+//            layer.borderColor = .init(gray: 0.25, alpha: 1.0)
+//            layer.backgroundColor = .init(gray: 0.05, alpha: 1.0)
+//            layer.borderColor = .init(red: 0, green: 0, blue: 0, alpha: 1.0)
+            layer.backgroundColor = .init(red: 0, green: 0, blue: 1, alpha: 1.0)
         }
         
 		needsDisplay = true
