@@ -1,18 +1,18 @@
-# Auto detect text files and perform LF normalization
+# Normalize line endings
 * text=auto
-*.ppl linguist-language=PPL
-*.prgm linguist-language=PPL
-*.hpprgm linguist-language=PPL
-*.hpappprgm linguist-language=PPL
-*.prgm+ linguist-language=PPL+
-*.ppl+ linguist-language=PPL+
-*.sh linguist-ignore
+
+# Ignore everything by default
+* linguist-ignore
+
+# PPL files (count & highlight)
+*.ppl        linguist-ignore=false linguist-language=PPL
+*.prgm       linguist-ignore=false linguist-language=PPL
+*.hpprgm     linguist-ignore=false linguist-language=PPL
+*.hpappprgm  linguist-ignore=false linguist-language=PPL
+*.ppl+       linguist-ignore=false linguist-language=PPL+
+*.prgm+      linguist-ignore=false linguist-language=PPL+
+
+# Ignore assets and scripts
 assets/** linguist-ignore
-*.prgm linguist-detectable=false
-*.hpprgm linguist-detectable=false
-*.hpappprgm linguist-detectable=false
-*.ppl linguist-detectable=false
-*.prgm+ linguist-detectable=false
-*.ppl+ linguist-detectable=false
-*.sh linguist-detectable=false
-*.txt linguist-detectable=false
+*.sh      linguist-ignore
+*.txt     linguist-ignore
