@@ -22,8 +22,20 @@
 
 import Cocoa
 
+
+
 extension NSTextView {
-    func syntaxHighlight() {
+
+    func syntaxHighlight(colors: [String: NSColor] = [
+        "Functions": .systemOrange,
+        "Keywords": .systemBlue,
+        "Symbols": .systemOrange,
+        "Operators": .systemGray,
+        "Brackets": .systemGray,
+        "Numbers": .systemBlue,
+        "Strings": .systemGreen,
+        "Preprocessor Statements": .systemGreen
+    ]) {
         guard let textStorage = textStorage else { return }
         
         lazy var baseAttributes: [NSAttributedString.Key: Any] = {
@@ -44,16 +56,16 @@ extension NSTextView {
 
         let text = textStorage.string as NSString
         let fullRange = NSRange(location: 0, length: text.length)
-
+        
         let patterns: [(pattern: String, color: NSColor)] = [
-            (#"(?m)\b(BEGIN|END|RETURN|KILL|IF|THEN|ELSE|XOR|OR|AND|NOT|CASE|DEFAULT|IFERR|IFTE|FOR|FROM|STEP|DOWNTO|TO|DO|WHILE|REPEAT|UNTIL|BREAK|CONTINUE|EXPORT|CONST|LOCAL|KEY)\b"#, .systemBlue),
-            (#"(?mi)[%a-z\u0080-\uFFFF][\w\u0080-\uFFFF]*(\.[%a-z\u0080-\uFFFF][\w\u0080-\uFFFF]*)*(?=\()"#, .systemOrange),
-            (#"[\u0080-\uFFFF]+"#, .systemOrange),
-            (#"[▶:=+\-*/<>≠≤≥\.]+"#, .systemGray),
-            (#"[{}()\[\]]+"#, .systemGray),
-            (#"(?:#(?:(?:[0-1]+(?::-?\d+)?b)|(?:[0-7]+(?::-?\d+)?o)|(?:[0-9A-F]+(?::-?\d+)?h)|(?:[0-9]+(?::-?\d+)?d?)|))|(?:(?<![a-zA-Z\u0080-\uFFFF$])-?\d+(?:[\.|e]\d+)?)"#, .systemBlue),
-            (#""([^"\\]|\\.)*""#, .systemGreen),
-            (#"(?m)^\s*#[a-z]{2}.+"#, .systemGreen)
+            (#"(?mi)[%a-z\u0080-\uFFFF][\w\u0080-\uFFFF]*(\.[%a-z\u0080-\uFFFF][\w\u0080-\uFFFF]*)*(?=\()"#, colors["Functions"] ?? .systemOrange),
+            (#"(?m)\b(BEGIN|END|RETURN|KILL|IF|THEN|ELSE|XOR|OR|AND|NOT|CASE|DEFAULT|IFERR|IFTE|FOR|FROM|STEP|DOWNTO|TO|DO|WHILE|REPEAT|UNTIL|BREAK|CONTINUE|EXPORT|CONST|LOCAL|KEY)\b"#, colors["Keyword"] ?? .systemBlue),
+            (#"[\u0080-\uFFFF]+"#, colors["Symbols"] ?? .systemOrange),
+            (#"[▶:=+\-*/<>≠≤≥\.]+"#, colors["Operators"] ?? .systemGray),
+            (#"[{}()\[\]]+"#, colors["Brackets"] ?? .systemGray),
+            (#"(?:#(?:(?:[0-1]+(?::-?\d+)?b)|(?:[0-7]+(?::-?\d+)?o)|(?:[0-9A-F]+(?::-?\d+)?h)|(?:[0-9]+(?::-?\d+)?d?)|))|(?:(?<![a-zA-Z\u0080-\uFFFF$])-?\d+(?:[\.|e]\d+)?)"#, colors["Numbers"] ?? .systemBlue),
+            (#""([^"\\]|\\.)*""#, colors["Strings"] ?? .systemGreen),
+            (#"(?m)^\s*#[a-z]{2}.+"#, colors["Preprocessor Statements"] ?? .systemGreen)
         ]
 
         textStorage.beginEditing()

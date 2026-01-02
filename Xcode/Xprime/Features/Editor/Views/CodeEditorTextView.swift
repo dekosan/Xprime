@@ -370,17 +370,6 @@ final class CodeEditorTextView: NSTextView {
         } catch {
             return
         }
-        
-//        let vc = QuickHelpViewController(symbol: symbol, withSizeOf: NSSize(width: 500, height: 250))
-//
-//        let popover = NSPopover()
-//        popover.behavior = .transient
-//        popover.contentViewController = vc
-//        popover.show(
-//            relativeTo: NSRect(origin: point, size: .zero),
-//            of: self,
-//            preferredEdge: .maxY
-//        )
     }
     
     private var trackingArea: NSTrackingArea?

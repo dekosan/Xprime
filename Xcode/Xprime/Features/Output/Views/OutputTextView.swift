@@ -24,9 +24,7 @@ import Cocoa
 
 
 final class OutputTextView: NSTextView {
-    
     var editorForegroundColor = NSColor(.black)
-    
     
     
     // MARK: - Initializers
