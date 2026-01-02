@@ -1,6 +1,6 @@
 // The MIT License (MIT)
 //
-// Copyright (c) 2025 Insoft.
+// Copyright (c) 2025-2026 Insoft.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the Software), to deal
@@ -24,47 +24,6 @@
 import Cocoa
 import UniformTypeIdentifiers
 
-extension NSColor {
-    convenience init?(hex: String) {
-        var hexString = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
-        
-        // Remove "#" prefix
-        if hexString.hasPrefix("#") {
-            hexString.remove(at: hexString.startIndex)
-        }
-        
-        // Handle shorthand (#RGB)
-        if hexString.count == 3 {
-            let r = hexString[hexString.startIndex]
-            let g = hexString[hexString.index(hexString.startIndex, offsetBy: 1)]
-            let b = hexString[hexString.index(hexString.startIndex, offsetBy: 2)]
-            hexString = "\(r)\(r)\(g)\(g)\(b)\(b)"
-        }
-        
-        
-        if hexString.count == 8 {
-            let rgba = Int(hexString, radix: 16)!
-            let red   = CGFloat((rgba >> 16) & 0xFF) / 255.0
-            let green = CGFloat((rgba >> 8) & 0xFF) / 255.0
-            let blue  = CGFloat(rgba & 0xFF) / 255.0
-            let alpha  = CGFloat((rgba >> 24) & 0xFF) / 255.0
-            self.init(red: red, green: green, blue: blue, alpha: alpha)
-            return
-        }
-        
-        guard hexString.count == 6,
-              let rgb = Int(hexString, radix: 16) else {
-            return nil
-        }
-        
-        let red   = CGFloat((rgb >> 16) & 0xFF) / 255.0
-        let green = CGFloat((rgb >> 8) & 0xFF) / 255.0
-        let blue  = CGFloat(rgb & 0xFF) / 255.0
-        
-        self.init(red: red, green: green, blue: blue, alpha: 1.0)
-    }
-}
-
 extension MainViewController: NSWindowRestoration {
     static func restoreWindow(withIdentifier identifier: NSUserInterfaceItemIdentifier, state: NSCoder, completionHandler: @escaping (NSWindow?, Error?) -> Void) {
         // Restore your window here if needed
@@ -82,7 +41,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     
     @IBOutlet var codeEditorTextView: CodeEditorTextView!
     @IBOutlet var statusTextLabel: NSTextField!
-    @IBOutlet var outputTextView: NSTextView!
+    @IBOutlet var outputTextView: OutputTextView!
     @IBOutlet var outputScrollView: NSScrollView!
     
     
@@ -222,6 +181,8 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         window.isOpaque = false
         window.backgroundColor = NSColor(white: 0, alpha: 0.75)
         window.titlebarAppearsTransparent = true
+        window.styleMask = [.resizable, .miniaturizable, .titled]
+        window.hasShadow = true
     }
     
    
@@ -292,7 +253,6 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     @objc func handleThemeSelection(_ sender: NSMenuItem) {
         guard ThemeLoader.shared.isThemeLoaded(named: sender.title) == false else { return }
         codeEditorTextView.loadTheme(named: sender.title)
-        outputTextView.backgroundColor = codeEditorTextView.backgroundColor
     }
     
     @objc func handleGrammarSelection(_ sender: NSMenuItem) {
@@ -396,7 +356,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         do {
             try HPServices.restoreMissingAppFiles(in: parentURL, named: projectName)
         } catch {
-            outputTextView.string = "Failed to build for archiving: \(error)"
+            outputTextView.setString("Failed to build for archiving: \(error)")
             return
         }
         
@@ -407,7 +367,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             .appendingPathExtension("hpappprgm"),
             compress: UserDefaults.standard.object(forKey: "compression") as? Bool ?? false
         )
-        outputTextView.string = result.err ?? ""
+        outputTextView.setString(result.err ?? "")
     }
     
     private func archiveProcess() {
@@ -426,10 +386,10 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         let archiveProjectAppOnly = UserDefaults.standard.object(forKey: "archiveProjectAppOnly") as? Bool ?? true
         if dirA.isNewer(than: dirB), archiveProjectAppOnly == false {
             url = dirA.deletingLastPathComponent()
-            self.outputTextView.string = "Archiving from the virtual calculator directory.\n"
+            self.outputTextView.setString("Archiving from the virtual calculator directory.\n")
         } else {
             url = parentURL
-            self.outputTextView.string = "Archiving from the current project directory.\n"
+            self.outputTextView.setString("Archiving from the current project directory.\n")
         }
 
         
@@ -546,7 +506,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         
         let compression = UserDefaults.standard.object(forKey: "compression") as? Bool ?? false
         let result = HPServices.preProccess(at: sourceURL, to: destinationURL,  compress: compression)
-        outputTextView.string = result.err ?? ""
+        outputTextView.setString(result.err ?? "")
     }
     
     func runExport(
@@ -564,9 +524,9 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             let result = action(outURL)
             
             if let out = result.out, !out.isEmpty {
-                self.outputTextView.string = out
+                self.outputTextView.setString(out)
             } else {
-                self.outputTextView.string = result.err ?? ""
+                self.outputTextView.setString(result.err ?? "")
             }
         }
     }
@@ -1071,7 +1031,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         let programURL = parentURL
             .appendingPathComponent(projectName)
             .appendingPathExtension("hpprgm")
-        outputTextView.string = "Installing: \(programURL.lastPathComponent)\n"
+        outputTextView.setString("Installing: \(programURL.lastPathComponent)\n")
         do {
             let calculator = UserDefaults.standard.object(forKey: "calculator") as? String ?? "Prime"
             try HPServices.installHPPrgm(at: programURL, forUser: calculator)
@@ -1091,7 +1051,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         let appDirURL = parentURL
             .appendingPathComponent(projectName)
             .appendingPathExtension("hpappdir")
-        outputTextView.string = "Installing: \(appDirURL.lastPathComponent)\n"
+        outputTextView.setString("Installing: \(appDirURL.lastPathComponent)\n")
         do {
             let calculator = UserDefaults.standard.object(forKey: "calculator") as? String ?? "Prime"
             try HPServices.installHPAppDirectory(at: appDirURL, forUser: calculator)
@@ -1141,10 +1101,10 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             let commandURL = URL(fileURLWithPath: command)
             let contents = ProcessRunner.run(executable: commandURL, arguments: [url.path, "-o", "/dev/stdout"])
             if let out = contents.out, !out.isEmpty {
-                self.outputTextView.string = "Importing \(url.pathExtension.uppercased()) Image...\n"
+                self.outputTextView.setString("Importing \(url.pathExtension.uppercased()) Image...\n")
                 self.codeEditorTextView.insertCode(out)
             }
-            self.outputTextView.string = contents.err ?? ""
+            self.outputTextView.setString(contents.err ?? "")
         }
     }
     
@@ -1162,10 +1122,10 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             
             let contents = ProcessRunner.run(executable: ToolchainPaths.bin.appendingPathComponent("font"), arguments: [url.path, "-o", "/dev/stdout"])
             if let out = contents.out, !out.isEmpty {
-                self.outputTextView.string = "Importing Adafruit GFX Font...\n"
+                self.outputTextView.setString("Importing Adafruit GFX Font...\n")
                 self.codeEditorTextView.insertCode(contents.out ?? "")
             }
-            self.outputTextView.string = contents.err ?? ""
+            self.outputTextView.setString(contents.err ?? "")
         }
     }
     
@@ -1221,7 +1181,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             return
         }
         
-        outputTextView.string = "Cleaning...\n"
+        outputTextView.setString("Cleaning...\n")
         
         let files: [URL] = [
             parentURL.appendingPathComponent("\(projectName).hpprgm"),
@@ -1270,7 +1230,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         if let out = contents.out, !out.isEmpty {
             codeEditorTextView.string = out
         }
-        self.outputTextView.string = contents.err ?? ""
+        self.outputTextView.setString(contents.err ?? "")
     }
     
     // MARK: - Editor
@@ -1309,6 +1269,8 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         minHeightConstraint?.isActive = true
         outputTextView.backgroundColor = NSColor(white: 0, alpha: 0.75)
     }
+    
+    
     
     // MARK: - Validation for Toolbar Items
     

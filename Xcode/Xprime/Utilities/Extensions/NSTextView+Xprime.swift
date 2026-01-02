@@ -22,8 +22,6 @@
 
 import Cocoa
 
-
-
 extension NSTextView {
 
     func syntaxHighlight(colors: [String: NSColor] = [
