@@ -24,8 +24,7 @@ import Cocoa
 
 
 final class CatalogHelpTextView: NSTextView {
-    
-    var editorForegroundColor = NSColor(.black)
+    private var editorForegroundColor = NSColor(.black)
     
     // MARK: - Initializers
     override init(frame frameRect: NSRect, textContainer container: NSTextContainer?) {
@@ -52,4 +51,5 @@ final class CatalogHelpTextView: NSTextView {
         textContainerInset = NSSize(width: 20, height: 20)
         backgroundColor = NSColor.clear
     }
+
 }

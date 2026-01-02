@@ -50,6 +50,7 @@ final class QuickLookViewController: NSViewController {
         preferredContentSize = self.size
     }
     
+    
     private func makeTextView(with text: String) -> NSTextView {
         let textView = NSTextView()
         textView.isEditable = false

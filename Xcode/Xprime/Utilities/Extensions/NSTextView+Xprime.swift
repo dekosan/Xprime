@@ -47,9 +47,9 @@ extension NSTextView {
 
         let patterns: [(pattern: String, color: NSColor)] = [
             (#"(?m)\b(BEGIN|END|RETURN|KILL|IF|THEN|ELSE|XOR|OR|AND|NOT|CASE|DEFAULT|IFERR|IFTE|FOR|FROM|STEP|DOWNTO|TO|DO|WHILE|REPEAT|UNTIL|BREAK|CONTINUE|EXPORT|CONST|LOCAL|KEY)\b"#, .systemBlue),
-            (#"(?mi)[%a-z\u0080-\uFFFF][\w\u0080-\uFFFF]*(?=\()"#, .systemOrange),
+            (#"(?mi)[%a-z\u0080-\uFFFF][\w\u0080-\uFFFF]*(\.[%a-z\u0080-\uFFFF][\w\u0080-\uFFFF]*)*(?=\()"#, .systemOrange),
             (#"[\u0080-\uFFFF]+"#, .systemOrange),
-            (#"[▶:=+\-*/<>≠≤≥]+"#, .systemGray),
+            (#"[▶:=+\-*/<>≠≤≥\.]+"#, .systemGray),
             (#"[{}()\[\]]+"#, .systemGray),
             (#"(?:#(?:(?:[0-1]+(?::-?\d+)?b)|(?:[0-7]+(?::-?\d+)?o)|(?:[0-9A-F]+(?::-?\d+)?h)|(?:[0-9]+(?::-?\d+)?d?)|))|(?:(?<![a-zA-Z\u0080-\uFFFF$])-?\d+(?:[\.|e]\d+)?)"#, .systemBlue),
             (#""([^"\\]|\\.)*""#, .systemGreen),

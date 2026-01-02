@@ -45,7 +45,8 @@ final class CodeEditorTextView: NSTextView {
         "Strings": .black,
         "Backquotes": .black,
         "Preprocessor Statements": .black,
-        "Comments": .black
+        "Comments": .black,
+        "Commands": .black
     ]
    
     var weight: NSFont.Weight = .medium
@@ -356,7 +357,7 @@ final class CodeEditorTextView: NSTextView {
         do {
             let helpText = try String(contentsOf: url, encoding: .utf8)
             
-            let vc = QuickLookViewController(text: helpText, withSizeOf: NSSize(width: 500, height: 250))
+            let vc = QuickLookViewController(text: helpText, withSizeOf: NSSize(width: 400, height: 150))
 
             let popover = NSPopover()
             popover.behavior = .transient
