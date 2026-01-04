@@ -70,8 +70,7 @@ final class CatalogViewController: NSViewController, NSComboBoxDelegate, NSTextF
         
         do {
             let text = try String(contentsOf: txtURL, encoding: .utf8)
-            catalogHelpTextView.string = ""
-            catalogHelpTextView.appendTextAndScroll(text)
+            catalogHelpTextView.changeText(text)
 
             catalogHelpTextView.highlightBold("Syntax:")
             catalogHelpTextView.highlightBold("Example:")

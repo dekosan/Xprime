@@ -8,6 +8,13 @@
         "editor.cursor": "#797979",
         "editor.selectionBackground": "#5E5E5E"
     },
+    "lineNumberRuler": {
+        "foreground": "#888888",
+        "background": "#111111"
+    },
+    "window": {
+        "background": "#000000"
+    },
     "tokenColors": [
         {
             "scope": ["Preprocessor Statements"],

@@ -37,7 +37,7 @@ class XprimeTextView: NSTextView {
     
     private var theme: Theme!
     private var grammar: Grammar!
-
+    
     
     // MARK: - Initializers
     
@@ -63,23 +63,37 @@ class XprimeTextView: NSTextView {
         applySyntaxHighlighting(theme: self.theme, syntaxPatterns: GrammarManager.syntaxPatterns(grammar: self.grammar))
     }
     
-    /// Appends text and scrolls reliably to the bottom
-    func appendTextAndScroll(_ newText: String) {
-        // Append text
-        self.string += newText
-        
+    func ScrollToBottom() {
         // Force layout
         self.layoutManager?.ensureLayout(for: self.textContainer!)
         self.needsDisplay = true
         
-        // Scroll to the very bottom
         if let scrollView = self.enclosingScrollView {
-            scrollView.layoutSubtreeIfNeeded() // make sure scrollView layout is updated
+            scrollView.layoutSubtreeIfNeeded() 
             let bottom = NSPoint(x: 0, y: self.bounds.height - scrollView.contentView.bounds.height)
             scrollView.contentView.scroll(to: bottom)
             scrollView.reflectScrolledClipView(scrollView.contentView)
         }
+    }
+    
+    /// Appends text and scrolls reliably to the bottom
+    func appendTextAndScroll(_ newText: String) {
+        self.string += newText
+
+        ScrollToBottom()
+        applySyntaxHighlighting(theme: theme, syntaxPatterns: GrammarManager.syntaxPatterns(grammar: grammar))
+    }
+    
+    func changeText(_ newText: String) {
+        self.string = newText
         
+        applySyntaxHighlighting(theme: theme, syntaxPatterns: GrammarManager.syntaxPatterns(grammar: grammar))
+    }
+    
+    func changeTextAndScroll(_ newText: String) {
+        self.string = newText
+        
+        ScrollToBottom()
         applySyntaxHighlighting(theme: theme, syntaxPatterns: GrammarManager.syntaxPatterns(grammar: grammar))
     }
 

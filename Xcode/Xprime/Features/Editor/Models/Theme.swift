@@ -27,5 +27,7 @@ struct Theme: Codable {
     let type: String
     let weight: String
     let colors: [String: String]
+    let lineNumberRuler: [String: String]?
+    let window: [String: String]?
     let tokenColors: [TokenColor]
 }

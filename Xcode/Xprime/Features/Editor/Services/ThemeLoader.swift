@@ -29,9 +29,15 @@ final class ThemeLoader {
     
     private(set) var theme: Theme?
     
-    func isThemeLoaded(named name: String) -> Bool {
-        return name == UserDefaults.standard.string(forKey: "preferredTheme")
+    var preferredTheme: String {
+        let name = UserDefaults.standard.string(forKey: "preferredTheme")
+            ?? "Default (Dark)"
+        return name
     }
+    
+//    func isThemeLoaded(named name: String) -> Bool {
+//        return name == UserDefaults.standard.string(forKey: "preferredTheme")
+//    }
 
     func loadTheme(named name: String) -> Theme? {
         let fileManager = FileManager.default
@@ -51,24 +57,26 @@ final class ThemeLoader {
             return nil
         }
         
-        UserDefaults.standard.set(name, forKey: "preferredTheme")
-        
         return try? JSONDecoder().decode(Theme.self, from: data)
     }
-
-    func loadPreferredTheme() -> Theme? {
-        let name = UserDefaults.standard.string(forKey: "preferredTheme")
-            ?? "Default (Dark)"
-        return loadTheme(named: name)
+    
+    func setPreferredTheme(named name: String) {
+        UserDefaults.standard.set(name, forKey: "preferredTheme")
     }
     
-    func load(named name: String? = nil) {
-        if let name = name {
-            theme = loadTheme(named: name)
-            return
-        }
-        theme = loadPreferredTheme()
+    func loadPreferredTheme() -> Theme? {
+        let name = preferredTheme
+        return loadTheme(named: name)
     }
+
+    
+//    func load(named name: String? = nil) {
+//        if let name = name {
+//            theme = loadTheme(named: name)
+//            return
+//        }
+//        theme = loadPreferredTheme()
+//    }
 }
 
 

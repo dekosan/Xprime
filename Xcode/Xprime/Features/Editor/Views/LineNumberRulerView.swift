@@ -34,18 +34,15 @@ import Cocoa
 //    }
 //}
 
-final class LineNumberRulerView: NSRulerView {
+final class LineNumberGutterView: NSRulerView {
+    var gutterNumberAttributes: [NSAttributedString.Key: NSColor] = [
+        .foregroundColor: NSColor.gray,
+        .backgroundColor: NSColor.windowBackgroundColor
+    ]
 
-    var backgroundColor: NSColor = .windowBackgroundColor
     weak var textView: NSTextView?
     
     var pointSize: CGFloat = 12
-    
-    
-
-        required init(coder: NSCoder) {
-            super.init(coder: coder)
-        }
 
 
     init(textView: NSTextView) {
@@ -57,9 +54,9 @@ final class LineNumberRulerView: NSRulerView {
     }
 
 
-//    required init(coder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
+    required init(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     private func registerObservers() {
         NotificationCenter.default.addObserver(self,
@@ -80,6 +77,7 @@ final class LineNumberRulerView: NSRulerView {
     }
 
     override func drawHashMarksAndLabels(in rect: NSRect) {
+        let backgroundColor = gutterNumberAttributes[.backgroundColor] ?? .windowBackgroundColor
         backgroundColor.setFill()
         let fillRect = NSRect(x: 0, y: 0, width: self.ruleThickness, height: rect.size.height)
         fillRect.fill()
@@ -103,6 +101,8 @@ final class LineNumberRulerView: NSRulerView {
         var lineNumber = fullText.substring(to: startCharIndex).components(separatedBy: .newlines).count
 
         var index = glyphRange.location
+        
+        let foreground = gutterNumberAttributes[.foregroundColor]!
 
         while index < NSMaxRange(glyphRange) {
             let charRange = layoutManager.characterRange(forGlyphRange: NSRange(location: index, length: 1), actualGlyphRange: nil)
@@ -119,7 +119,7 @@ final class LineNumberRulerView: NSRulerView {
 
             let attrs: [NSAttributedString.Key: Any] = [
                 .font: NSFont.monospacedDigitSystemFont(ofSize: pointSize, weight: .regular),
-                .foregroundColor: NSColor.gray,
+                .foregroundColor: foreground,
                 .backgroundColor: NSColor.clear,
                 .paragraphStyle: paragraphStyle
             ]

@@ -78,7 +78,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         return url
     }
     
-    private var rulerView: LineNumberRulerView!
+    private var gutterView: LineNumberGutterView!
     
     
     required init?(coder: NSCoder) {
@@ -93,16 +93,14 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         
         // Add the Line Number Ruler
         if let scrollView = codeEditorTextView.enclosingScrollView {
-            rulerView = LineNumberRulerView(textView: codeEditorTextView)
+            gutterView = LineNumberGutterView(textView: codeEditorTextView)
     
             
-            scrollView.verticalRulerView = rulerView
+            scrollView.verticalRulerView = gutterView
             scrollView.hasVerticalRuler = true
             scrollView.rulersVisible = true
             // Force layout to avoid invisible window
             scrollView.tile()
-            
-            rulerView.backgroundColor = NSColor.black
         }
         
         NotificationCenter.default.addObserver(
@@ -173,14 +171,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         window.hasShadow = true
         
         
-        
-        if let theme = ThemeLoader.shared.loadPreferredTheme() {
-            if let colorHex = theme.colors["editor.background"], let color = NSColor(hex: colorHex) {
-                guard let window = view.window else { return }
-                window.backgroundColor = color
-                rulerView.backgroundColor = color
-            }
-        }
+        proceedWithThemeSection(named: ThemeLoader.shared.preferredTheme)
     }
     
    
@@ -248,17 +239,36 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     
     // MARK: - Theme & Grammar Action Handlers
     
-    @objc func handleThemeSelection(_ sender: NSMenuItem) {
-        guard ThemeLoader.shared.isThemeLoaded(named: sender.title) == false else { return }
-        codeEditorTextView.loadTheme(named: sender.title)
+    private func proceedWithThemeSection(named name: String) {
+        // Load the editor theme
+        codeEditorTextView.loadTheme(named: name)
         
-        if let theme = ThemeLoader.shared.loadPreferredTheme() {
-            if let colorHex = theme.colors["editor.background"], let color = NSColor(hex: colorHex) {
-                guard let window = view.window else { return }
-                window.backgroundColor = color
-                rulerView.backgroundColor = color
-            }
+        guard let theme = ThemeLoader.shared.loadPreferredTheme() else { return }
+        
+        // MARK: - Update Gutter (Line Numbers)
+        if let lineNumberGutter = theme.lineNumberRuler {
+            gutterView.gutterNumberAttributes[.foregroundColor] =
+                NSColor(hex: lineNumberGutter["foreground"] ?? "") ?? .gray
+            
+            gutterView.gutterNumberAttributes[.backgroundColor] =
+                NSColor(hex: lineNumberGutter["background"] ?? "") ?? .clear
+        } else {
+            // Defaults if no gutter info in theme
+            gutterView.gutterNumberAttributes[.foregroundColor] = .gray
+            gutterView.gutterNumberAttributes[.backgroundColor] = .clear
         }
+        
+        // MARK: - Update Window Background
+        let defaultWindowColor = NSColor(white: 0, alpha: 0.9)
+        if let window = view.window {
+            let windowBackgroundColor = NSColor(hex: theme.window?["background"] ?? "") ?? defaultWindowColor
+            window.backgroundColor = windowBackgroundColor
+        }
+    }
+    
+    @objc func handleThemeSelection(_ sender: NSMenuItem) {
+        ThemeLoader.shared.setPreferredTheme(named: sender.title)
+        proceedWithThemeSection(named: sender.title)
     }
     
     @objc func handleGrammarSelection(_ sender: NSMenuItem) {
@@ -333,24 +343,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         updateDocumentIconButtonImage()
     }
         
-//    private func saveDocumentAs() {
-//        let panel = NSSavePanel()
-//        panel.allowedContentTypes = [
-//            UTType(filenameExtension: "prgm+")!,
-//            UTType(filenameExtension: "prgm")!,
-//            .pythonScript
-//        ]
-//        panel.nameFieldStringValue = "MyProgram"
-//        panel.title = ""
-//        
-//
-//        panel.begin { result in
-//            guard result == .OK, let url = panel.url else { return }
-//            self.saveDocument(to: url)
-//        }
-//    }
-    
-    
+
     
     private func prepareForArchive() {
         guard
@@ -948,7 +941,6 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         popover.behavior = .transient
         popover.contentViewController = QuickLookViewController(
             text: out,
-            withSizeOf: NSSize(width: 800, height: 400),
             hasHorizontalScroller: true
         )
         popover.show(
@@ -1360,7 +1352,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             return false
             
         case #selector(handleThemeSelection(_:)):
-            if ThemeLoader.shared.isThemeLoaded(named: menuItem.title) {
+            if ThemeLoader.shared.preferredTheme == menuItem.title {
                 menuItem.state = .on
             } else {
                 menuItem.state = .off

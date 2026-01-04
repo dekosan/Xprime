@@ -357,11 +357,9 @@ final class CodeEditorTextView: NSTextView {
         do {
             let helpText = try String(contentsOf: url, encoding: .utf8)
             
-            let vc = QuickLookViewController(text: helpText, withSizeOf: NSSize(width: 400, height: 150))
-
             let popover = NSPopover()
             popover.behavior = .transient
-            popover.contentViewController = vc
+            popover.contentViewController = QuickLookViewController(text: helpText, hasHorizontalScroller: false)
             popover.show(
                 relativeTo: NSRect(origin: point, size: .zero),
                 of: self,
@@ -456,3 +454,4 @@ fileprivate extension NSString {
         return NSRange(location: cfRange.location, length: cfRange.length)
     }
 }
+
