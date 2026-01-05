@@ -201,13 +201,14 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         }
 
         for fileURL in resourceURLs {
-            let filename = fileURL.deletingPathExtension().lastPathComponent
+            let name = fileURL.deletingPathExtension().lastPathComponent
+            if name.first == "." { continue }
 
-            let menuItem = NSMenuItem(title: filename, action: #selector(handleThemeSelection(_:)), keyEquivalent: "")
+            let menuItem = NSMenuItem(title: name, action: #selector(handleThemeSelection(_:)), keyEquivalent: "")
             menuItem.representedObject = fileURL
             menuItem.target = self  // or another target if needed
             let theme = UserDefaults.standard.object(forKey: "theme") as? String ?? "Default (Dark)"
-            if filename == theme {
+            if name == theme {
                 menuItem.state = .on
             }
 
@@ -223,14 +224,13 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         
         for fileURL in resourceURLs {
             let name = fileURL.deletingPathExtension().lastPathComponent
+            if name.first == "." { continue }
             
             let menuItem = NSMenuItem(title: name, action: #selector(handleGrammarSelection(_:)), keyEquivalent: "")
             menuItem.representedObject = fileURL
             menuItem.target = self  // or another target if needed
             let grammar = UserDefaults.standard.object(forKey: "grammar") as? String ?? "Language"
-            if name == grammar {
-                menuItem.state = .on
-            }
+            
 
             menu.item(withTitle: "Editor")?.submenu?.item(withTitle: "Grammar")?.submenu?.addItem(menuItem)
         }
@@ -243,7 +243,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         // Load the editor theme
         codeEditorTextView.loadTheme(named: name)
         
-        guard let theme = ThemeLoader.shared.loadPreferredTheme() else { return }
+        guard let theme = ThemeLoader.shared.loadTheme(named: ThemeLoader.shared.preferredTheme) else { return }
         
         // MARK: - Update Gutter (Line Numbers)
         if let lineNumberGutter = theme.lineNumberRuler {
@@ -270,12 +270,11 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     }
     
     @objc func handleThemeSelection(_ sender: NSMenuItem) {
-        ThemeLoader.shared.setPreferredTheme(named: sender.title)
+        ThemeLoader.shared.setPreferredTheme(to: sender.title)
         proceedWithThemeSection(named: sender.title)
     }
     
     @objc func handleGrammarSelection(_ sender: NSMenuItem) {
-        guard GrammarLoader.shared.isGrammarLoaded(named: sender.title) == false else { return }
         codeEditorTextView.loadGrammar(named: sender.title)
     }
     
@@ -1332,14 +1331,6 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             
         case #selector(handleThemeSelection(_:)):
             if ThemeLoader.shared.preferredTheme == menuItem.title {
-                menuItem.state = .on
-            } else {
-                menuItem.state = .off
-            }
-            return true
-            
-        case #selector(handleGrammarSelection(_:)):
-            if GrammarLoader.shared.isGrammarLoaded(named: menuItem.title) {
                 menuItem.state = .on
             } else {
                 menuItem.state = .off

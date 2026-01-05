@@ -119,7 +119,7 @@ final class CodeEditorTextView: NSTextView {
     }
     
     private func loadInitialTheme() {
-        if let theme = ThemeLoader.shared.loadPreferredTheme() {
+        if let theme = ThemeLoader.shared.loadTheme(named: ThemeLoader.shared.preferredTheme) {
             self.theme = theme
             EditorThemeApplier.apply(theme, to: self)
             applySyntaxHighlighting()
@@ -127,10 +127,6 @@ final class CodeEditorTextView: NSTextView {
     }
     
     func loadGrammar(named name: String) {
-        guard GrammarLoader.shared.isGrammarLoaded(named: name) == false else {
-            return
-        }
-        
         if let grammar = GrammarLoader.shared.loadGrammar(named: name) {
             self.grammar = grammar
             applySyntaxHighlighting()
@@ -138,7 +134,7 @@ final class CodeEditorTextView: NSTextView {
     }
     
     private func loadInitialGrammar() {
-        self.grammar = GrammarLoader.shared.loadPreferredGrammar()
+        self.grammar = GrammarLoader.shared.grammar
     }
     
     private func baseAttributes() -> [NSAttributedString.Key: Any] {

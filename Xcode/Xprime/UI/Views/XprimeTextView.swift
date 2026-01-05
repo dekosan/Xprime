@@ -108,7 +108,7 @@ class XprimeTextView: NSTextView {
         configureBehavior()
         
         theme = ThemeLoader.shared.loadTheme(named: Constants.defaultThemeName)
-        grammar = GrammarLoader.shared.loadGrammar(named: "Prime")
+        grammar = GrammarLoader.shared.loadGrammar(named: ".Help")
     }
     
     private func configureTextViewAppearance() {
