@@ -15,6 +15,11 @@
     "window": {
         "background": "#1c40bb"
     },
+    "settings": {
+        "background": "#1c40bb",
+        "default.color": "#000000",
+        "done.color": "#82a6ff"
+    },
     "tokenColors": [
     ]
 }

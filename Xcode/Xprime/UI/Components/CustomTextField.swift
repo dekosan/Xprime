@@ -64,8 +64,8 @@ open class CustomTextField: NSTextField {
         if let layer = layer {
             layer.masksToBounds = true
             layer.cornerRadius = frame.height / 2.0
-            layer.borderWidth = 1.0
-            layer.borderColor = .init(gray: 0.25, alpha: 1.0)
+            layer.borderWidth = 2.0
+            layer.borderColor = .init(red: 1, green: 1, blue: 1, alpha: 0.5)
         }
         needsDisplay = true
     }

@@ -36,6 +36,9 @@ final class SettingsViewController: NSViewController, NSTextFieldDelegate, NSCom
     
     @IBOutlet weak var calculatorComboBox: NSComboBox!
     
+    @IBOutlet weak var defaultButton: NSButton!
+    @IBOutlet weak var doneButton: NSButton!
+    
     // MARK: - View
     
     override func viewDidLoad() {
@@ -112,6 +115,18 @@ final class SettingsViewController: NSViewController, NSTextFieldDelegate, NSCom
         window.titlebarAppearsTransparent = true
         window.styleMask = [.nonactivatingPanel, .titled]
         window.styleMask.insert(.fullSizeContentView)
+        
+        if let theme = ThemeLoader.shared.loadTheme(named: ThemeLoader.shared.preferredTheme) {
+            if let color = NSColor(hex: theme.settings?["background"] ?? "") {
+                window.backgroundColor = color
+            }
+            if let color = NSColor(hex: theme.settings?["default.color"] ?? "") {
+                defaultButton.bezelColor = color
+            }
+            if let color = NSColor(hex: theme.settings?["done.color"] ?? "") {
+                doneButton.bezelColor = color
+            }
+        }
     }
     
     // MARK: - Calculator Selection

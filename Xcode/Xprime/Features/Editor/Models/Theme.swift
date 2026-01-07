@@ -29,5 +29,6 @@ struct Theme: Codable {
     let colors: [String: String]
     let lineNumberRuler: [String: String]?
     let window: [String: String]?
+    let settings: [String: String]?
     let tokenColors: [TokenColor]
 }
