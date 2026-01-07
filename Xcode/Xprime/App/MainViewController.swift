@@ -626,16 +626,20 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     @IBAction func checkForUpdates(_ sender: Any) {
         let url = URL(string: "http://insoft.uk/downloads/macos/xprime-app-version.json")!
 
-        URLSession.shared.dataTask(with: url) { data, _, _ in
+        var request = URLRequest(url: url)
+        request.cachePolicy = .reloadIgnoringLocalCacheData
+
+        URLSession.shared.dataTask(with: request) { data, response, error in
             guard
                 let data,
                 let json = try? JSONSerialization.jsonObject(with: data) as? [String: String],
-                let latest = json["latestVersion"],
-                let current = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
+                let latest = json["latestVersion"]
             else {
                 return
             }
 
+            let current = (Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "26.0") + "." + (Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "20260101")
+          
             if latest.compare(current, options: .numeric) == .orderedDescending {
                 DispatchQueue.main.async {
                     AlertPresenter.presentYesNo(
