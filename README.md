@@ -6,4 +6,4 @@
 - Export a G1 .hpprgm file for use on a real HP Prime or the Virtual Calculator.
 - Compress code to fit more programs on your HP Prime
 
-
+<img src="https://github.com/Insoft-UK/Xprime/blob/main/assets/screenshots/xprime.png?raw=true" width="756" />
