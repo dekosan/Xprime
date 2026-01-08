@@ -1,6 +1,11 @@
 # Normalize line endings
 * text=auto
 
+.gitattributes linguist-generated=true
+.gitignore     linguist-generated=true
+.editorconfig  linguist-generated=true
+.clang-format  linguist-generated=true
+
 # PPL files
 *.ppl        linguist-language=PPL
 *.prgm       linguist-language=PPL
