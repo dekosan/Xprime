@@ -263,36 +263,36 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     
     // MARK: - Theme & Grammar Action Handlers
     
-    private func updateGutterApperance(usingTheme theme: Theme) {
-        if let lineNumberGutter = theme.lineNumberRuler {
-            gutterView.gutterNumberAttributes[.foregroundColor] =
-            NSColor(hex: lineNumberGutter["foreground"] ?? "") ?? .gray
-            
-            gutterView.gutterNumberAttributes[.backgroundColor] =
-            NSColor(hex: lineNumberGutter["background"] ?? "") ?? .clear
-            return
-        }
-        
-        // Defaults if no gutter info in theme
-        gutterView.gutterNumberAttributes[.foregroundColor] = .gray
-        gutterView.gutterNumberAttributes[.backgroundColor] = .clear
-    }
+//    private func updateGutterApperance(usingTheme theme: Theme) {
+//        if let lineNumberGutter = theme.lineNumberRuler {
+//            gutterView.gutterNumberAttributes[.foregroundColor] =
+//            NSColor(hex: lineNumberGutter["foreground"] ?? "") ?? .gray
+//            
+//            gutterView.gutterNumberAttributes[.backgroundColor] =
+//            NSColor(hex: lineNumberGutter["background"] ?? "") ?? .clear
+//            return
+//        }
+//        
+//        // Defaults if no gutter info in theme
+//        gutterView.gutterNumberAttributes[.foregroundColor] = .gray
+//        gutterView.gutterNumberAttributes[.backgroundColor] = .clear
+//    }
     
-    private func updateWindowApperance(usingTheme theme: Theme) {
-        guard let window = view.window else { return }
-        
-        let defaultWindowColor = NSColor(white: 0, alpha: 0.9)
-        
-        let windowBackgroundColor = NSColor(hex: theme.window?["background"] ?? "") ?? defaultWindowColor
-        window.backgroundColor = windowBackgroundColor
-        
-        let windowForegroundColor = NSColor(hex: theme.window?["foreground"] ?? "") ?? .systemGray
-        statusLabel.textColor = windowForegroundColor
-        
-        outputButton.contentTintColor = windowBackgroundColor.contrastColor()
-        clearOutputButton.contentTintColor = windowBackgroundColor.contrastColor()
-        statusLabel.textColor = windowBackgroundColor.contrastColor()
-    }
+//    private func updateWindowApperance(usingTheme theme: Theme) {
+//        guard let window = view.window else { return }
+//        
+//        let defaultWindowColor = NSColor(white: 0, alpha: 0.9)
+//        
+//        let windowBackgroundColor = NSColor(hex: theme.window?["background"] ?? "") ?? defaultWindowColor
+//        window.backgroundColor = windowBackgroundColor
+//        
+//        let windowForegroundColor = NSColor(hex: theme.window?["foreground"] ?? "") ?? .systemGray
+//        statusLabel.textColor = windowForegroundColor
+//        
+//        outputButton.contentTintColor = windowBackgroundColor.contrastColor()
+//        clearOutputButton.contentTintColor = windowBackgroundColor.contrastColor()
+//        statusLabel.textColor = windowBackgroundColor.contrastColor()
+//    }
     
    
     
