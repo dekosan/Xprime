@@ -23,4 +23,10 @@ Makefile     linguist-generated=true
 *.storyboard linguist-generated=true
 *.png        linguist-generated=true
 *.bmp        linguist-generated=true
+*.prgm       linguist-generated=true
+*.prgm+      linguist-generated=true
+/Apps/*      linguist-generated=true
+/Examples/*  linguist-generated=true
+*.yml        linguist-generated=true
+*.md         linguist-generated=true
 
