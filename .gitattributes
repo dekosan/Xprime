@@ -29,6 +29,7 @@ Makefile     linguist-generated=true
 /Examples/*  linguist-generated=true
 /Xcode/Xprime.xcodeproj/*.*  linguist-generated=true
 /Xcode/Xprime/Resources/*.*  linguist-generated=true
+/assets/*.*  linguist-generated=true
 *.plist      linguist-generated=true
 *.metal      linguist-generated=true
 *.entitlements               linguist-generated=true
