@@ -76,8 +76,12 @@ final class DocumentManager {
             if let out = result.out, !out.isEmpty {
                 editor.string = out
                 currentDocumentURL = nil
+                documentIsModified = false
+                UserDefaults.standard.set(url.path, forKey: "lastOpenedFilePath")
+                delegate?.documentManagerDidOpen(self)
                 return
             }
+            delegate?.documentManager(self, didFailToOpen: NSError(domain: "Error", code: 0, userInfo: [NSLocalizedDescriptionKey: "Failed to read from the program file."]))
             return
         }
         

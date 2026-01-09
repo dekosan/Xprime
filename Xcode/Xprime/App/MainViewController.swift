@@ -244,7 +244,6 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     }
     
     
-    
     private func populateGrammarMenu(menu: NSMenu) {
         guard let resourceURLs = Bundle.main.urls(forResourcesWithExtension: "xpgrammar", subdirectory: "Grammars") else {
 #if Debug
@@ -298,14 +297,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             }
         }
     }
-    
-    private func loadDocumentContents(from url: URL) -> String? {
-        return HPServices.loadHPPrgm(at: url)
-    }
-    
-//    private func loadProject(at directoryURL: URL, named projectName: String) {
-//        XprimeProjectServices.load(at: directoryURL, named: projectName)
-//    }
+
     
     private func loadAppropriateGrammar(forType fileExtension: String) {
         switch fileExtension.lowercased() {
@@ -615,16 +607,6 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                 // File inside project directory
                 let prgmURL = projectDir.appendingPathComponent(projectName + ".prgm+")
                 
-                //                if let url = Bundle.main.resourceURL?.appendingPathComponent("Untitled.prgm+") {
-                //                    self.codeEditorTextView.string = HPServices.loadHPPrgm(at: url) ?? ""
-                //                }
-                
-                //                // Save the .prgm+ file
-                //                try HPServices.savePrgm(
-                //                    at: prgmURL,
-                //                    content: self.codeEditorTextView.string
-                //                )
-                
                 guard let url = Bundle.main.resourceURL?.appendingPathComponent("Untitled.prgm+") else {
                     return
                 }
@@ -633,12 +615,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                 
                 // Update document state
                 self.documentManager.currentDocumentURL = prgmURL
-                //                self.documentIsModified = false
-                
-//                // Save project metadata
-//                XprimeProjectServices.save(to: projectDir, named: projectName)
-//                
-                // Change working directory (if your app depends on this)
+
                 FileManager.default.changeCurrentDirectoryPath(projectDir.path)
                 
             } catch {
@@ -664,25 +641,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     
     private func openDocument(url: URL) {
         guard FileManager.default.fileExists(atPath: url.path) else { return }
-        
         documentManager.openDocument(url: url)
-        
-        //        guard let contents = loadDocumentContents(from: url) else { return }
-        
-        //        documentIsModified = false
-        UserDefaults.standard.set(url.path, forKey: "lastOpenedFilePath")
-//        currentURL = documentManager.currentDocumentURL
-        //        codeEditorTextView.string = contents
-        
-        guard let parentURL = parentURL, let projectName = projectName else { return }
-        let folderURL = parentURL.appendingPathComponent("\(projectName).hpappdir")
-        
-//        loadProject(at: parentURL, named: projectName)
-//        loadAppropriateGrammar(forType: url.pathExtension)
-//        updateDocumentIcon(from: folderURL, parentURL: parentURL)
-        //        refreshQuickOpenToolbar()
-        
-        //        updateQuickOpenComboButton()
     }
     
     private func proceedWithOpeningDocument() {
@@ -716,10 +675,6 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             ) { confirmed in
                 if confirmed {
                     self.saveDocument(to: url)
-//                    if let projectName = self.projectName {
-//                        XprimeProjectServices.save(to: url.deletingLastPathComponent(), named: projectName)
-//                    }
-                    
                     self.proceedWithOpeningDocument()
                 } else {
                     return
@@ -734,17 +689,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     
     private func saveDocument(to url: URL) {
         guard documentManager.saveDocument(to: url) else { return }
-        //        do {
-        //            try self.codeEditorTextView.string.save(to: url)
-        //        } catch {
-        //            return
-        //        }
         self.documentManager.currentDocumentURL = url
-        //        self.documentIsModified = false
-        
-//        if let projectName = self.projectName {
-//            XprimeProjectServices.save(to: url.deletingLastPathComponent(), named: projectName)
-//        }
     }
     
     
@@ -761,9 +706,6 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         
         self.saveDocument(to: url)
         documentManager.currentDocumentURL = url
-//        if let projectName = self.projectName {
-//            XprimeProjectServices.save(to: url.deletingLastPathComponent(), named: projectName)
-//        }
     }
     
     @IBAction func saveDocument(_ sender: Any) {
@@ -831,10 +773,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             ) { confirmed in
                 guard confirmed else { return }
                 _ = self.documentManager.saveDocument(to: url)
-//                try? HPServices.savePrgm(at: url, content: self.codeEditorTextView.string)
-//                if let projectName = self.projectName {
-//                    XprimeProjectServices.save(to: url.deletingLastPathComponent(), named: projectName)
-//                }
+
                 proceedWithExport()
             }
         } else {
@@ -951,14 +890,6 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             }
         }
     }
-    
-    //    private func revertToSavedDocument(at url: URL) {
-    //        guard let contents = HPServices.loadHPPrgm(at: url) else { return }
-    //
-    //        codeEditorTextView.string = contents
-    //        self.documentIsModified = false
-    //        updateDocumentIconButtonImage()
-    //    }
     
     // MARK: - Project Actions
     
