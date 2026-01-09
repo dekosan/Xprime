@@ -20,10 +20,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-// MARK: ⚠️ DO NOT EDIT
-// I am actively working on this file. Changes may break things.
-
-
 import Cocoa
 import UniformTypeIdentifiers
 
@@ -582,11 +578,25 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     }
     
     @IBAction func newDocument(_ sender: Any) {
-        if let url = Bundle.main.resourceURL?.appendingPathComponent("Untitled.prgm+") {
-            codeEditorTextView.string = HPServices.loadHPPrgm(at: url) ?? ""
-            documentManager.currentDocumentURL = nil
-            if let window = self.view.window {
-                window.title = "Untitled.prgm+"
+        let panel = NSSavePanel()
+        if let url = documentManager.currentDocumentURL {
+            panel.directoryURL = url.deletingLastPathComponent()
+        }
+        panel.title = ""
+        panel.allowedContentTypes = [
+            UTType(filenameExtension: "prgm+")!
+        ]
+        panel.nameFieldStringValue = "Untitled"
+        
+        panel.begin { result in
+            guard result == .OK, let url = panel.url else { return }
+            
+            guard let templateURL = Bundle.main.resourceURL?.appendingPathComponent("Untitled.prgm+") else { return }
+            do {
+                try FileManager.default.copyItem(at: templateURL, to: url)
+                self.documentManager.openDocument(url: url)
+            } catch {
+                print("❌ copyItem failed:", error)
             }
         }
     }
@@ -641,24 +651,8 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     }
     
     // MARK: - Saving Document
-
-    
-//    private func proceedWithSavingDocument() {
-//        guard let url = documentManager.currentDocumentURL else {
-//            proceedWithSavingDocumentAs()
-//            return
-//        }
-//        
-//        if url.pathExtension.lowercased() == "hpprgm" || url.pathExtension.lowercased()  == "hpappprgm" {
-//            proceedWithSavingDocumentAs()
-//            return
-//        }
-//        
-//        documentManager.saveDocument()
-//    }
-    
     @IBAction func saveDocument(_ sender: Any) {
-        guard let url = documentManager.currentDocumentURL else {
+        guard let _ = documentManager.currentDocumentURL else {
             proceedWithSavingDocumentAs()
             return
         }
@@ -723,7 +717,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             exportHPProgram(from: url)
         }
         
-        if let url = documentManager.currentDocumentURL, documentManager.documentIsModified {
+        if let _ = documentManager.currentDocumentURL, documentManager.documentIsModified {
             AlertPresenter.presentYesNo(
                 on: window,
                 title: "Save Changes",
