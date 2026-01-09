@@ -107,7 +107,7 @@ final class ProjectManager {
             include: UserDefaults.standard.object(forKey: "include") as? String ?? "$(SDK)/include",
             lib: UserDefaults.standard.object(forKey: "lib") as? String ?? "$(SDK)/lib",
             calculator: UserDefaults.standard.object(forKey: "calculator") as? String ?? "Prime",
-            bin: "", // Reserved!
+            bin: UserDefaults.standard.object(forKey: "bin") as? String ?? "$(SDK)/bin",
             archiveProjectAppOnly: UserDefaults.standard.object(forKey: "archiveProjectAppOnly") as? Bool ?? true
         )
         do {
@@ -141,6 +141,7 @@ final class ProjectManager {
                     to: directoryURL.appendingPathComponent("\(name)/\(name).prgm+")
                 )
                 documentManager.openDocument(url: directoryURL.appendingPathComponent("\(name)/\(name).prgm+"))
+                defaultSettings()
                 saveProject()
                 currentDirectoryURL = directoryURL
             }
@@ -148,5 +149,14 @@ final class ProjectManager {
             return false
         }
         return false
+    }
+    
+    private func defaultSettings() {
+        UserDefaults.standard.set(false, forKey: "compression")
+        UserDefaults.standard.set("$(SDK)/include", forKey: "include")
+        UserDefaults.standard.set("$(SDK)/lib", forKey: "lib")
+        UserDefaults.standard.set("Prime", forKey: "calculator")
+        UserDefaults.standard.set("$(SDK)/bin", forKey: "bin")
+        UserDefaults.standard.set(true, forKey: "archiveProjectAppOnly")
     }
 }

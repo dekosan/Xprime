@@ -539,17 +539,38 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     }
     
     @objc private func quickOpen(_ sender: NSMenuItem) {
-        guard let parentURL = parentURL else { return }
-        openDocument(url: parentURL.appendingPathComponent(sender.title))
+        guard let url = documentManager.currentDocumentURL else {
+            return
+        }
+        
+        if documentManager.documentIsModified {
+            AlertPresenter.presentYesNo(
+                on: view.window,
+                title: "Save Changes",
+                message: "Do you want to save changes to '\(url.lastPathComponent)' before opening another document",
+                primaryActionTitle: "Save"
+            ) { confirmed in
+                if confirmed {
+                    self.documentManager.saveDocument()
+                    self.documentManager.openDocument(url: url.deletingLastPathComponent().appendingPathComponent(sender.title))
+                } else {
+                    return
+                }
+            }
+        } else {
+            self.documentManager.openDocument(url: url.deletingLastPathComponent().appendingPathComponent(sender.title))
+        }
     }
     
     private func refreshQuickOpenToolbar() {
-        guard let directoryURL = parentURL else { return }
+        let currentDirectoryPath = FileManager.default.currentDirectoryPath
+        let currentDirectoryURL = URL(fileURLWithPath: currentDirectoryPath)
+
         let menu = NSMenu()
         
         
         let contents = try? FileManager.default.contentsOfDirectory(
-            at: directoryURL,
+            at: currentDirectoryURL,
             includingPropertiesForKeys: [.isDirectoryKey],
             options: [.skipsHiddenFiles]
         )
@@ -582,7 +603,10 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         }
         
         comboButton.menu = menu
-        comboButton.title = documentManager.currentDocumentURL?.lastPathComponent ?? ""
+        comboButton.title = documentManager.currentDocumentURL?
+            .lastPathComponent
+            ?? "Untitled"
+        comboButton.target = self
         comboButton.action = #selector(revertDocumentToSaved(_:))
     }
     

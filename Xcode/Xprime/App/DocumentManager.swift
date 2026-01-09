@@ -93,6 +93,7 @@ final class DocumentManager {
             documentIsModified = false
             UserDefaults.standard.set(url.path, forKey: "lastOpenedFilePath")
             delegate?.documentManagerDidOpen(self)
+            FileManager.default.changeCurrentDirectoryPath(url.deletingLastPathComponent().path)
             return
         }
         
@@ -109,6 +110,8 @@ final class DocumentManager {
         } catch {
             delegate?.documentManager(self, didFailToOpen: error)
         }
+        
+        FileManager.default.changeCurrentDirectoryPath(url.deletingLastPathComponent().path)
     }
     
     @discardableResult
