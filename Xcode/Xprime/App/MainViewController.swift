@@ -20,7 +20,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-// MARK: - ⚠️ Refactoring Required
+// MARK: ⚠️ DO NOT EDIT
+// I am actively working on this file. Changes may break things.
+
 
 import Cocoa
 import UniformTypeIdentifiers
@@ -33,11 +35,12 @@ extension MainViewController: NSWindowRestoration {
 }
 
 
+
 final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarItemValidation, NSMenuItemValidation, NSSplitViewDelegate {
-        
+    
     // MARK: - IBOutlets
     @IBOutlet weak var splitView: NSSplitView!
-//    @IBOutlet weak var fixedPane: NSView!
+    //    @IBOutlet weak var fixedPane: NSView!
     @IBOutlet var codeEditorTextView: CodeEditorTextView!
     @IBOutlet var statusLabel: NSTextField!
     @IBOutlet var outputTextView: OutputTextView!
@@ -46,12 +49,13 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     @IBOutlet private weak var clearOutputButton: NSButton!
     
     // MARK: - Managers
+    private var documentManager: DocumentManager!
     private var themeManager: ThemeManager!
     private var updateManager: UpdateManager!
     private var statusManager: StatusManager!
     
     // MARK: - Outlets
-//    @IBOutlet weak var toolbar: NSToolbar!
+    //    @IBOutlet weak var toolbar: NSToolbar!
     @IBOutlet weak var icon: NSImageView!
     
     
@@ -92,12 +96,20 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Managers that don’t depend on window
+        documentManager = DocumentManager(editor: codeEditorTextView)
+        documentManager.delegate = self
+        statusManager = StatusManager(editor: codeEditorTextView, statusLabel: statusLabel)
+        
+        setupObservers()
+        
         setupEditor()
         
         // Add the Line Number Ruler
         if let scrollView = codeEditorTextView.enclosingScrollView {
             gutterView = LineNumberGutterView(textView: codeEditorTextView)
-    
+            
             
             scrollView.verticalRulerView = gutterView
             scrollView.hasVerticalRuler = true
@@ -106,14 +118,6 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             scrollView.tile()
         }
         
-        NotificationCenter.default.addObserver(
-            forName: NSText.didChangeNotification,
-            object: codeEditorTextView,
-            queue: .main
-        ) { [weak self] _ in
-            self?.documentIsModified = true
-        }
-      
         if let menu = NSApp.mainMenu {
             populateThemesMenu(menu: menu)
             populateGrammarMenu(menu: menu)
@@ -123,8 +127,16 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     
     override func viewDidAppear() {
         super.viewDidAppear()
-        setupManagers()
-        setupObservers()
+        
+        // Now view.window exists
+        themeManager = ThemeManager(editor: codeEditorTextView,
+                                    statusLabel: statusLabel,
+                                    outputButtons: [outputButton, clearOutputButton],
+                                    window: view.window)
+        updateManager = UpdateManager(presenterWindow: view.window)
+        
+        setupWindowAppearance()
+        //        documentManager.openLastOrUntitled()
         
         if let path = UserDefaults.standard.string(forKey: "lastOpenedFilePath") {
             let url = URL(fileURLWithPath: path)
@@ -138,12 +150,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             }
         }
         
-        guard let window = view.window else { return }
         
-        window.isOpaque = false
-        window.titlebarAppearsTransparent = true
-        window.styleMask = [.resizable, .miniaturizable, .titled]
-        window.hasShadow = true
         
         themeManager.applySavedTheme()
     }
@@ -153,15 +160,6 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     }
     
     // MARK: - Setup
-    private func setupManagers() {
-        themeManager = ThemeManager(editor: codeEditorTextView,
-                                    statusLabel: statusLabel,
-                                    outputButtons: [outputButton, clearOutputButton],
-                                    window: view.window)
-        updateManager = UpdateManager(presenterWindow: view.window)
-        statusManager = StatusManager(editor: codeEditorTextView, statusLabel: statusLabel)
-    }
-    
     private func setupEditor() {
         codeEditorTextView.delegate = self
         splitView.delegate = self
@@ -174,35 +172,52 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             name: NSTextView.didChangeSelectionNotification,
             object: codeEditorTextView
         )
+        
+        // Typically in viewDidLoad or init
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(documentDidChange),
+                                               name: .documentModificationChanged,
+                                               object: nil)
+        
     }
     
-    var documentIsModified: Bool = false {
-        didSet {
-            if documentIsModified {
-                
-                updateQuickOpenComboButton()
-            } else {
-                updateQuickOpenComboButton()
-            }
-        }
+    private func setupWindowAppearance() {
+        guard let window = view.window else { return }
+        window.isOpaque = false
+        window.titlebarAppearsTransparent = true
+        window.styleMask = [.resizable, .titled, .miniaturizable]
+        window.hasShadow = true
     }
     
-    private func updateQuickOpenComboButton() {
+    // MARK: - Observers
+    @objc private func documentDidChange(_ notification: Notification) {
+#if Debug
+        print("Document modification state changed!")
+#endif
+        // Update UI, toolbar, buttons, etc.
+        refreshQuickOpenToolbar()
+        updateQuickOpenButton()
+    }
+    
+    func textDidChange(_ notification: Notification) {
+#if Debug
+        print("Text did change!")
+#endif
+        documentManager.documentIsModified = true
+    }
+    
+    // MARK: -
+    
+    private func updateQuickOpenButton() {
         guard
             let toolbar = view.window?.toolbar,
-            let item = toolbar.items.first(where: {
-                $0.paletteLabel == "Quick Open"
-            }),
-            let comboButton = item.view as? NSComboButton
-        else {
-            return
-        }
+            let quickOpenItem = toolbar.items.first(where: { $0.paletteLabel == "Quick Open" }),
+            let comboButton = quickOpenItem.view as? NSComboButton
+        else { return }
         
-        if documentIsModified {
-            comboButton.action = #selector(revertDocumentToSaved(_:))
-        } else {
-            comboButton.action = nil
-        }
+        comboButton.action = documentManager.documentIsModified
+        ? #selector(revertDocumentToSaved(_:))
+        : nil
     }
     
     private func populateThemesMenu(menu: NSMenu) {
@@ -210,10 +225,12 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             forResourcesWithExtension: "xpcolortheme",
             subdirectory: "Themes"
         ) else {
+#if Debug
             print("⚠️ No .xpcolortheme files found.")
+#endif
             return
         }
-
+        
         let sortedURLs = resourceURLs
             .filter { !$0.lastPathComponent.hasPrefix(".") }
             .sorted {
@@ -222,10 +239,10 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                         $1.deletingPathExtension().lastPathComponent
                     ) == .orderedAscending
             }
-
+        
         for fileURL in sortedURLs {
             let name = fileURL.deletingPathExtension().lastPathComponent
-
+            
             let menuItem = NSMenuItem(
                 title: name,
                 action: #selector(handleThemeSelection(_:)),
@@ -233,7 +250,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             )
             menuItem.representedObject = fileURL
             menuItem.target = self
-
+            
             menu.item(withTitle: "Editor")?
                 .submenu?
                 .item(withTitle: "Theme")?
@@ -246,7 +263,9 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     
     private func populateGrammarMenu(menu: NSMenu) {
         guard let resourceURLs = Bundle.main.urls(forResourcesWithExtension: "xpgrammar", subdirectory: "Grammars") else {
+#if Debug
             print("⚠️ No .xpgrammar files found.")
+#endif
             return
         }
         
@@ -263,38 +282,6 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     
     // MARK: - Theme & Grammar Action Handlers
     
-//    private func updateGutterApperance(usingTheme theme: Theme) {
-//        if let lineNumberGutter = theme.lineNumberRuler {
-//            gutterView.gutterNumberAttributes[.foregroundColor] =
-//            NSColor(hex: lineNumberGutter["foreground"] ?? "") ?? .gray
-//            
-//            gutterView.gutterNumberAttributes[.backgroundColor] =
-//            NSColor(hex: lineNumberGutter["background"] ?? "") ?? .clear
-//            return
-//        }
-//        
-//        // Defaults if no gutter info in theme
-//        gutterView.gutterNumberAttributes[.foregroundColor] = .gray
-//        gutterView.gutterNumberAttributes[.backgroundColor] = .clear
-//    }
-    
-//    private func updateWindowApperance(usingTheme theme: Theme) {
-//        guard let window = view.window else { return }
-//        
-//        let defaultWindowColor = NSColor(white: 0, alpha: 0.9)
-//        
-//        let windowBackgroundColor = NSColor(hex: theme.window?["background"] ?? "") ?? defaultWindowColor
-//        window.backgroundColor = windowBackgroundColor
-//        
-//        let windowForegroundColor = NSColor(hex: theme.window?["foreground"] ?? "") ?? .systemGray
-//        statusLabel.textColor = windowForegroundColor
-//        
-//        outputButton.contentTintColor = windowBackgroundColor.contrastColor()
-//        clearOutputButton.contentTintColor = windowBackgroundColor.contrastColor()
-//        statusLabel.textColor = windowBackgroundColor.contrastColor()
-//    }
-    
-   
     
     @objc func handleThemeSelection(_ sender: NSMenuItem) {
         UserDefaults.standard.set(sender.title, forKey: "preferredTheme")
@@ -331,7 +318,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     private func loadDocumentContents(from url: URL) -> String? {
         return HPServices.loadHPPrgm(at: url)
     }
-        
+    
     private func loadProject(at directoryURL: URL, named projectName: String) {
         XprimeProjectServices.load(at: directoryURL, named: projectName)
     }
@@ -375,14 +362,14 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         
         updateDocumentIconButtonImage()
     }
-        
-
+    
+    
     
     private func prepareForArchive() {
         guard
             let currentURL = currentURL,
-                let projectName = projectName ,
-                let parentURL = parentURL
+            let projectName = projectName ,
+            let parentURL = parentURL
         else { return }
         
         do {
@@ -397,7 +384,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             .appendingPathExtension("hpappdir")
             .appendingPathComponent(projectName)
             .appendingPathExtension("hpappprgm"),
-            compress: UserDefaults.standard.object(forKey: "compression") as? Bool ?? false
+                                            compress: UserDefaults.standard.object(forKey: "compression") as? Bool ?? false
         )
         outputTextView.appendTextAndScroll(result.err ?? "")
     }
@@ -424,7 +411,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             url = parentURL
             outputTextView.appendTextAndScroll("Archiving from the current project directory.\n")
         }
-
+        
         let result = HPServices.archiveHPAppDirectory(in: url, named: projectName, to: parentURL)
         
         if let out = result.out, !out.isEmpty {
@@ -437,17 +424,17 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     private func processRequires(in text: String) -> (cleaned: String, requiredFiles: [String]) {
         let pattern = #"#require\s*"([^"<>]+)""#
         let regex = try! NSRegularExpression(pattern: pattern)
-
+        
         var requiredFiles: [String] = []
         var cleanedText = text
         
         let basePath = ToolchainPaths.developerRoot.appendingPathComponent("usr")
             .appendingPathComponent("hpprgm")
             .path
-
+        
         // Find matches
         let matches = regex.matches(in: text, range: NSRange(text.startIndex..., in: text))
-
+        
         for match in matches.reversed() {
             // Extract filename
             if let range = Range(match.range(at: 1), in: text) {
@@ -455,16 +442,16 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                     .appendingPathComponent(String(text[range]))
                     .appendingPathExtension("hpprgm")
                     .path
-                    
+                
                 requiredFiles.append(filePath)
             }
-
+            
             // Remove entire #require line from the output
             if let fullRange = Range(match.range, in: cleanedText) {
                 cleanedText.removeSubrange(fullRange)
             }
         }
-
+        
         return (cleanedText, requiredFiles)
     }
     
@@ -472,17 +459,17 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     private func processAppRequires(in text: String) -> (cleaned: String, requiredApps: [String]) {
         let pattern = #"#require\s*<([^"<>]+)>"#
         let regex = try! NSRegularExpression(pattern: pattern)
-
+        
         var requiredApps: [String] = []
         var cleanedText = text
         
         let basePath = ToolchainPaths.developerRoot.appendingPathComponent("usr")
             .appendingPathComponent("hpappdir")
             .path
-
+        
         // Find matches
         let matches = regex.matches(in: text, range: NSRange(text.startIndex..., in: text))
-
+        
         for match in matches.reversed() {
             // Extract filename
             if let range = Range(match.range(at: 1), in: text) {
@@ -490,20 +477,20 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                     .appendingPathComponent(String(text[range]))
                     .appendingPathExtension("hpappdir")
                     .path
-                    
+                
                 requiredApps.append(filePath)
             }
-
+            
             // Remove entire #require line from the output
             if let fullRange = Range(match.range, in: cleanedText) {
                 cleanedText.removeSubrange(fullRange)
             }
         }
-
+        
         return (cleanedText, requiredApps)
     }
     
-   
+    
     
     private func installRequiredPrograms(requiredFiles: [String]) {
         for file in requiredFiles {
@@ -527,7 +514,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         }
     }
     
-
+    
     private func performBuild() {
         guard let sourceURL = projectURL else {
             return
@@ -571,14 +558,14 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     private func refreshQuickOpenToolbar() {
         guard let directoryURL = parentURL else { return }
         let menu = NSMenu()
-       
-    
+        
+        
         let contents = try? FileManager.default.contentsOfDirectory(
             at: directoryURL,
             includingPropertiesForKeys: [.isDirectoryKey],
             options: [.skipsHiddenFiles]
         )
-
+        
         contents?
             .filter { (try? $0.resourceValues(forKeys: [.isDirectoryKey]).isDirectory) == false }
             .forEach { url in
@@ -595,7 +582,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                     menu.items.last?.state = (url == currentURL) ? .on : .off
                 }
             }
-  
+        
         guard
             let toolbar = view.window?.toolbar,
             let item = toolbar.items.first(where: {
@@ -644,19 +631,25 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                 // File inside project directory
                 let prgmURL = projectDir.appendingPathComponent(projectName + ".prgm+")
                 
-                if let url = Bundle.main.resourceURL?.appendingPathComponent("Untitled.prgm+") {
-                    self.codeEditorTextView.string = HPServices.loadHPPrgm(at: url) ?? ""
-                }
+                //                if let url = Bundle.main.resourceURL?.appendingPathComponent("Untitled.prgm+") {
+                //                    self.codeEditorTextView.string = HPServices.loadHPPrgm(at: url) ?? ""
+                //                }
                 
-                // Save the .prgm+ file
-                try HPServices.savePrgm(
-                    at: prgmURL,
-                    content: self.codeEditorTextView.string
-                )
+                //                // Save the .prgm+ file
+                //                try HPServices.savePrgm(
+                //                    at: prgmURL,
+                //                    content: self.codeEditorTextView.string
+                //                )
+                
+                guard let url = Bundle.main.resourceURL?.appendingPathComponent("Untitled.prgm+") else {
+                    return
+                }
+                self.documentManager.openDocument(url: url)
+                _ = self.documentManager.saveDocument(to: prgmURL)
                 
                 // Update document state
                 self.currentURL = prgmURL
-                self.documentIsModified = false
+                //                self.documentIsModified = false
                 
                 // Save project metadata
                 XprimeProjectServices.save(to: projectDir, named: projectName)
@@ -686,12 +679,16 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     // MARK: - Opening Document
     
     private func openDocument(url: URL) {
-        guard let contents = loadDocumentContents(from: url) else { return }
+        guard FileManager.default.fileExists(atPath: url.path) else { return }
         
-        documentIsModified = false
+        documentManager.openDocument(url: url)
+        
+        //        guard let contents = loadDocumentContents(from: url) else { return }
+        
+        //        documentIsModified = false
         UserDefaults.standard.set(url.path, forKey: "lastOpenedFilePath")
-        currentURL = url
-        codeEditorTextView.string = contents
+        currentURL = documentManager.currentURL
+        //        codeEditorTextView.string = contents
         
         guard let parentURL = parentURL, let projectName = projectName else { return }
         let folderURL = parentURL.appendingPathComponent("\(projectName).hpappdir")
@@ -699,9 +696,9 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         loadProject(at: parentURL, named: projectName)
         loadAppropriateGrammar(forType: url.pathExtension)
         updateDocumentIcon(from: folderURL, parentURL: parentURL)
-        refreshQuickOpenToolbar()
+        //        refreshQuickOpenToolbar()
         
-        updateQuickOpenComboButton()
+        //        updateQuickOpenComboButton()
     }
     
     private func proceedWithOpeningDocument() {
@@ -726,7 +723,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     }
     
     @IBAction func openDocument(_ sender: Any) {
-        if let url = currentURL, documentIsModified {
+        if let url = currentURL, documentManager.documentIsModified {
             AlertPresenter.presentYesNo(
                 on: view.window,
                 title: "Save Changes",
@@ -738,7 +735,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                     if let projectName = self.projectName {
                         XprimeProjectServices.save(to: url.deletingLastPathComponent(), named: projectName)
                     }
-                   
+                    
                     self.proceedWithOpeningDocument()
                 } else {
                     return
@@ -752,13 +749,14 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     // MARK: - Saving Document
     
     private func saveDocument(to url: URL) {
-        do {
-            try self.codeEditorTextView.string.save(to: url)
-        } catch {
-            return
-        }
+        guard documentManager.saveDocument(to: url) else { return }
+        //        do {
+        //            try self.codeEditorTextView.string.save(to: url)
+        //        } catch {
+        //            return
+        //        }
         self.currentURL = url
-        self.documentIsModified = false
+        //        self.documentIsModified = false
         
         if let projectName = self.projectName {
             XprimeProjectServices.save(to: url.deletingLastPathComponent(), named: projectName)
@@ -800,7 +798,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         panel.nameFieldStringValue = "MyProgram"
         panel.title = ""
         
-
+        
         panel.begin { result in
             guard result == .OK, let url = panel.url else { return }
             self.saveDocument(to: url)
@@ -817,9 +815,9 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         let defaultName = sourceURL
             .deletingPathExtension()
             .lastPathComponent + ".hpprgm"
-
+        
         let compression = UserDefaults.standard.bool(forKey: "compression")
-
+        
         runExport(
             allowedExtensions: ["hpprgm"],
             defaultName: defaultName
@@ -834,13 +832,13 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     
     @IBAction func exportAsHPPrgm(_ sender: Any) {
         guard let window = view.window else { return }
-
+        
         func proceedWithExport() {
             guard let url = currentURL else { return }
             exportHPProgram(from: url)
         }
         
-        if let url = currentURL, documentIsModified {
+        if let url = currentURL, documentManager.documentIsModified {
             AlertPresenter.presentYesNo(
                 on: window,
                 title: "Save Changes",
@@ -865,7 +863,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         let defaultName = sourceURL
             .deletingPathExtension()
             .lastPathComponent + ".prgm"
-
+        
         runExport(
             allowedExtensions: ["prgm"],
             defaultName: defaultName
@@ -878,18 +876,18 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     }
     
     @IBAction func exportAsPrgm(_ sender: Any) {
-
+        
         guard let window = view.window else { return }
-
+        
         func proceedWithExport() {
             guard let url = currentURL else { return }
             exportPRGM(from: url)
         }
-
+        
         // Document already exists
         if currentURL != nil {
-
-            if documentIsModified {
+            
+            if documentManager.documentIsModified {
                 AlertPresenter.presentYesNo(
                     on: window,
                     title: "Save Changes",
@@ -903,16 +901,16 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             } else {
                 proceedWithExport()
             }
-
+            
         } else {
             // First save required
             proceedWithSavingDocumentAs()
-
+            
             guard let url = currentURL,
                   FileManager.default.fileExists(atPath: url.path) else {
                 return
             }
-
+            
             exportPRGM(from: url)
         }
     }
@@ -953,7 +951,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     // MARK: -
     
     @IBAction func revertDocumentToSaved(_ sender: Any) {
-        guard let url = currentURL, documentIsModified else { return }
+        guard let url = currentURL, documentManager.documentIsModified else { return }
         
         AlertPresenter.presentYesNo(
             on: view.window,
@@ -969,20 +967,20 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         }
     }
     
-//    private func revertToSavedDocument(at url: URL) {
-//        guard let contents = HPServices.loadHPPrgm(at: url) else { return }
-//        
-//        codeEditorTextView.string = contents
-//        self.documentIsModified = false
-//        updateDocumentIconButtonImage()
-//    }
+    //    private func revertToSavedDocument(at url: URL) {
+    //        guard let contents = HPServices.loadHPPrgm(at: url) else { return }
+    //
+    //        codeEditorTextView.string = contents
+    //        self.documentIsModified = false
+    //        updateDocumentIconButtonImage()
+    //    }
     
     // MARK: - Project Actions
     
     @IBAction func stop(_ sender: Any) {
         HPServices.terminateVirtualCalculator()
     }
-
+    
     @IBAction func run(_ sender: Any) {
         if let _ = currentURL {
             proceedWithSavingDocument()
@@ -1075,7 +1073,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     
     @IBAction func installHPAppDirectoryToCalculator(_ sender: Any) {
         guard let projectName = projectName, let parentURL = parentURL else { return }
-
+        
         let appDirURL = parentURL
             .appendingPathComponent(projectName)
             .appendingPathExtension("hpappdir")
@@ -1092,7 +1090,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             return
         }
     }
-
+    
     @IBAction func archiveWithoutBuilding(_ sender: Any) {
         archiveProcess()
     }
@@ -1177,7 +1175,9 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     @IBAction func insertTemplate(_ sender: Any) {
         func traceMenuItem(_ item: NSMenuItem) -> String {
             if let parentMenu = item.menu {
+#if Debug
                 print("Item '\(item.title)' is in menu: \(parentMenu.title)")
+#endif
                 
                 // Try to find the parent NSMenuItem that links to this menu
                 for superitem in parentMenu.supermenu?.items ?? [] {
@@ -1287,8 +1287,8 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                 return true
             }
             return false
-       
-         default :
+            
+        default :
             break
         }
         
@@ -1303,7 +1303,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         }
         
         let ext = (currentURL != nil) ? currentURL!.pathExtension.lowercased() : ""
-    
+        
         switch menuItem.action {
         case #selector(reformatCode(_:)):
             if let _ = currentURL, ext == "prgm" || ext == "ppl" {
@@ -1369,7 +1369,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             return false
             
         case #selector(revertDocumentToSaved(_:)):
-            return documentIsModified
+            return documentManager.documentIsModified
             
         case #selector(cleanBuildFolder(_:)):
             if let _ = projectURL {
@@ -1404,6 +1404,33 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         }
         
         return true
+    }
+}
+
+// MARK: - 🤝 DocumentManagerDelegate
+extension MainViewController: DocumentManagerDelegate {
+    func documentManagerDidSave(_ manager: DocumentManager) {
+#if Debug
+        print("Saved successfully")
+#endif
+    }
+    
+    func documentManager(_ manager: DocumentManager, didFailWith error: Error) {
+#if Debug
+        print("Save failed:", error)
+#endif
+    }
+    
+    func documentManagerDidOpen(_ manager: DocumentManager) {
+#if Debug
+        print("Opened successfully")
+#endif
+    }
+    
+    func documentManager(_ manager: DocumentManager, didFailToOpen error: Error) {
+#if Debug
+        print("Open failed:", error)
+#endif
     }
 }
 

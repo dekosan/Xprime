@@ -1,0 +1,106 @@
+// The MIT License (MIT)
+//
+// Copyright (c) 2025-2026 Insoft.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the Software), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED AS IS, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
+
+// MARK: 🔧 Under Development
+
+import Cocoa
+
+protocol DocumentManagerDelegate: AnyObject {
+    // Called when a document is successfully saved
+    func documentManagerDidSave(_ manager: DocumentManager)
+    
+    // Called when saving fails
+    func documentManager(_ manager: DocumentManager, didFailWith error: Error)
+    
+    // Called when a document is successfully opened
+    func documentManagerDidOpen(_ manager: DocumentManager)
+    
+    // Optional: called when opening fails
+    func documentManager(_ manager: DocumentManager, didFailToOpen error: Error)
+}
+
+final class DocumentManager {
+    
+    weak var delegate: DocumentManagerDelegate?
+    
+    private(set) var currentURL: URL?
+    private var editor: CodeEditorTextView
+
+    var documentIsModified: Bool = false {
+        didSet {
+            NotificationCenter.default.post(name: .documentModificationChanged, object: nil)
+        }
+    }
+
+    init(editor: CodeEditorTextView) {
+        self.editor = editor
+    }
+
+    func openLastOrUntitled() {
+        if let path = UserDefaults.standard.string(forKey: "lastOpenedFilePath"),
+           FileManager.default.fileExists(atPath: path) {
+            openDocument(url: URL(fileURLWithPath: path))
+        } else {
+            openUntitled()
+        }
+    }
+
+    private func openUntitled() {
+        editor.string = ""
+        currentURL = nil
+        documentIsModified = false
+    }
+
+    func openDocument(url: URL) {
+        let encoding: String.Encoding = url.pathExtension.lowercased() == "prgm" ? .utf16 : .utf8
+        
+        do {
+            let content = try String(contentsOf: url, encoding: encoding)
+            editor.string = content
+            currentURL = url
+            documentIsModified = false
+            UserDefaults.standard.set(url.path, forKey: "lastOpenedFilePath")
+            delegate?.documentManagerDidOpen(self)
+        } catch {
+            delegate?.documentManager(self, didFailToOpen: error)
+            return
+        }
+    }
+    
+    func saveDocument(to url: URL) -> Bool {
+        let encoding: String.Encoding = url.pathExtension.lowercased() == "prgm" ? .utf16 : .utf8
+        
+        do {
+            try editor.string.write(to: url, atomically: true, encoding: encoding)
+            documentIsModified = false
+            delegate?.documentManagerDidSave(self)
+            return true
+        } catch {
+            delegate?.documentManager(self, didFailWith: error)
+            return false
+        }
+    }
+}
+
+extension Notification.Name {
+    static let documentModificationChanged = Notification.Name("documentModificationChanged")
+}

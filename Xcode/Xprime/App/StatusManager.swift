@@ -25,7 +25,7 @@
 import Cocoa
 
 final class StatusManager: NSObject, NSTextViewDelegate {
-    private var editor: CodeEditorTextView?
+    private var editor: CodeEditorTextView
     private weak var statusLabel: NSTextField?
 
     init(editor: CodeEditorTextView, statusLabel: NSTextField?) {
@@ -42,8 +42,6 @@ final class StatusManager: NSObject, NSTextViewDelegate {
     }
 
     private func updateStatus() {
-        guard let editor = editor else { return }
-        
         let text = editor.string as NSString
         let cursor = editor.selectedRange.location
         var line = 1, column = 1
