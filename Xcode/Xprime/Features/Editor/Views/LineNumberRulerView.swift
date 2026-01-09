@@ -22,18 +22,6 @@
 
 import Cocoa
 
-//class ColoredRulerView: NSRulerView {
-//
-//    var backgroundColor: NSColor = .windowBackgroundColor
-//
-//    override func drawHashMarksAndLabels(in rect: NSRect) {
-//        backgroundColor.setFill()
-//        rect.fill()
-//
-//        super.drawHashMarksAndLabels(in: rect)
-//    }
-//}
-
 final class LineNumberGutterView: NSRulerView {
     var gutterNumberAttributes: [NSAttributedString.Key: NSColor] = [
         .foregroundColor: NSColor.gray,
@@ -41,9 +29,7 @@ final class LineNumberGutterView: NSRulerView {
     ]
 
     weak var textView: NSTextView?
-    
     var pointSize: CGFloat = 12
-
 
     init(textView: NSTextView) {
         self.textView = textView
@@ -52,7 +38,6 @@ final class LineNumberGutterView: NSRulerView {
         self.ruleThickness = 40
         self.registerObservers()
     }
-
 
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

@@ -36,37 +36,29 @@ fileprivate struct Project: Codable {
 final class ProjectManager {
     
     private var documentManager: DocumentManager
-    
-    var projectName: String? {
-        guard let url = documentManager.currentDocumentURL else {
-            return nil
-        }
-        
-        return url.deletingPathExtension().lastPathComponent
-    }
+    private(set) var currentDirectoryURL: URL?
     
     init(documentManager: DocumentManager) {
         self.documentManager = documentManager
     }
     
     func openProject() {
-        guard let url = documentManager.currentDocumentURL else { return }
-        if url.pathComponents.count <= 1 {
+        guard let url = documentManager.currentDocumentURL else {
             return
         }
         
-        let projectName = url
+        let name = url
             .deletingLastPathComponent()
             .lastPathComponent
         
-        let projectURL = url
+        let projectFileURL = url
             .deletingLastPathComponent()
-            .appendingPathComponent("\(projectName).xprimeproj")
+            .appendingPathComponent("\(name).xprimeproj")
         
         
         var project: Project?
         
-        if let jsonString = loadJSONString(projectURL),
+        if let jsonString = loadJSONString(projectFileURL),
            let jsonData = jsonString.data(using: .utf8) {
             project = try? JSONDecoder().decode(Project.self, from: jsonData)
         }
@@ -81,6 +73,9 @@ final class ProjectManager {
         UserDefaults.standard.set(project.calculator, forKey: "calculator")
         UserDefaults.standard.set(project.bin, forKey: "bin")
         UserDefaults.standard.set(project.archiveProjectAppOnly, forKey: "archiveProjectAppOnly")
+        
+        currentDirectoryURL = url
+            .deletingLastPathComponent()
     }
     
     
@@ -96,13 +91,16 @@ final class ProjectManager {
         }
     }
     
-    func saveProject() {
-        guard let projectName = self.projectName else { return }
-        guard let url = documentManager.currentDocumentURL else { return }
-        
-        let projectURL = url
+    @discardableResult
+    func saveProject() -> Bool {
+        guard let url = documentManager.currentDocumentURL else { return false }
+        let name = url
             .deletingLastPathComponent()
-            .appendingPathComponent("\(projectName).xprimeproj")
+            .lastPathComponent
+        
+        let projectFileURL = url
+            .deletingLastPathComponent()
+            .appendingPathComponent("\(name).xprimeproj")
         
         let project = Project(
             compression: UserDefaults.standard.object(forKey: "compression") as? Bool ?? false,
@@ -117,13 +115,38 @@ final class ProjectManager {
             encoder.outputFormatting = [.prettyPrinted]
             let data = try encoder.encode(project)
             if let jsonString = String(data: data, encoding: .utf8) {
-                try jsonString.write(to: projectURL, atomically: true, encoding: .utf8)
+                try jsonString.write(to: projectFileURL, atomically: true, encoding: .utf8)
             } else {
                 // Fallback: write raw data if string conversion fails
-                try data.write(to: projectURL)
+                try data.write(to: projectFileURL)
+            }
+            return true
+        } catch {
+            return false
+        }
+    }
+    
+    @discardableResult
+    func createProject(named name: String, at directoryURL: URL) -> Bool {
+        do {
+            try FileManager.default.createDirectory(
+                at: directoryURL
+                    .appendingPathComponent(name),
+                withIntermediateDirectories: false
+            )
+
+            if let url = Bundle.main.url(forResource: "Untitled", withExtension: "prgm+") {
+                try FileManager.default.copyItem(
+                    at: url,
+                    to: directoryURL.appendingPathComponent("\(name)/\(name).prgm+")
+                )
+                documentManager.openDocument(url: directoryURL.appendingPathComponent("\(name)/\(name).prgm+"))
+                saveProject()
+                currentDirectoryURL = directoryURL
             }
         } catch {
-            
+            return false
         }
+        return false
     }
 }

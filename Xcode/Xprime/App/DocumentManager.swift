@@ -71,21 +71,33 @@ final class DocumentManager {
     }
 
     func openDocument(url: URL) {
-        if url.pathExtension.lowercased() == "hpprgm" || url.pathExtension.lowercased() == "hpappprgm" {
-            let result = ProcessRunner.run(executable: ToolchainPaths.bin.appendingPathComponent("ppl+"), arguments: [url.path, "-o", "/dev/stdout"])
-            if let out = result.out, !out.isEmpty {
-                editor.string = out
-                currentDocumentURL = nil
-                documentIsModified = false
-                UserDefaults.standard.set(url.path, forKey: "lastOpenedFilePath")
-                delegate?.documentManagerDidOpen(self)
+        let ext = url.pathExtension.lowercased()
+        
+        // Handle HPPRGM / HPAPPRGM files
+        if ext == "hpprgm" || ext == "hpappprgm" {
+            let pplPath = ToolchainPaths.bin.appendingPathComponent("ppl+")
+            let result = ProcessRunner.run(executable: pplPath, arguments: [url.path, "-o", "/dev/stdout"])
+            
+            guard let output = result.out, !output.isEmpty else {
+                let error = NSError(
+                    domain: "Error",
+                    code: 0,
+                    userInfo: [NSLocalizedDescriptionKey: "Failed to read from the program file."]
+                )
+                delegate?.documentManager(self, didFailToOpen: error)
                 return
             }
-            delegate?.documentManager(self, didFailToOpen: NSError(domain: "Error", code: 0, userInfo: [NSLocalizedDescriptionKey: "Failed to read from the program file."]))
+            
+            editor.string = output
+            currentDocumentURL = nil
+            documentIsModified = false
+            UserDefaults.standard.set(url.path, forKey: "lastOpenedFilePath")
+            delegate?.documentManagerDidOpen(self)
             return
         }
         
-        let encoding: String.Encoding = url.pathExtension.lowercased() == "prgm" ? .utf16 : .utf8
+        // Handle normal text-based documents
+        let encoding: String.Encoding = ext == "prgm" ? .utf16 : .utf8
         
         do {
             let content = try String(contentsOf: url, encoding: encoding)
@@ -96,11 +108,17 @@ final class DocumentManager {
             delegate?.documentManagerDidOpen(self)
         } catch {
             delegate?.documentManager(self, didFailToOpen: error)
-            return
         }
     }
     
-    func saveDocument(to url: URL) -> Bool {
+    @discardableResult
+    func saveDocument() -> Bool {
+        guard let url = currentDocumentURL else { return false }
+        return saveDocumentAs(to: url)
+    }
+    
+    @discardableResult
+    func saveDocumentAs(to url: URL) -> Bool {
         let encoding: String.Encoding = url.pathExtension.lowercased() == "prgm" ? .utf16 : .utf8
         
         do {

@@ -15,6 +15,7 @@ regex `\b([a-zA-Z_]\w*) *\: *([a-zA-Z]\w*(?:::[a-zA-Z]\w*)*)` alias $2:=$1;$1
 #define SCREEN_MIDDLE       120
 #define SCREEN_CENTRE       160
 
+/// PPL Data from file.
 #include "data.prgm"
 
 LnD: line;

@@ -38,7 +38,6 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     
     // MARK: - IBOutlets
     @IBOutlet weak var splitView: NSSplitView!
-    //    @IBOutlet weak var fixedPane: NSView!
     @IBOutlet var codeEditorTextView: CodeEditorTextView!
     @IBOutlet var statusLabel: NSTextField!
     @IBOutlet var outputTextView: OutputTextView!
@@ -54,13 +53,11 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     private var statusManager: StatusManager!
     
     // MARK: - Outlets
-    //    @IBOutlet weak var toolbar: NSToolbar!
     @IBOutlet weak var icon: NSImageView!
     
     
     // MARK: - Class Private Properties
     
-//    private var currentURL: URL?
     private var parentURL: URL? {
         guard let url = documentManager.currentDocumentURL else { return nil }
         var isDir: ObjCBool = false
@@ -156,13 +153,6 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             name: NSTextView.didChangeSelectionNotification,
             object: codeEditorTextView
         )
-        
-        // Typically in viewDidLoad or init
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(documentDidChange),
-                                               name: .documentModificationChanged,
-                                               object: nil)
-        
     }
     
     private func setupWindowAppearance() {
@@ -174,14 +164,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     }
     
     // MARK: - Observers
-    @objc private func documentDidChange(_ notification: Notification) {
-#if Debug
-        print("Document modification state changed!")
-#endif
-        // Update UI, toolbar, buttons, etc.
-        refreshQuickOpenToolbar()
-        updateQuickOpenButton()
-    }
+
     
     func textDidChange(_ notification: Notification) {
 #if Debug
@@ -191,18 +174,6 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     }
     
     // MARK: -
-    
-    private func updateQuickOpenButton() {
-        guard
-            let toolbar = view.window?.toolbar,
-            let quickOpenItem = toolbar.items.first(where: { $0.paletteLabel == "Quick Open" }),
-            let comboButton = quickOpenItem.view as? NSComboButton
-        else { return }
-        
-        comboButton.action = documentManager.documentIsModified
-        ? #selector(revertDocumentToSaved(_:))
-        : nil
-    }
     
     private func populateThemesMenu(menu: NSMenu) {
         guard let resourceURLs = Bundle.main.urls(
@@ -298,33 +269,38 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         }
     }
 
-    
     private func loadAppropriateGrammar(forType fileExtension: String) {
-        switch fileExtension.lowercased() {
-        case "prgm+", "ppl+":
-            codeEditorTextView.loadGrammar(named: "Prime Plus")
-            UserDefaults.standard.set("Prime Plus", forKey: "preferredGrammar")
-            
-        case "prgm", "ppl", "hpprgm", "hpappprgm":
-            codeEditorTextView.loadGrammar(named: "Prime")
-            UserDefaults.standard.set("Prime", forKey: "preferredGrammar")
-            
-        case "py":
-            codeEditorTextView.loadGrammar(named: "Python")
-            UserDefaults.standard.set("Python", forKey: "preferredGrammar")
-            
-        default:
-            break
+        let grammar:[String : [String]] = [
+            "Prime Plus": ["prgm+", "ppl+"],
+            "Prime": ["prgm", "ppl", "hpprgm", "hpappprgm"],
+            "Python": ["py"]
+        ]
+        
+        for (grammarName, ext) in grammar where ext.contains(fileExtension.lowercased()) {
+            codeEditorTextView.loadGrammar(named: grammarName)
+            UserDefaults.standard.set(grammarName, forKey: "preferredGrammar")
+            return
         }
     }
     
-    private func updateDocumentIcon(from folderURL: URL, parentURL: URL) {
+    private func refreshProjectIconImage() {
+        guard let currentDocumentURL = documentManager.currentDocumentURL else { return }
+        
+        let name = currentDocumentURL
+            .deletingLastPathComponent()
+            .lastPathComponent
+        
         let fm = FileManager.default
         let iconFileName = "icon.png"
         
         let urlsToCheck: [URL] = [
-            folderURL.appendingPathComponent(iconFileName),
-            parentURL.appendingPathComponent(iconFileName),
+            currentDocumentURL
+                .deletingLastPathComponent()
+                .appendingPathComponent("\(name).hpappdir")
+                .appendingPathComponent(iconFileName),
+            currentDocumentURL
+                .deletingLastPathComponent()
+                .appendingPathComponent(iconFileName),
             Bundle.main.url(
                 forResource: "icon",
                 withExtension: "png",
@@ -341,7 +317,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     
     
     
-    private func prepareForArchive() {
+    private func buildForArchive() {
         guard
             let currentURL = documentManager.currentDocumentURL,
             let projectName = projectName ,
@@ -492,9 +468,13 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     
     
     private func performBuild() {
-        guard let sourceURL = projectURL else {
+        guard let url = documentManager.currentDocumentURL, let name = projectName else {
             return
         }
+        let sourceURL = url
+            .deletingLastPathComponent()
+            .appendingPathComponent("\(name).prgm+")
+       
         let destinationURL = sourceURL
             .deletingPathExtension()
             .appendingPathExtension("hpprgm")
@@ -583,47 +563,21 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     // MARK: - File IO Action Handlers
     
     @IBAction func newProject(_ sender: Any) {
-        let savePanel = NSSavePanel()
-        savePanel.allowedContentTypes = ["xprimeproj"].compactMap { UTType(filenameExtension: $0) }
-        savePanel.nameFieldStringValue = "Untitled"
+        let panel = NSSavePanel()
+        if let url = documentManager.currentDocumentURL {
+            panel.directoryURL = url.deletingLastPathComponent()
+        }
+        panel.title = ""
+        panel.allowedContentTypes = ["xprimeproj"].compactMap { UTType(filenameExtension: $0) }
+        panel.nameFieldStringValue = "Untitled"
         
-        savePanel.begin { result in
-            guard result == .OK, let selectedURL = savePanel.url else { return }
+        panel.begin { result in
+            guard result == .OK, let url = panel.url else { return }
             
-            do {
-                // Strip extension from panel result
-                let projectName = selectedURL.deletingPathExtension().lastPathComponent
-                
-                // Project directory path
-                let parentDir = selectedURL.deletingLastPathComponent()
-                let projectDir = parentDir.appendingPathComponent(projectName)
-                
-                // Create the project directory
-                try FileManager.default.createDirectory(
-                    at: projectDir,
-                    withIntermediateDirectories: false
-                )
-                
-                // File inside project directory
-                let prgmURL = projectDir.appendingPathComponent(projectName + ".prgm+")
-                
-                guard let url = Bundle.main.resourceURL?.appendingPathComponent("Untitled.prgm+") else {
-                    return
-                }
-                self.documentManager.openDocument(url: url)
-                _ = self.documentManager.saveDocument(to: prgmURL)
-                
-                // Update document state
-                self.documentManager.currentDocumentURL = prgmURL
-
-                FileManager.default.changeCurrentDirectoryPath(projectDir.path)
-                
-            } catch {
-                let alert = NSAlert()
-                alert.messageText = "Error"
-                alert.informativeText = "Failed to save project: \(error.localizedDescription)"
-                alert.runModal()
-            }
+            let projectName = url.deletingPathExtension().lastPathComponent
+            let directoryURL = url.deletingLastPathComponent()
+            
+            self.projectManager.createProject(named: projectName, at: directoryURL)
         }
     }
     
@@ -647,6 +601,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     private func proceedWithOpeningDocument() {
         let panel = NSOpenPanel()
         
+        panel.title = ""
         panel.allowedContentTypes = [
             UTType(filenameExtension: "prgm+")!,
             UTType(filenameExtension: "prgm")!,
@@ -661,7 +616,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         
         panel.begin { result in
             guard result == .OK, let url = panel.url else { return }
-            self.openDocument(url: url)
+            self.documentManager.openDocument(url: url)
         }
     }
     
@@ -674,7 +629,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                 primaryActionTitle: "Save"
             ) { confirmed in
                 if confirmed {
-                    self.saveDocument(to: url)
+                    self.documentManager.saveDocument()
                     self.proceedWithOpeningDocument()
                 } else {
                     return
@@ -686,39 +641,42 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     }
     
     // MARK: - Saving Document
+
     
-    private func saveDocument(to url: URL) {
-        guard documentManager.saveDocument(to: url) else { return }
-        self.documentManager.currentDocumentURL = url
-    }
+//    private func proceedWithSavingDocument() {
+//        guard let url = documentManager.currentDocumentURL else {
+//            proceedWithSavingDocumentAs()
+//            return
+//        }
+//        
+//        if url.pathExtension.lowercased() == "hpprgm" || url.pathExtension.lowercased()  == "hpappprgm" {
+//            proceedWithSavingDocumentAs()
+//            return
+//        }
+//        
+//        documentManager.saveDocument()
+//    }
     
-    
-    private func proceedWithSavingDocument() {
+    @IBAction func saveDocument(_ sender: Any) {
         guard let url = documentManager.currentDocumentURL else {
             proceedWithSavingDocumentAs()
             return
         }
-        
-        if url.pathExtension.lowercased() == "hpprgm" || url.pathExtension.lowercased()  == "hpappprgm" {
-            proceedWithSavingDocumentAs()
-            return
-        }
-        
-        self.saveDocument(to: url)
-        documentManager.currentDocumentURL = url
-    }
-    
-    @IBAction func saveDocument(_ sender: Any) {
-        proceedWithSavingDocument()
+        documentManager.saveDocument()
     }
     
     // MARK: - Saving Document As
     
     private func proceedWithSavingDocumentAs() {
         let panel = NSSavePanel()
+        if let url = documentManager.currentDocumentURL {
+            panel.directoryURL = url.deletingLastPathComponent()
+        }
         panel.allowedContentTypes = [
             UTType(filenameExtension: "prgm+")!,
+            UTType(filenameExtension: "ppl+")!,
             UTType(filenameExtension: "prgm")!,
+            UTType(filenameExtension: "ppl")!,
             .pythonScript
         ]
         panel.nameFieldStringValue = "MyProgram"
@@ -727,7 +685,8 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         
         panel.begin { result in
             guard result == .OK, let url = panel.url else { return }
-            self.saveDocument(to: url)
+            self.documentManager.saveDocumentAs(to: url)
+            self.documentManager.openDocument(url: url)
         }
     }
     
@@ -772,7 +731,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                 primaryActionTitle: "Save"
             ) { confirmed in
                 guard confirmed else { return }
-                _ = self.documentManager.saveDocument(to: url)
+                self.documentManager.saveDocument()
 
                 proceedWithExport()
             }
@@ -819,7 +778,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                     primaryActionTitle: "Save"
                 ) { confirmed in
                     guard confirmed else { return }
-                    self.proceedWithSavingDocument()
+                    self.documentManager.saveDocument()
                     proceedWithExport()
                 }
             } else {
@@ -899,7 +858,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     
     @IBAction func run(_ sender: Any) {
         if let _ = documentManager.currentDocumentURL {
-            proceedWithSavingDocument()
+            documentManager.saveDocument()
         } else {
             proceedWithSavingDocumentAs()
         }
@@ -924,17 +883,17 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     
     @IBAction func archive(_ sender: Any) {
         if let _ = documentManager.currentDocumentURL {
-            proceedWithSavingDocument()
+            documentManager.saveDocument()
         } else {
             proceedWithSavingDocumentAs()
         }
-        prepareForArchive()
+        buildForArchive()
         archiveProcess()
     }
     
     @IBAction func buildForRunning(_ sender: Any) {
         if let _ = documentManager.currentDocumentURL {
-            proceedWithSavingDocument()
+            documentManager.saveDocument()
         } else {
             proceedWithSavingDocumentAs()
         }
@@ -959,11 +918,11 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     
     @IBAction func buildForArchiving(_ sender: Any) {
         if let _ = documentManager.currentDocumentURL {
-            proceedWithSavingDocument()
+            documentManager.saveDocument()
         } else {
             proceedWithSavingDocumentAs()
         }
-        prepareForArchive()
+        buildForArchive()
     }
     
     
@@ -1016,7 +975,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     
     @IBAction func build(_ sender: Any) {
         if let _ = documentManager.currentDocumentURL {
-            proceedWithSavingDocument()
+            documentManager.saveDocument()
         } else {
             proceedWithSavingDocumentAs()
         }
@@ -1160,7 +1119,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     
     @IBAction func reformatCode(_ sender: Any) {
         if let _ = documentManager.currentDocumentURL {
-            proceedWithSavingDocument()
+            documentManager.saveDocument()
         } else {
             proceedWithSavingDocumentAs()
         }
@@ -1342,20 +1301,10 @@ extension MainViewController: DocumentManagerDelegate {
 #if Debug
         print("Opened successfully")
 #endif
+        refreshQuickOpenToolbar()
         projectManager.openProject()
-        
-        guard let projectName = projectManager.projectName else { return }
-        guard let currentDocumentURL = documentManager.currentDocumentURL else { return }
-        
-        let parentURL = currentDocumentURL
-            .deletingLastPathComponent()
-        
-        let folderURL = currentDocumentURL
-            .deletingLastPathComponent()
-            .appendingPathComponent("\(projectName).hpappdir")
-        
         loadAppropriateGrammar(forType: documentManager.currentDocumentURL!.pathExtension)
-        updateDocumentIcon(from: folderURL, parentURL: parentURL)
+        refreshProjectIconImage()
     }
     
     func documentManager(_ manager: DocumentManager, didFailToOpen error: Error) {

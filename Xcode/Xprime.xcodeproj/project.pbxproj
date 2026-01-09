@@ -14,8 +14,6 @@
 		1351590A2EA1989400EEDF1C /* Exceptions for "Xprime" folder in "Xprime" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				App/Dev/MainViewController.swift,
-				App/Dev/ToolbarManager.swift,
 				Credits.rtf,
 				Info.plist,
 			);
