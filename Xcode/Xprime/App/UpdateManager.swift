@@ -44,7 +44,7 @@ final class UpdateManager {
             do {
                 if let json = try JSONSerialization.jsonObject(with: data) as? [String: Any],
                    let latestVersion = json["latestVersion"] as? String,
-                   let latestBuild = json["build"] as? String,
+                   let build = json["build"] as? String,
                    let downloadString = json["downloadURL"] as? String,
                    let downloadURL = URL(string: downloadString) {
                     

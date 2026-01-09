@@ -1,6 +1,6 @@
 // The MIT License (MIT)
 //
-// Copyright (c) 2025 Insoft.
+// Copyright (c) 2025-2026 Insoft.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the Software), to deal
@@ -20,6 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+// MARK: 🔧 Under Development
+
 import Cocoa
 
 fileprivate struct Project: Codable {
@@ -31,19 +33,38 @@ fileprivate struct Project: Codable {
     let archiveProjectAppOnly: Bool
 }
 
-enum XprimeProjectServices {
-    static private func loadJSONString(_ url: URL) -> String? {
-        do {
-            let jsonString = try String(contentsOf: url, encoding: .utf8)
-            return jsonString
-        } catch {
+final class ProjectManager {
+    
+    private var documentManager: DocumentManager
+    
+    var projectName: String? {
+        guard let url = documentManager.currentDocumentURL else {
             return nil
         }
+        
+        return url.deletingPathExtension().lastPathComponent
     }
     
-    static func load(at directoryURL: URL, named name: String) {
+    init(documentManager: DocumentManager) {
+        self.documentManager = documentManager
+    }
+    
+    func openProject() {
+        guard let url = documentManager.currentDocumentURL else { return }
+        if url.pathComponents.count <= 1 {
+            return
+        }
+        
+        let projectName = url
+            .deletingLastPathComponent()
+            .lastPathComponent
+        
+        let projectURL = url
+            .deletingLastPathComponent()
+            .appendingPathComponent("\(projectName).xprimeproj")
+        
+        
         var project: Project?
-        let projectURL = directoryURL.appendingPathComponent(name + ".xprimeproj")
         
         if let jsonString = loadJSONString(projectURL),
            let jsonData = jsonString.data(using: .utf8) {
@@ -61,10 +82,28 @@ enum XprimeProjectServices {
         UserDefaults.standard.set(project.bin, forKey: "bin")
         UserDefaults.standard.set(project.archiveProjectAppOnly, forKey: "archiveProjectAppOnly")
     }
-
     
-    static func save(to dirURL: URL, named name: String) {
-        let projectURL = dirURL.appendingPathComponent(name + ".xprimeproj")
+    
+    private func loadJSONString(_ url: URL) -> String? {
+        do {
+            let jsonString = try String(contentsOf: url, encoding: .utf8)
+            return jsonString
+        } catch {
+#if Debug
+        print("Loading JSON from \(url) failed:", error)
+#endif
+            return nil
+        }
+    }
+    
+    func saveProject() {
+        guard let projectName = self.projectName else { return }
+        guard let url = documentManager.currentDocumentURL else { return }
+        
+        let projectURL = url
+            .deletingLastPathComponent()
+            .appendingPathComponent("\(projectName).xprimeproj")
+        
         let project = Project(
             compression: UserDefaults.standard.object(forKey: "compression") as? Bool ?? false,
             include: UserDefaults.standard.object(forKey: "include") as? String ?? "$(SDK)/include",
@@ -84,7 +123,7 @@ enum XprimeProjectServices {
                 try data.write(to: projectURL)
             }
         } catch {
-            // Silently ignore errors to mirror load(at:) behavior; consider logging in the future
+            
         }
     }
 }

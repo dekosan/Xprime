@@ -42,7 +42,7 @@ final class DocumentManager {
     
     weak var delegate: DocumentManagerDelegate?
     
-    private(set) var currentURL: URL?
+    var currentDocumentURL: URL?
     private var editor: CodeEditorTextView
 
     var documentIsModified: Bool = false {
@@ -66,17 +66,27 @@ final class DocumentManager {
 
     private func openUntitled() {
         editor.string = ""
-        currentURL = nil
+        currentDocumentURL = nil
         documentIsModified = false
     }
 
     func openDocument(url: URL) {
+        if url.pathExtension.lowercased() == "hpprgm" || url.pathExtension.lowercased() == "hpappprgm" {
+            let result = ProcessRunner.run(executable: ToolchainPaths.bin.appendingPathComponent("ppl+"), arguments: [url.path, "-o", "/dev/stdout"])
+            if let out = result.out, !out.isEmpty {
+                editor.string = out
+                currentDocumentURL = nil
+                return
+            }
+            return
+        }
+        
         let encoding: String.Encoding = url.pathExtension.lowercased() == "prgm" ? .utf16 : .utf8
         
         do {
             let content = try String(contentsOf: url, encoding: encoding)
             editor.string = content
-            currentURL = url
+            currentDocumentURL = url
             documentIsModified = false
             UserDefaults.standard.set(url.path, forKey: "lastOpenedFilePath")
             delegate?.documentManagerDidOpen(self)
