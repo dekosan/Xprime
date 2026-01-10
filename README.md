@@ -15,7 +15,7 @@ Hold down the **Option (⌥) key**, then **click and hold** on the About window 
 ### Supported File Types
 |Type|Description|Format|
 |-|---|-|
-|.prgm|HP Programming Language Source Code|UTF16le|
-|.ppl|HP Programming Language Source Code|UTF8|
-|.prgm+|Extended HP Programming Language Source Code|UTF8|
-|.ppl+|Extended HP Programming Language Source Code|UTF8|
+|.prgm|HP Prime Programming Language Source Code|UTF16le|
+|.ppl|HP Prime Programming Language Source Code|UTF8|
+|.prgm+|Extended HP Prime Programming Language Source Code|UTF8|
+|.ppl+|Extended HP Prime Programming Language Source Code|UTF8|
