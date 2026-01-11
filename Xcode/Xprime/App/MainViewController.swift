@@ -40,6 +40,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     @IBOutlet var outputScrollView: NSScrollView!
     @IBOutlet private weak var outputButton: NSButton!
     @IBOutlet private weak var clearOutputButton: NSButton!
+    @IBOutlet private weak var baseApp: NSPopUpButton!
     
     // MARK: - Managers
     private var documentManager: DocumentManager!
@@ -102,6 +103,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             populateThemesMenu(menu: menu)
             populateGrammarMenu(menu: menu)
         }
+        populateBaseApplicationMenu()
     }
     
     
@@ -165,7 +167,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
 
     
     func textDidChange(_ notification: Notification) {
-#if DEBUG
+#if Debug
         print("Text did change!")
 #endif
         documentManager.documentIsModified = true
@@ -191,7 +193,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     
     @objc private func windowDidBecomeKey() {
         // window gained focus
-#if DEBUG
+#if Debug
         print("Window gained focus")
 #endif
         refreshQuickOpenToolbar()
@@ -200,7 +202,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     
     @objc private func windowDidResignKey() {
         // window lost focus
-#if DEBUG
+#if Debug
         print("Window lost focus")
 #endif
     }
@@ -212,7 +214,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             forResourcesWithExtension: "xpcolortheme",
             subdirectory: "Themes"
         ) else {
-#if DEBUG
+#if Debug
             print("⚠️ No .xpcolortheme files found.")
 #endif
             return
@@ -249,7 +251,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     
     private func populateGrammarMenu(menu: NSMenu) {
         guard let resourceURLs = Bundle.main.urls(forResourcesWithExtension: "xpgrammar", subdirectory: "Grammars") else {
-#if DEBUG
+#if Debug
             print("⚠️ No .xpgrammar files found.")
 #endif
             return
@@ -264,6 +266,67 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             menuItem.target = self  // or another target if needed
             menu.item(withTitle: "Editor")?.submenu?.item(withTitle: "Grammar")?.submenu?.addItem(menuItem)
         }
+    }
+    
+    private func populateBaseApplicationMenu() {
+        let applications: [String] = [
+            "None",
+            "Function",
+            "Advanced Graphing",
+            "Graph 3D",
+            "Geometry",
+            "Spreadsheet",
+            "Statistics 1Var",
+            "Statistics 2Var",
+            "Inference",
+            "Data Streamer",
+            "Solve",
+            "Linear Solver",
+            "Explorer",
+            "Triangle Solver",
+            "Finance",
+            "Python",
+            "Parametric",
+            "Polar",
+            "Sequence"
+        ]
+
+        let menu = NSMenu()
+
+        for application in applications {
+            let item = NSMenuItem(
+                title: application,
+                action: #selector(handleBaseApplicationSelection(_:)),
+                keyEquivalent: ""
+            )
+
+            if let url = Bundle.main.url(
+                forResource: application,
+                withExtension: "png",
+                subdirectory: "Developer/Library/Xprime/Templates/Base Applications/\(application).hpappdir"
+            ) {
+                if let image = NSImage(contentsOf: url) {
+                    image.size = NSSize(width: 16, height: 16) // standard menu icon size
+                    item.image = image
+                }
+            }
+            item.state = projectManager.baseApplicationName == application ? .on: .off
+            menu.addItem(item)
+        }
+
+        baseApp.menu = menu
+    }
+    
+    // MARK: - Base Application Action Handler
+    @objc func handleBaseApplicationSelection(_ sender: NSMenuItem) {
+        projectManager.baseApplicationName = sender.title
+        
+        guard let currentDocumentURL = documentManager.currentDocumentURL else { return }
+        
+        let name = currentDocumentURL.deletingLastPathComponent().lastPathComponent
+        let directoryURL = currentDocumentURL.deletingLastPathComponent()
+        
+        try? HPServices.resetHPAppContents(at: directoryURL, named: name, fromBaseApplicationNamed: sender.title)
     }
     
     // MARK: - Theme & Grammar Action Handlers
@@ -282,22 +345,24 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     
     // MARK: - Helper Functions
     
-    private func updateDocumentIconButtonImage() {
-        guard let url = self.documentManager.currentDocumentURL else {
-            return
-        }
-        if let window = self.view.window {
-            window.title = url.lastPathComponent
-            
-            window.representedURL = url
-            if let iconButton = window.standardWindowButton(.documentIconButton) {
-                if url.pathExtension.lowercased() == "prgm+" {
-                    iconButton.image = NSImage(named: "pplplus")
-                } else {
-                    iconButton.image = NSImage(named: "ppl")
-                }
-                iconButton.isHidden = false
-            }
+    private func updateWindowDocumentIcon() {
+        guard
+            let url = documentManager.currentDocumentURL,
+            url.isFileURL,
+            let window = view.window
+        else { return }
+        
+        // 1️⃣ Force document-style titlebar
+        window.titleVisibility = .visible
+        window.titlebarAppearsTransparent = true
+        
+        // 2️⃣ Set document identity
+        window.title = url.deletingLastPathComponent().lastPathComponent
+        window.representedURL = url
+        
+        // 3️⃣ Re-apply icon AFTER AppKit finishes layout
+        DispatchQueue.main.async {
+            window.standardWindowButton(.documentIconButton)?.image = self.icon.image
         }
     }
 
@@ -341,10 +406,15 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         ]
         
         if let existingURL = urlsToCheck.first(where: { fm.fileExists(atPath: $0.path) }) {
-            icon.image = NSImage(contentsOf: existingURL)
+            let targetSize = NSSize(width: 38, height: 38)
+
+            if let image = NSImage(contentsOf: existingURL) {
+                image.size = targetSize
+                icon.image = image
+            }
         }
         
-        updateDocumentIconButtonImage()
+        updateWindowDocumentIcon()
     }
     
     
@@ -357,7 +427,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         else { return }
         
         do {
-            try HPServices.restoreMissingAppFiles(in: parentURL, named: projectName)
+            try HPServices.ensureHPAppDirectory(at: parentURL, named: projectName, fromBaseApplicationNamed: projectManager.baseApplicationName)
         } catch {
             outputTextView.appendTextAndScroll("Failed to build for archiving: \(error)\n")
             return
@@ -390,10 +460,10 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         let archiveProjectAppOnly = UserDefaults.standard.object(forKey: "archiveProjectAppOnly") as? Bool ?? true
         if dirA.isNewer(than: dirB), archiveProjectAppOnly == false {
             url = dirA.deletingLastPathComponent()
-            outputTextView.appendTextAndScroll("Archiving from the virtual calculator directory.\n")
+            outputTextView.appendTextAndScroll("📦 Archiving from the virtual calculator directory.\n")
         } else {
             url = parentURL
-            outputTextView.appendTextAndScroll("Archiving from the current project directory.\n")
+            outputTextView.appendTextAndScroll("📦 Archiving from the current project directory.\n")
         }
         
         let result = HPServices.archiveHPAppDirectory(in: url, named: projectName, to: parentURL)
@@ -1104,7 +1174,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     @IBAction func insertTemplate(_ sender: Any) {
         func traceMenuItem(_ item: NSMenuItem) -> String {
             if let parentMenu = item.menu {
-#if DEBUG
+#if Debug
                 print("Item '\(item.title)' is in menu: \(parentMenu.title)")
 #endif
                 
@@ -1157,10 +1227,10 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     }
     
     @IBAction func showBuildFolderInFinder(_ sender: Any) {
-        guard let currentURL = documentManager.currentDocumentURL else {
+        guard let currentDocumentURL = documentManager.currentDocumentURL else {
             return
         }
-        currentURL.revealInFinder()
+        currentDocumentURL.revealInFinder()
     }
     
     @IBAction func showCalculatorFolderInFinder(_ sender: Any) {
@@ -1213,6 +1283,12 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         switch item.action {
         case #selector(build(_:)), #selector(run(_:)):
             if let _ = projectURL  {
+                return true
+            }
+            return false
+            
+        case #selector(showBuildFolderInFinder(_:)):
+            if let _ = projectURL {
                 return true
             }
             return false
@@ -1339,20 +1415,20 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
 // MARK: - 🤝 DocumentManagerDelegate
 extension MainViewController: DocumentManagerDelegate {
     func documentManagerDidSave(_ manager: DocumentManager) {
-#if DEBUG
+#if Debug
         print("Saved successfully")
 #endif
         projectManager.saveProject()
     }
     
     func documentManager(_ manager: DocumentManager, didFailWith error: Error) {
-#if DEBUG
+#if Debug
         print("Save failed:", error)
 #endif
     }
     
     func documentManagerDidOpen(_ manager: DocumentManager) {
-#if DEBUG
+#if Debug
         print("Opened successfully")
 #endif
         refreshQuickOpenToolbar()
@@ -1365,7 +1441,7 @@ extension MainViewController: DocumentManagerDelegate {
     }
     
     func documentManager(_ manager: DocumentManager, didFailToOpen error: Error) {
-#if DEBUG
+#if Debug
         print("Open failed:", error)
 #endif
     }

@@ -55,7 +55,7 @@ final class UpdateManager {
                                                  currentVersion: currentVersion) {
                         self.promptUpdate(downloadURL: downloadURL, latestVersion: latestVersion)
                     } else {
-                        self.showInfo("You have the latest version.")
+                        self.showInfo("You're up to date!", informationalText: "Xprime \(version) is currently the newest version available.")
                     }
                 } else {
                     self.showError("Invalid update info received.")
@@ -88,11 +88,12 @@ final class UpdateManager {
         }
     }
     
-    private func showInfo(_ message: String) {
+    private func showInfo(_ message: String, informationalText: String = "") {
         DispatchQueue.main.async { [weak self] in
             guard (self?.presenterWindow) != nil else { return }
             let alert = NSAlert()
             alert.messageText = message
+            alert.informativeText = informationalText
             alert.runModal()
         }
     }

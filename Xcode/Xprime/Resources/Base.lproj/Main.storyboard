@@ -1070,7 +1070,7 @@ Gw
                 </viewController>
                 <customObject id="57P-ye-oRC" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-667" y="-1028"/>
+            <point key="canvasLocation" x="-667" y="-1028.5"/>
         </scene>
         <!--About View Controller-->
         <scene sceneID="NHA-8D-O4V">
@@ -1125,9 +1125,9 @@ Gw
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
             <objects>
-                <windowController storyboardIdentifier="MainWindowController" showSeguePresentationStyle="single" id="B8D-0N-5wS" sceneMemberID="viewController">
-                    <window key="window" title="Untitled.prgm+ (UNSAVED)" separatorStyle="shadow" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" titlebarAppearsTransparent="YES" toolbarStyle="compact" id="IQv-IB-iLA">
-                        <windowStyleMask key="styleMask" titled="YES" miniaturizable="YES" resizable="YES" fullSizeContentView="YES"/>
+                <windowController showSeguePresentationStyle="single" id="B8D-0N-5wS" sceneMemberID="viewController">
+                    <window key="window" title="Untitled.prgm+ (UNSAVED)" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" titlebarAppearsTransparent="YES" id="IQv-IB-iLA">
+                        <windowStyleMask key="styleMask" titled="YES" miniaturizable="YES" resizable="YES"/>
                         <rect key="contentRect" x="620" y="417" width="912" height="240"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
                         <toolbar key="toolbar" implicitIdentifier="790E7E42-ECCB-45F7-B34A-F911CDC4EC95" showsBaselineSeparator="NO" displayMode="iconOnly" sizeMode="regular" id="jmI-rT-oAa">
@@ -1195,6 +1195,7 @@ Gw
                                 <toolbarItem reference="HOg-w3-6bH"/>
                                 <toolbarItem reference="J6a-Hn-bWN"/>
                                 <toolbarItem reference="vRb-OI-uPy"/>
+                                <toolbarItem reference="GHV-4x-s3H"/>
                                 <toolbarItem reference="qhn-5s-CEp"/>
                                 <toolbarItem reference="gjC-nA-X2d"/>
                             </defaultToolbarItems>
@@ -1314,6 +1315,21 @@ Gw
                                                     <action selector="clearOutput:" target="XfG-lQ-9wD" id="BUB-x1-ZJw"/>
                                                 </connections>
                                             </button>
+                                            <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="R0K-qm-g5R">
+                                                <rect key="frame" x="86" y="159" width="185" height="24"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="Z5C-ah-Bxw" id="0ZL-C9-vNa">
+                                                    <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" metaFont="message"/>
+                                                    <menu key="menu" id="Srs-GI-hIg">
+                                                        <items>
+                                                            <menuItem title="Item 1" state="on" id="Z5C-ah-Bxw"/>
+                                                            <menuItem title="Item 2" id="O29-zq-JJ4"/>
+                                                            <menuItem title="Item 3" id="S2i-2a-zIW"/>
+                                                        </items>
+                                                    </menu>
+                                                </popUpButtonCell>
+                                            </popUpButton>
                                         </subviews>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="64" id="xFQ-Fb-nO1"/>
@@ -1338,6 +1354,7 @@ Gw
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="baseApp" destination="R0K-qm-g5R" id="AOo-jJ-lpV"/>
                         <outlet property="clearOutputButton" destination="Is1-v7-WGS" id="kCv-BF-lPp"/>
                         <outlet property="codeEditorTextView" destination="09p-Rf-tgR" id="YQS-0U-lVp"/>
                         <outlet property="icon" destination="tyO-qu-7vx" id="2tP-4F-uXu"/>
@@ -1364,13 +1381,13 @@ Gw
         <image name="arrow.uturn.backward" catalog="system" width="15" height="14"/>
         <image name="bubbles.and.sparkles" catalog="system" width="17" height="15"/>
         <image name="character.book.closed" catalog="system" width="14" height="16"/>
-        <image name="document" catalog="system" width="14" height="16"/>
+        <image name="document" catalog="system" width="12" height="13"/>
         <image name="eye" catalog="system" width="16" height="11"/>
         <image name="eye.slash" catalog="system" width="21" height="16"/>
-        <image name="folder" catalog="system" width="18" height="14"/>
+        <image name="folder" catalog="system" width="15" height="12"/>
         <image name="gear" catalog="system" width="17" height="16"/>
         <image name="hammer" catalog="system" width="20" height="18"/>
-        <image name="hammer.fill" catalog="system" width="19" height="17"/>
+        <image name="hammer.fill" catalog="system" width="15" height="14"/>
         <image name="icon" width="38" height="38"/>
         <image name="info.circle" catalog="system" width="15" height="15"/>
         <image name="inset.filled.bottomthird.square" catalog="system" width="15" height="14"/>

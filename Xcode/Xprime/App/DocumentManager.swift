@@ -42,7 +42,7 @@ final class DocumentManager {
     
     weak var delegate: DocumentManagerDelegate?
     
-    var currentDocumentURL: URL?
+    private(set) var currentDocumentURL: URL?
     private var editor: CodeEditorTextView
 
     var documentIsModified: Bool = false {
@@ -89,16 +89,16 @@ final class DocumentManager {
             }
             
             editor.string = output
-            currentDocumentURL = nil
+            currentDocumentURL = url.deletingPathExtension().appendingPathExtension("prgm")
             documentIsModified = false
-            UserDefaults.standard.set(url.path, forKey: "lastOpenedFilePath")
+            UserDefaults.standard.set(url.deletingPathExtension().appendingPathExtension("prgm").path, forKey: "lastOpenedFilePath")
             delegate?.documentManagerDidOpen(self)
             FileManager.default.changeCurrentDirectoryPath(url.deletingLastPathComponent().path)
             return
         }
         
         // Handle normal text-based documents
-        let encoding: String.Encoding = ext == "prgm" ? .utf16 : .utf8
+        let encoding: String.Encoding = ext == "prgm" || ext == "app" ? .utf16 : .utf8
         
         do {
             let content = try String(contentsOf: url, encoding: encoding)
@@ -122,7 +122,7 @@ final class DocumentManager {
     
     @discardableResult
     func saveDocumentAs(to url: URL) -> Bool {
-        let encoding: String.Encoding = url.pathExtension.lowercased() == "prgm" ? .utf16 : .utf8
+        let encoding: String.Encoding = url.pathExtension.lowercased() == "prgm" || url.pathExtension.lowercased() == "app" ? .utf16 : .utf8
         
         do {
             try editor.string.write(to: url, atomically: true, encoding: encoding)

@@ -58,7 +58,7 @@ final class QuickLookViewController: NSViewController {
         if let path = UserDefaults.standard.string(forKey: "lastOpenedFilePath") {
             let url = URL(fileURLWithPath: path)
                 .deletingLastPathComponent()
-
+            
             loadText(from: url.appendingPathComponent(url.lastPathComponent + ".prgm+"))
         } else {
             self.view.window?.close()

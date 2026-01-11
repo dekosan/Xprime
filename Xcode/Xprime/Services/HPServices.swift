@@ -24,6 +24,7 @@ import Cocoa
 
 let templatesBasePath = "Contents/Resources/Developer/Library/Xprime/Templates/File Templates"
 let applicationTemplateBasePath = "Contents/Resources/Developer/Library/Xprime/Templates/Application Template"
+let baseApplicationPath = "Contents/Resources/Developer/Library/Xprime/Templates/Base Applications"
 
 
 fileprivate func launchApplication(named appName: String, arguments: [String] = []) {
@@ -229,65 +230,133 @@ enum HPServices {
         return true
     }
     
-    static func restoreMissingAppFiles(in directory: URL, named name: String) throws {
-        if hpAppDirIsComplete(atPath: directory.path, named: name) {
-            return
+    // MARK: - HP Prime Application
+    enum AppError: Error {
+        case invalidAppName
+    }
+    
+    private static func fileSafeName(from name: String) throws -> String {
+        let invalidCharacters = CharacterSet(charactersIn: "/:\\?%*|\"<>")
+        let sanitized = name
+            .components(separatedBy: invalidCharacters)
+            .joined()
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+
+        guard !sanitized.isEmpty else {
+            throw AppError.invalidAppName
         }
-        
-        let templateDirURL = Bundle.main.bundleURL
-            .appendingPathComponent(applicationTemplateBasePath)
-        
-        let hpAppDirURL = directory.appendingPathComponent("\(name).hpappdir")
-        
-        if hpAppDirURL.isDirectory == false {
+
+        return sanitized
+    }
+    
+    private static func ensureDirectoryExists(_ url: URL) throws {
+        if !url.isDirectory {
             try FileManager.default.createDirectory(
-                at: hpAppDirURL,
-                withIntermediateDirectories: true,
-                attributes: nil
-            )
-        }
-        
-        if !FileManager.default.fileExists(atPath: hpAppDirURL
-            .appendingPathComponent("icon.png")
-            .path
-        )
-        {
-            if FileManager.default.fileExists(atPath: directory.appendingPathComponent("icon.png").path) == true {
-                try FileManager.default.copyItem(
-                    at: templateDirURL
-                        .appendingPathComponent("icon.png"),
-                    to: hpAppDirURL
-                        .appendingPathComponent("icon.png")
-                )
-            } else {
-                try FileManager.default.copyItem(
-                    at: templateDirURL
-                        .appendingPathComponent("icon.png"),
-                    to: hpAppDirURL
-                        .appendingPathComponent("icon.png")
-                )
-            }
-        }
-        
-        if !FileManager.default.fileExists(atPath: hpAppDirURL
-            .appendingPathComponent(name)
-            .appendingPathExtension("hpapp")
-            .path
-        )
-        {
-            try FileManager.default.copyItem(
-                at: templateDirURL
-                    .appendingPathComponent("template.hpapp"),
-                to: hpAppDirURL
-                    .appendingPathComponent(name)
-                    .appendingPathExtension("hpapp")
+                at: url,
+                withIntermediateDirectories: true
             )
         }
     }
     
+    private static func copyIfMissing(
+        from source: URL,
+        to destination: URL,
+        fileManager: FileManager = .default
+    ) throws {
+        guard !fileManager.fileExists(atPath: destination.path) else { return }
+        try fileManager.copyItem(at: source, to: destination)
+    }
+    
+    private static func seedAppDirectory(
+        _ appDirectoryURL: URL,
+        appName: String,
+        baseApplicationURL: URL,
+        baseApplicationName: String
+    ) throws {
+
+        try copyIfMissing(
+            from: baseApplicationURL.appendingPathComponent("\(baseApplicationName).png"),
+            to: appDirectoryURL.appendingPathComponent("icon.png")
+        )
+
+        try copyIfMissing(
+            from: baseApplicationURL.appendingPathComponent("\(baseApplicationName).hpapp"),
+            to: appDirectoryURL
+                .appendingPathComponent(appName)
+                .appendingPathExtension("hpapp")
+        )
+
+        try copyIfMissing(
+            from: baseApplicationURL.appendingPathComponent("\(baseApplicationName).hpappnote"),
+            to: appDirectoryURL
+                .appendingPathComponent(appName)
+                .appendingPathExtension("hpappnote")
+        )
+    }
+    
+    static func ensureHPAppDirectory(
+        at directory: URL,
+        named appName: String,
+        fromBaseApplicationNamed baseAppName: String = "None"
+    ) throws {
+
+        let safeName = try fileSafeName(from: appName)
+
+        let baseApplicationURL = Bundle.main.bundleURL
+            .appendingPathComponent(baseApplicationPath)
+            .appendingPathComponent(baseAppName)
+            .appendingPathExtension("hpappdir")
+
+        let appDirectoryURL = directory
+            .appendingPathComponent(safeName)
+            .appendingPathExtension("hpappdir")
+
+        try ensureDirectoryExists(appDirectoryURL)
+
+        try seedAppDirectory(
+            appDirectoryURL,
+            appName: safeName,
+            baseApplicationURL: baseApplicationURL,
+            baseApplicationName: baseAppName
+        )
+    }
+    
+    static func resetHPAppContents(
+        at directory: URL,
+        named appName: String,
+        fromBaseApplicationNamed baseAppName: String = "None"
+    ) throws {
+
+        let safeName = try fileSafeName(from: appName)
+
+        let appDirectoryURL = directory
+            .appendingPathComponent(safeName)
+            .appendingPathExtension("hpappdir")
+
+        try ensureDirectoryExists(appDirectoryURL)
+
+        try? FileManager.default.removeItem(
+            at: appDirectoryURL
+                .appendingPathComponent(safeName)
+                .appendingPathExtension("hpapp")
+        )
+
+        try? FileManager.default.removeItem(
+            at: appDirectoryURL
+                .appendingPathComponent(safeName)
+                .appendingPathExtension("hpappnote")
+        )
+
+        try ensureHPAppDirectory(
+            at: directory,
+            named: appName,
+            fromBaseApplicationNamed: baseAppName
+        )
+    }
+    
     static func archiveHPAppDirectory(in directory: URL, named name: String, to desctinationURL: URL? = nil) -> (out: String?, err: String?, exitCode: Int32)  {
         do {
-            try restoreMissingAppFiles(in: directory, named: name)
+            try ensureHPAppDirectory(at: directory, named: name)
         } catch {
             return (nil, "Failed to restore missing app files: \(error)", -1)
         }

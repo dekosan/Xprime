@@ -31,12 +31,22 @@ fileprivate struct Project: Codable {
     let calculator: String
     let bin: String
     let archiveProjectAppOnly: Bool
+    let baseApplicationName: String?
 }
 
 final class ProjectManager {
     
     private var documentManager: DocumentManager
     private(set) var currentDirectoryURL: URL?
+    
+    var baseApplicationName: String {
+        get {
+            return (UserDefaults.standard.string(forKey: "baseApplicationName")) ?? "None"
+        } set {
+            UserDefaults.standard.set(newValue, forKey: "baseApplicationName")
+            saveProject()
+        }
+    }
     
     init(documentManager: DocumentManager) {
         self.documentManager = documentManager
@@ -73,6 +83,7 @@ final class ProjectManager {
         UserDefaults.standard.set(project.calculator, forKey: "calculator")
         UserDefaults.standard.set(project.bin, forKey: "bin")
         UserDefaults.standard.set(project.archiveProjectAppOnly, forKey: "archiveProjectAppOnly")
+        UserDefaults.standard.set(project.baseApplicationName, forKey: "baseApplicationName")
         
         currentDirectoryURL = url
             .deletingLastPathComponent()
@@ -84,7 +95,7 @@ final class ProjectManager {
             let jsonString = try String(contentsOf: url, encoding: .utf8)
             return jsonString
         } catch {
-#if DEBUG
+#if Debug
         print("Loading JSON from \(url) failed:", error)
 #endif
             return nil
@@ -108,7 +119,8 @@ final class ProjectManager {
             lib: UserDefaults.standard.object(forKey: "lib") as? String ?? "$(SDK)/lib",
             calculator: UserDefaults.standard.object(forKey: "calculator") as? String ?? "Prime",
             bin: UserDefaults.standard.object(forKey: "bin") as? String ?? "$(SDK)/bin",
-            archiveProjectAppOnly: UserDefaults.standard.object(forKey: "archiveProjectAppOnly") as? Bool ?? true
+            archiveProjectAppOnly: UserDefaults.standard.object(forKey: "archiveProjectAppOnly") as? Bool ?? true,
+            baseApplicationName: UserDefaults.standard.object(forKey: "baseApplicationName") as? String ?? "None"
         )
         do {
             let encoder = JSONEncoder()
