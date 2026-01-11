@@ -258,13 +258,49 @@ enum HPServices {
         }
     }
     
+    private static func createNoteFileIfMissing(
+        to destination: URL,
+        named appName: String,
+        date seedDate: Date? = nil,
+        fileManager: FileManager = .default
+    ) throws {
+        let fileURL = destination
+            .appendingPathComponent(appName)
+            .appendingPathExtension("hpappnote")
+        
+        guard !fileManager.fileExists(atPath: fileURL.path) else { return }
+
+        let data = Data([0x00, 0x00])
+        try data.write(to: fileURL, options: .atomic)
+        guard let seedDate else { return }
+        try setFileDates(at: fileURL, creationDate: seedDate, modificationDate: seedDate)
+    }
+        
+    
     private static func copyIfMissing(
         from source: URL,
         to destination: URL,
+        date seedDate: Date? = nil,
         fileManager: FileManager = .default
     ) throws {
         guard !fileManager.fileExists(atPath: destination.path) else { return }
         try fileManager.copyItem(at: source, to: destination)
+        guard let seedDate else { return }
+        try setFileDates(at: destination, creationDate: seedDate, modificationDate: seedDate)
+    }
+    
+    private static func setFileDates(
+        at url: URL,
+        creationDate: Date,
+        modificationDate: Date,
+        fileManager: FileManager = .default
+    ) throws {
+        let attributes: [FileAttributeKey: Any] = [
+            .creationDate: creationDate,
+            .modificationDate: modificationDate
+        ]
+
+        try fileManager.setAttributes(attributes, ofItemAtPath: url.path)
     }
     
     private static func seedAppDirectory(
@@ -274,24 +310,24 @@ enum HPServices {
         baseApplicationName: String
     ) throws {
 
+        let seedDate = creationDate()
+        
         try copyIfMissing(
             from: baseApplicationURL.appendingPathComponent("\(baseApplicationName).png"),
-            to: appDirectoryURL.appendingPathComponent("icon.png")
+            to: appDirectoryURL
+                .appendingPathComponent("icon.png"),
+            date: seedDate
         )
 
         try copyIfMissing(
             from: baseApplicationURL.appendingPathComponent("\(baseApplicationName).hpapp"),
             to: appDirectoryURL
                 .appendingPathComponent(appName)
-                .appendingPathExtension("hpapp")
+                .appendingPathExtension("hpapp"),
+            date: seedDate
         )
-
-        try copyIfMissing(
-            from: baseApplicationURL.appendingPathComponent("\(baseApplicationName).hpappnote"),
-            to: appDirectoryURL
-                .appendingPathComponent(appName)
-                .appendingPathExtension("hpappnote")
-        )
+        
+        try createNoteFileIfMissing(to: appDirectoryURL, named: appName, date: seedDate)
     }
     
     static func ensureHPAppDirectory(
@@ -321,6 +357,18 @@ enum HPServices {
         )
     }
     
+    static func creationDate() -> Date {
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = TimeZone(secondsFromGMT: 0)! // UTC
+
+        let components = DateComponents(year: 2026, month: 1, day: 1, hour: 0, minute: 0, second: 0)
+
+        guard let date = calendar.date(from: components) else {
+            return Date(timeIntervalSince1970: 0)
+        }
+        return date
+    }
+    
     static func resetHPAppContents(
         at directory: URL,
         named appName: String,
@@ -334,6 +382,19 @@ enum HPServices {
             .appendingPathExtension("hpappdir")
 
         try ensureDirectoryExists(appDirectoryURL)
+        
+        let iconURL = appDirectoryURL
+            .appendingPathComponent("icon")
+            .appendingPathExtension("png")
+        
+        let seedDate = creationDate()
+        if let attributes = try? FileManager.default.attributesOfItem(atPath: iconURL.path),
+           let modificationDate = attributes[.modificationDate] as? Date,
+           modificationDate == seedDate {
+            
+            try? FileManager.default.removeItem(at: iconURL)
+        }
+
 
         try? FileManager.default.removeItem(
             at: appDirectoryURL

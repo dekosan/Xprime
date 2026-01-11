@@ -198,6 +198,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
 #endif
         refreshQuickOpenToolbar()
         projectManager.saveProject()
+        refreshProjectIconImage()
     }
     
     @objc private func windowDidResignKey() {
@@ -327,6 +328,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         let directoryURL = currentDocumentURL.deletingLastPathComponent()
         
         try? HPServices.resetHPAppContents(at: directoryURL, named: name, fromBaseApplicationNamed: sender.title)
+        refreshProjectIconImage()
     }
     
     // MARK: - Theme & Grammar Action Handlers
