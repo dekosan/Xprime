@@ -11,3 +11,14 @@ In Xprime, you can reveal the full version number from the About window.
 Hold down the **Option (⌥) key**, then **click and hold** on the About window to display the extended version format, combining the app version and build number — for example: **26.0.20260108**.
 
 <img src="https://github.com/Insoft-UK/Xprime/blob/main/assets/screenshots/xprime.png?raw=true" width="756" />
+
+### Supported File Types
+|Type|Description|Format|
+|:-|:-|:-|
+|.ppl|HP Prime Programming Language source file|UTF8|
+|.prgm|HP Prime program source code|UTF16le|
+|.app|HP Prime application source code (PPL)|UTF16le|
+|.hpprgm|HP Prime program (exported/packaged)|Binary|
+|.hpappprgm|HP Prime application (exported/packaged)|Binary|
+|.prgm+|HP Prime PRGM+ extended program source code|UTF8|
+|.ppl+|HP Prime PPL+ extended program source code|UTF8|
