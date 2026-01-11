@@ -341,12 +341,6 @@ enum HPServices {
                 .appendingPathExtension("hpapp")
         )
 
-        try? FileManager.default.removeItem(
-            at: appDirectoryURL
-                .appendingPathComponent(safeName)
-                .appendingPathExtension("hpappnote")
-        )
-
         try ensureHPAppDirectory(
             at: directory,
             named: appName,
