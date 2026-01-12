@@ -668,10 +668,14 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             .filter { (try? $0.resourceValues(forKeys: [.isDirectoryKey]).isDirectory) == false }
             .forEach { url in
                 if url.pathExtension == "prgm" ||
-                    url.pathExtension == "prgm+" ||
+                    url.pathExtension == "app" ||
                     url.pathExtension == "ppl" ||
+                    url.pathExtension == "prgm+" ||
                     url.pathExtension == "ppl+" ||
-                    url.pathExtension == "py" {
+                    url.pathExtension == "py"  ||
+                    url.pathExtension == "md" ||
+                    url.pathExtension == "txt"
+                {
                     menu.addItem(
                         withTitle: url.lastPathComponent,
                         action: #selector(quickOpen(_:)),
@@ -764,10 +768,15 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         panel.allowedContentTypes = [
             UTType(filenameExtension: "prgm+")!,
             UTType(filenameExtension: "prgm")!,
+            UTType(filenameExtension: "app")!,
             UTType(filenameExtension: "hpprgm")!,
             UTType(filenameExtension: "hpappprgm")!,
             UTType(filenameExtension: "ppl")!,
             UTType(filenameExtension: "ppl+")!,
+            UTType(filenameExtension: "ppl+")!,
+            UTType(filenameExtension: "py")!,
+            UTType(filenameExtension: "md")!,
+            UTType(filenameExtension: "txt")!,
             UTType.pythonScript,
             UTType.cHeader,
             UTType.text
@@ -820,9 +829,13 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             UTType(filenameExtension: "ppl+")!,
             UTType(filenameExtension: "prgm")!,
             UTType(filenameExtension: "ppl")!,
+            UTType(filenameExtension: "app")!,
+            UTType(filenameExtension: "py")!,
+            UTType(filenameExtension: "md")!,
+            UTType(filenameExtension: "txt")!,
             .pythonScript
         ]
-        panel.nameFieldStringValue = "MyProgram"
+        panel.nameFieldStringValue = "Untitled"
         panel.title = ""
         
         
