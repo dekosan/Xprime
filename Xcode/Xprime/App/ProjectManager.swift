@@ -42,7 +42,7 @@ final class ProjectManager {
         guard let currentDirectoryURL else {
             return "None"
         }
-        return HPServices.baseApplicationName(at: currentDirectoryURL, named: currentDirectoryURL.lastPathComponent)
+        return HPServices.hpPrimeBaseApplicationName(for: currentDirectoryURL.lastPathComponent, in: currentDirectoryURL)
     }
     
     init(documentManager: DocumentManager) {

@@ -409,9 +409,9 @@ enum HPServices {
         )
     }
     
-    static func baseApplicationName(
-        at directory: URL,
-        named appName: String
+    static func hpPrimeBaseApplicationName(
+        for appName: String,
+        in directory: URL
     ) -> String {
         let applications: [String] = [
             "Function",
