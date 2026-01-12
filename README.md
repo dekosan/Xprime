@@ -46,5 +46,6 @@ MyProgram/
 ```
 
 >[!NOTE]
-Use the **.ppl+** extension for extended program source code and **.prgm+** for the main application or program source code.
-For standard PPL source code, use **.ppl** and never **.prgm**, as **.prgm** is reserved for the main application or program source file in projects that do not use extended PPL.
+>Use the **.ppl+** extension for extended program source code and **.prgm+** for the main application or program source code.
+>
+>For standard PPL source code, use **.ppl** and never **.prgm**, as **.prgm** is reserved for the main application or program source file in projects that do not use extended PPL.
