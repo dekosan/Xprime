@@ -649,6 +649,18 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         } else {
             self.documentManager.openDocument(url: url.deletingLastPathComponent().appendingPathComponent(sender.title))
         }
+        
+        guard
+            let toolbar = view.window?.toolbar,
+            let item = toolbar.items.first(where: {
+                $0.paletteLabel == "Quick Open"
+            }),
+            let comboButton = item.view as? NSComboButton
+        else {
+            return
+        }
+        
+        comboButton.image = sender.image
     }
     
     private func refreshQuickOpenToolbar() {
@@ -663,6 +675,16 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             includingPropertiesForKeys: [.isDirectoryKey],
             options: [.skipsHiddenFiles]
         )
+        
+        guard
+            let toolbar = view.window?.toolbar,
+            let item = toolbar.items.first(where: {
+                $0.paletteLabel == "Quick Open"
+            }),
+            let comboButton = item.view as? NSComboButton
+        else {
+            return
+        }
         
         contents?
             .filter { (try? $0.resourceValues(forKeys: [.isDirectoryKey]).isDirectory) == false }
@@ -681,19 +703,25 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                         action: #selector(quickOpen(_:)),
                         keyEquivalent: ""
                     )
-                    menu.items.last?.state = (url == documentManager.currentDocumentURL) ? .on : .off
+                    switch url.pathExtension.lowercased() {
+                    case "py": menu.items.last?.image = NSImage(imageLiteralResourceName: "Python")
+                    case "md": menu.items.last?.image = NSImage(imageLiteralResourceName: "Note")
+                    case "txt": menu.items.last?.image = NSImage(imageLiteralResourceName: "Note")
+                    case "app": menu.items.last?.image = NSImage(imageLiteralResourceName: "Application")
+                    case "prgm", "ppl": menu.items.last?.image = NSImage(imageLiteralResourceName: "Program")
+                    case "prgm+", "ppl+": menu.items.last?.image = NSImage(imageLiteralResourceName: "Program")
+                    default: break
+                        menu.items.last?.image = NSImage(imageLiteralResourceName: "File")
+                    }
+                    
+                    menu.items.last?.image?.size = NSSize(width: 16, height: 16)
+                    if url == documentManager.currentDocumentURL {
+                        menu.items.last?.state = .on
+                        comboButton.image = menu.items.last?.image
+                        comboButton.image?.size = NSSize(width: 16, height: 16)
+                    }
                 }
             }
-        
-        guard
-            let toolbar = view.window?.toolbar,
-            let item = toolbar.items.first(where: {
-                $0.paletteLabel == "Quick Open"
-            }),
-            let comboButton = item.view as? NSComboButton
-        else {
-            return
-        }
         
         comboButton.menu = menu
         comboButton.title = documentManager.currentDocumentURL?
