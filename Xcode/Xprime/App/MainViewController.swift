@@ -40,7 +40,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     @IBOutlet var outputScrollView: NSScrollView!
     @IBOutlet private weak var outputButton: NSButton!
     @IBOutlet private weak var clearOutputButton: NSButton!
-    @IBOutlet private weak var baseApp: NSPopUpButton!
+    @IBOutlet private weak var baseApplicationPopUpButton: NSPopUpButton!
     
     // MARK: - Managers
     private var documentManager: DocumentManager!
@@ -120,6 +120,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         documentManager.openLastOrUntitled()
         themeManager.applySavedTheme()
         registerWindowFocusObservers()
+        refreshBaseApplicationMenu()
     }
     
     deinit {
@@ -196,7 +197,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         refreshQuickOpenToolbar()
         projectManager.saveProject()
         refreshProjectIconImage()
-        populateBaseApplicationMenu()
+        refreshBaseApplicationMenu()
     }
     
     @objc private func windowDidResignKey() {
@@ -312,9 +313,23 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             menu.addItem(item)
         }
 
-        baseApp.menu = menu
+        baseApplicationPopUpButton.menu = menu
         
-        baseApp.isEnabled = documentManager.currentDocumentURL != nil
+        baseApplicationPopUpButton.isEnabled = documentManager.currentDocumentURL != nil
+    }
+    
+    private func refreshBaseApplicationMenu() {
+        guard let menu = baseApplicationPopUpButton.menu else { return }
+        let baseApplicationName = projectManager.baseApplicationName
+        for item in menu.items {
+            if item.title == baseApplicationName {
+                item.state = .on
+                baseApplicationPopUpButton.select(item)
+            } else {
+                item.state = .off
+            }
+        }
+        baseApplicationPopUpButton.isEnabled = documentManager.currentDocumentURL != nil
     }
     
     // MARK: - Base Application Action Handler
@@ -1442,7 +1457,7 @@ extension MainViewController: DocumentManagerDelegate {
         }
         
         refreshProjectIconImage()
-        populateBaseApplicationMenu()
+        refreshBaseApplicationMenu()
     }
     
     func documentManager(_ manager: DocumentManager, didFailToOpen error: Error) {
