@@ -37,7 +37,7 @@ MyApp/
 │   │── MyApp.hpappnote
 │   └── MyApp.hpappprgm
 │── MyApp.xprimeproj
-│── MyApp.prgm+
+│── MyApp.prgm+ or main.prgm+ (26.1+)
 └── other.ppl+
 ```
 
