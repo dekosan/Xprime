@@ -46,7 +46,7 @@ Typical File Structure for an HP Prime **Program**
 ```
 MyProgram/
 │── MyProgram.xprimeproj
-│── MyProgram.prgm+
+│── MyProgram.prgm+ or main.prgm+ (26.1+)
 └── other.ppl+
 ```
 
