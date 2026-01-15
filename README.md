@@ -19,6 +19,7 @@ Hold down the **Option (⌥) key**, then **click and hold** on the About window 
 |.prgm|HP Prime program source code|UTF16le|
 |.app|HP Prime application source code (PPL)|UTF16le|
 |.note|*HP Prime note plain text|UTF16le|
+|.md|*HP Prime note markdown|UTF8|
 |.hpnote|*HP Prime note (Plain Text without BOM)|UTF16le|
 |.hpprgm|HP Prime program (exported/packaged)|Binary|
 |.hpappprgm|HP Prime application (exported/packaged)|Binary|
