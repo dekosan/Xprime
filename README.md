@@ -38,6 +38,7 @@ MyApp/
 │   └── MyApp.hpappprgm
 │── MyApp.xprimeproj
 │── MyApp.prgm+ or main.prgm+ (26.1+)
+│── readme.md (26.1+)
 └── other.ppl+
 ```
 
