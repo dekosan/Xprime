@@ -18,10 +18,15 @@ Hold down the **Option (⌥) key**, then **click and hold** on the About window 
 |.ppl|HP Prime Programming Language source file|UTF8|
 |.prgm|HP Prime program source code|UTF16le|
 |.app|HP Prime application source code (PPL)|UTF16le|
+|.note|*HP Prime note plain text|UTF16le|
+|.md|*Markdown Language|UTF8|
+|.hpnote|*HP Prime note (Plain Text without BOM)|UTF16le|
 |.hpprgm|HP Prime program (exported/packaged)|Binary|
 |.hpappprgm|HP Prime application (exported/packaged)|Binary|
 |.prgm+|HP Prime PRGM+ extended program source code|UTF8|
 |.ppl+|HP Prime PPL+ extended program source code|UTF8|
+
+*not supported in v26.0
 
 Typical File Structure for an HP Prime **Application**
 
@@ -33,7 +38,8 @@ MyApp/
 │   │── MyApp.hpappnote
 │   └── MyApp.hpappprgm
 │── MyApp.xprimeproj
-│── MyApp.prgm+
+│── MyApp.prgm+ or main.prgm+ (26.1+)
+│── readme.md (26.1+)
 └── other.ppl+
 ```
 
@@ -42,7 +48,7 @@ Typical File Structure for an HP Prime **Program**
 ```
 MyProgram/
 │── MyProgram.xprimeproj
-│── MyProgram.prgm+
+│── MyProgram.prgm+ or main.prgm+ (26.1+)
 └── other.ppl+
 ```
 
