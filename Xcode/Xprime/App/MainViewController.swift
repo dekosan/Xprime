@@ -886,6 +886,8 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         }
     }
     
+    
+    
     @IBAction func saveDocumentAs(_ sender: Any) {
         proceedWithSavingDocumentAs()
     }
@@ -1177,10 +1179,16 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             return
         }
     
+        guard projectDirectoryURL
+            .appendingPathComponent("\(projectManager.projectName).hpappdir").isDirectory else {
+            outputTextView.appendTextAndScroll("🛑 Application directory not found.\n")
+            return
+        }
         
         let destinationURL: URL
         destinationURL = projectDirectoryURL
             .appendingPathComponent("\(projectManager.projectName).hpappdir/\(projectManager.projectName).hpappnote")
+        
 
        
         let command = ToolchainPaths.bin.appendingPathComponent("note").path
