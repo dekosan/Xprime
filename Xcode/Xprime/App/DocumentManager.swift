@@ -21,6 +21,7 @@
 // SOFTWARE.
 
 import Cocoa
+import UniformTypeIdentifiers
 
 protocol DocumentManagerDelegate: AnyObject {
     // Called when a document is successfully saved
@@ -83,7 +84,7 @@ final class DocumentManager {
         }
         
         editor.string = out
-        currentDocumentURL = nil
+        currentDocumentURL = url
         documentIsModified = false
         delegate?.documentManagerDidOpen(self)
     }
@@ -103,7 +104,7 @@ final class DocumentManager {
         }
         
         editor.string = out
-        currentDocumentURL = nil
+        currentDocumentURL = url.deletingPathExtension().appendingPathExtension("prgm")
         documentIsModified = false
         delegate?.documentManagerDidOpen(self)
     }
@@ -116,7 +117,6 @@ final class DocumentManager {
         case "hpnote", "hpappnote":
             openNote(url: url)
             return
-            
         case "hpprgm", "hpappprgm":
             openProgram(url: url)
             return
@@ -142,11 +142,11 @@ final class DocumentManager {
     @discardableResult
     func saveDocument() -> Bool {
         guard let url = currentDocumentURL else { return false }
-        return saveDocumentAs(to: url)
+        return saveDocument(to: url)
     }
     
     @discardableResult
-    func saveDocumentAs(to url: URL) -> Bool {
+    func saveDocument(to url: URL) -> Bool {
         let encoding: String.Encoding
         switch url.pathExtension.lowercased() {
         case "prgm", "app", "note":
@@ -158,25 +158,41 @@ final class DocumentManager {
         }
         
         do {
-            guard var data = editor.string.data(using: encoding) else {
-                throw NSError(domain: "EncodingError", code: 1)
-            }
-
-            if url.pathExtension.lowercased() == "hpnote" {
-                // Append 0x0000 (two zero bytes)
+            if url.pathExtension.lowercased() == "hpnote" || url.pathExtension.lowercased() == "hpappnote" {
+                guard var data = editor.string.data(using: encoding) else {
+                    throw NSError(domain: "EncodingError", code: 1)
+                }
                 data.append(contentsOf: [0x00, 0x00])
+                try data.write(to: url, options: .atomic)
+            } else {
+                try editor.string.write(to: url, atomically: true, encoding: encoding)
             }
-
-            try data.write(to: url, options: .atomic)
-            
-//            try editor.string.write(to: url, atomically: true, encoding: encoding)
-            
+      
             documentIsModified = false
             delegate?.documentManagerDidSave(self)
             return true
         } catch {
             delegate?.documentManager(self, didFailWith: error)
             return false
+        }
+    }
+    
+    func saveDocumentAs(
+        allowedContentTypes: [UTType],
+        defaultFileName: String = "Untitled"
+    ) {
+        let panel = NSSavePanel()
+        if let currentDocumentURL {
+            panel.directoryURL = currentDocumentURL.deletingLastPathComponent()
+        }
+        panel.allowedContentTypes = allowedContentTypes
+        panel.nameFieldStringValue = defaultFileName
+        panel.title = ""
+        
+        panel.begin { result in
+            guard result == .OK, let url = panel.url else { return }
+            self.saveDocument(to: url)
+            self.openDocument(url: url)
         }
     }
 }

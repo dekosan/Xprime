@@ -349,7 +349,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         window.titlebarAppearsTransparent = true
         
         // 2️⃣ Set document identity
-        window.title = url.deletingLastPathComponent().lastPathComponent
+        window.title = projectManager.projectName
         window.representedURL = url
         
         // 3️⃣ Re-apply icon AFTER AppKit finishes layout
@@ -635,11 +635,11 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     }
     
     @objc private func quickOpen(_ sender: NSMenuItem) {
-        guard let currentDocumentURL = documentManager.currentDocumentURL else {
+        guard let projectDirectoryURL = projectManager.projectDirectoryURL else {
             return
         }
-        
-        if documentManager.documentIsModified {
+       
+        if let currentDocumentURL = documentManager.currentDocumentURL, documentManager.documentIsModified {
             AlertPresenter.presentYesNo(
                 on: view.window,
                 title: "Save Changes",
@@ -648,13 +648,13 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             ) { confirmed in
                 if confirmed {
                     self.documentManager.saveDocument()
-                    self.documentManager.openDocument(url: currentDocumentURL.deletingLastPathComponent().appendingPathComponent(sender.title))
+                    self.documentManager.openDocument(url: projectDirectoryURL.appendingPathComponent(sender.title))
                 } else {
                     return
                 }
             }
         } else {
-            self.documentManager.openDocument(url: currentDocumentURL.deletingLastPathComponent().appendingPathComponent(sender.title))
+            self.documentManager.openDocument(url: projectDirectoryURL.appendingPathComponent(sender.title))
         }
         
         guard
@@ -901,37 +901,23 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     }
     
     // MARK: - Saving Document As
-    
-    private func proceedWithSavingDocumentAs() {
-        let panel = NSSavePanel()
-        if let url = documentManager.currentDocumentURL {
-            panel.directoryURL = url.deletingLastPathComponent()
-        }
-        panel.allowedContentTypes = [
-            UTType(filenameExtension: "prgm+")!,
-            UTType(filenameExtension: "ppl+")!,
-            UTType(filenameExtension: "prgm")!,
-            UTType(filenameExtension: "ppl")!,
-            UTType(filenameExtension: "app")!,
-            UTType(filenameExtension: "note")!,
-            UTType(filenameExtension: "hpnote")!,
-            UTType(filenameExtension: "py")!,
-            UTType(filenameExtension: "md")!,
-            UTType(filenameExtension: "txt")!,
-            .pythonScript
-        ]
-        panel.nameFieldStringValue = "Untitled"
-        panel.title = ""
-        
-        
-        panel.begin { result in
-            guard result == .OK, let url = panel.url else { return }
-            self.documentManager.saveDocumentAs(to: url)
-            self.documentManager.openDocument(url: url)
-        }
+    private func proceedWithSavingDocumentAs() {        
+        documentManager.saveDocumentAs(
+            allowedContentTypes: [
+                UTType(filenameExtension: "prgm+")!,
+                UTType(filenameExtension: "ppl+")!,
+                UTType(filenameExtension: "prgm")!,
+                UTType(filenameExtension: "ppl")!,
+                UTType(filenameExtension: "app")!,
+                UTType(filenameExtension: "note")!,
+                UTType(filenameExtension: "hpnote")!,
+                UTType(filenameExtension: "py")!,
+                UTType(filenameExtension: "md")!,
+                UTType(filenameExtension: "txt")!,
+                .pythonScript
+            ]
+        )
     }
-    
-    
     
     @IBAction func saveDocumentAs(_ sender: Any) {
         proceedWithSavingDocumentAs()
@@ -1211,18 +1197,17 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         archiveProcess()
     }
     
-    @IBAction private func markdownToNote(_ sender: Any) {
-        guard let currentDocumentURL = documentManager.currentDocumentURL else {
-            return
-        }
-        
-        guard currentDocumentURL.pathExtension.lowercased() == "md" else {
-            return
-        }
-        
-       
+    // MARK: - Note
+    private func convertMarkdownFile(
+        from sourceURL: URL,
+        to destinationURL: URL
+    ) {
         let command = ToolchainPaths.bin.appendingPathComponent("note").path
-        let arguments: [String] = [currentDocumentURL.path]
+        let arguments: [String] = [
+            sourceURL.path,
+            "-o",
+            destinationURL.path
+        ]
         
         let commandURL = URL(fileURLWithPath: command)
         let result = ProcessRunner.run(executable: commandURL, arguments: arguments)
@@ -1232,6 +1217,26 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             return
         }
         outputTextView.appendTextAndScroll(result.err ?? "")
+    }
+    
+    @IBAction private func markdownToNote(_ sender: Any) {
+        guard let currentDocumentURL = documentManager.currentDocumentURL else {
+            return
+        }
+        
+        let panel = NSSavePanel()
+        panel.directoryURL = currentDocumentURL.deletingLastPathComponent()
+        panel.nameFieldStringValue = currentDocumentURL.deletingPathExtension().lastPathComponent
+        panel.allowedContentTypes = [
+            UTType(filenameExtension: "hpnote")!,
+            UTType(filenameExtension: "hpappnote")!
+        ]
+        panel.title = ""
+        
+        panel.begin { result in
+            guard result == .OK, let url = panel.url else { return }
+            self.convertMarkdownFile(from: currentDocumentURL, to: url)
+        }
     }
     
     @IBAction func build(_ sender: Any) {
