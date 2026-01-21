@@ -901,7 +901,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     }
     
     // MARK: - Saving Document As
-    private func proceedWithSavingDocumentAs() {        
+    private func proceedWithSavingDocumentAs() {
         documentManager.saveDocumentAs(
             allowedContentTypes: [
                 UTType(filenameExtension: "prgm+")!,
@@ -1034,7 +1034,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         
         runExport(
             allowedExtensions: ["hpappdir.zip"],
-            defaultName: "Untitled"
+            defaultName: projectManager.projectName
         ) { url in
             
             // Ensure final extension is correct
@@ -1223,6 +1223,8 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         guard let currentDocumentURL = documentManager.currentDocumentURL else {
             return
         }
+        
+        documentManager.saveDocument()
         
         let panel = NSSavePanel()
         panel.directoryURL = currentDocumentURL.deletingLastPathComponent()

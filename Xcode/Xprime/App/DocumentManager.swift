@@ -195,6 +195,21 @@ final class DocumentManager {
             self.openDocument(url: url)
         }
     }
+    
+//    func saveAs(
+//        allowedExtensions: [String],
+//        defaultFileName: String,
+//        action: @escaping (_ outputURL: URL)
+//    ) {
+//        let savePanel = NSSavePanel()
+//        savePanel.allowedContentTypes = allowedExtensions.compactMap { UTType(filenameExtension: $0) }
+//        savePanel.nameFieldStringValue = defaultFileName
+//        
+//        savePanel.begin { result in
+//            guard result == .OK, let outURL = savePanel.url else { return }
+//            let result = action(outURL)
+//        }
+//    }
 }
 
 extension Notification.Name {

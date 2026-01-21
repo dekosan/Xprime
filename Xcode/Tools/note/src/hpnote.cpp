@@ -29,15 +29,15 @@
  I 0000 10xx - xxxx xxxx
  U 0001 00xx - xxxx xxxx
  S 0100 00xx - xxxx xxxx
-
+ 
  BIUS
-   0101 1101
-
-   0011 0000
+ 0101 1101
+ 
+ 0011 0000
  ● 0011 0001
  ○ 0011 0010
  ‣ 0011 0011
-
+ 
  Align
  L 0011 0000
  C 0011 0001
@@ -131,87 +131,90 @@ static std::wstring parseLine(const std::string& str) {
     md::printTokens(tokens);
 #endif
     
+    
     for (const auto& t : tokens) {
-        wstr += LR"(\0\m\)";
-        wstr += L'0' + t.bulletLevel;
-        wstr += LR"(\0\0\0\n)";
+        wstr += LR"(\0\m\0\0\0\0\n)";
+        if (t.bulletLevel) {
+            wstr.at(5) = L'0' + t.bulletLevel;
+        }
         
-            {
-                std::wstring ws;
-                ws = LR"(\oǿῠ\0\0ā\1\0\0 \)"; // Plain Text
-                // f = LR"(\oǿῠ\0罀ā\0\0\0 \)" b = LR"(\oǿῠ簀\0\1\1\0\0 \")  bf = LR"(\oǿῠ簀罀\1\0\0\0 \")
-                // bfB22 LR"(\o藿ΰ簀罀\0\0\0\0 ")
-                uint32_t n = 0x1FE001FF;
-                
-                // MARK: - Bold & Italic
-                
-                switch (t.style) {
-                    case md::Style::Highlight:
-                        ws.at(7) = L'罀';
-                        ws.at(10) = L'0';
-                        ws.erase(6, 1);
-                        break;
-                        
-                    case md::Style::Bold:
-                        n |= 1 << 10;
-                        break;
-                        
-                    case md::Style::Italic:
-                        n |= 1 << 11;
-                        break;
-                        
-                    case md::Style::Strikethrough:
-                        n |= 1 << 14;
-                        break;
-                        
-                    case md::Style::BoldItalic:
-                        n |= 3 << 10;
-                        break;
-                        
-                    case md::Style::Heading1:
-                        n |= 1 << 10;
-                        n |= 7 << 15;
-                        ws.at(8) = L'Ā';
-                        break;
-                        
-                    case md::Style::Heading2:
-                        n |= 1 << 10;
-                        n |= 6 << 15;
-                        ws.at(8) = L'Ā';
-                        break;
-                        
-                    case md::Style::Heading3:
-                        n |= 1 << 10;
-                        n |= 5 << 15;
-                        ws.at(8) = L'Ā';
-                        break;
-                        
-                    case md::Style::Heading4:
-                        n |= 1 << 10;
-                        n |= 4 << 15;
-                        ws.at(8) = L'Ā';
-                        break;
-                        
-                    default:
-                        break;
-                }
-                
-                
-                ws.at(2) = n & 0xFFFF;
-                ws.at(3) = n >> 16;
-                
-                wstr += ws;
-            }
+        std::wstring ws;
+        ws = LR"(\oǿῠ\0\0ā\1\0\0 \)"; // Plain Text
         
-            if (t.text.length() > 9) {
-                wstr.append(1, static_cast<wchar_t>(87 + t.text.length()));
-            } else {
-                wstr.append(1, static_cast<wchar_t>(48 + t.text.length()));
-            }
-            wstr += LR"(\0)";
+        // \oǿῠ\0\0ā\1\0\0 \0\0 SPACE
+        // f = LR"(\oǿῠ\0罀ā\0\0\0 \)" b = LR"(\oǿῠ簀\0\1\1\0\0 \")  bf = LR"(\oǿῠ簀罀\1\0\0\0 \")
+        // bfB22 LR"(\o藿ΰ簀罀\0\0\0\0 ")
+        uint32_t n = 0x1FE001FF;
         
-            wstr += utf::utf16(t.text);
-            wstr += LR"(\0)";
+        // MARK: - Bold & Italic
+        
+        switch (t.style) {
+            case md::Style::Highlight:
+                ws.at(7) = L'罀';
+                ws.at(10) = L'0';
+                ws.erase(6, 1);
+                break;
+                
+            case md::Style::Bold:
+                n |= 1 << 10;
+                break;
+                
+            case md::Style::Italic:
+                n |= 1 << 11;
+                break;
+                
+            case md::Style::Strikethrough:
+                n |= 1 << 14;
+                break;
+                
+            case md::Style::BoldItalic:
+                n |= 3 << 10;
+                break;
+                
+            case md::Style::Heading1:
+                n |= 1 << 10;
+                n |= 7 << 15;
+                ws.at(8) = L'Ā';
+                break;
+                
+            case md::Style::Heading2:
+                n |= 1 << 10;
+                n |= 6 << 15;
+                ws.at(8) = L'Ā';
+                break;
+                
+            case md::Style::Heading3:
+                n |= 1 << 10;
+                n |= 5 << 15;
+                ws.at(8) = L'Ā';
+                break;
+                
+            case md::Style::Heading4:
+                n |= 1 << 10;
+                n |= 4 << 15;
+                ws.at(8) = L'Ā';
+                break;
+                
+            default:
+                break;
+        }
+        
+        
+        ws.at(2) = n & 0xFFFF;
+        ws.at(3) = n >> 16;
+        
+        wstr += ws;
+        
+        
+        if (t.text.length() > 9) {
+            wstr.append(1, static_cast<wchar_t>(87 + t.text.length()));
+        } else {
+            wstr.append(1, static_cast<wchar_t>(48 + t.text.length()));
+        }
+        wstr += LR"(\0)";
+        
+        wstr += utf::utf16(t.text);
+        wstr += LR"(\0)";
     }
     
     
@@ -238,7 +241,7 @@ static std::wstring parseAllLines(std::istringstream& iss) {
     }
     
     wstr += LR"(\0\0\0\0\0\1\0)";
-
+    
     return wstr;
 }
 
@@ -249,7 +252,7 @@ std::wstring hpnote::convertToHpNote(std::filesystem::path& path, bool minify) {
     
     
     input = utf::load(path);
-
+    
     if (!minify) {
         auto tokens = md::parseMarkdown(input);
         for (const auto& t : tokens) {
@@ -263,9 +266,9 @@ std::wstring hpnote::convertToHpNote(std::filesystem::path& path, bool minify) {
     
     std::istringstream iss;
     iss.str(input);
-
+    
     wstr += parseAllLines(iss);
-
+    
     
     return wstr;
 }
