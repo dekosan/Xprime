@@ -3,7 +3,7 @@
 |Type|Description|Format|
 |:-|:-|:-|
 |.note|HP Prime note plain text|UTF16le|
-|.note|HP Prime note text format|UTF8|
+|.note|Note text format|UTF8|
 |.md|Markdown Language|UTF8|
 |.hpnote|HP Prime note (Plain Text without BOM)|UTF16le|
 |.hpappnote|HP Prime note (Plain Text without BOM)|UTF16le|
