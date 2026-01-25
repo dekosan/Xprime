@@ -3,6 +3,7 @@
 ### Heading level 3
 #### Heading level 4
 ~~Strikethrough~~
+\u Underlined
 ==Highlight==
 Plain text
 *Italic*

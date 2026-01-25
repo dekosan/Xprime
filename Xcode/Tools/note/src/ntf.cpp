@@ -20,12 +20,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#include "note.hpp"
+#include "ntf.hpp"
 
 #include <regex>
 #include <iomanip>
 
-using namespace note;
+using namespace ntf;
 
 
 static uint8_t hexByte(const std::string& s, size_t pos) {
@@ -40,7 +40,7 @@ static Color parseHexColor(const std::string& hex) {
     return c;
 }
 
-std::vector<TextRun> note::parseNote(const std::string& input) {
+std::vector<TextRun> ntf::parseNTF(const std::string& input) {
     std::vector<TextRun> runs;
 
     Format format;
@@ -128,7 +128,7 @@ std::vector<TextRun> note::parseNote(const std::string& input) {
     return runs;
 }
 
-std::string note::ntf(const std::string md) {
+std::string ntf::markdownToNTF(const std::string md) {
     std::string ntf = md;
     
     std::regex re;
@@ -170,7 +170,7 @@ std::string note::ntf(const std::string md) {
 }
 
 
-void note::printRuns(const std::vector<TextRun>& runs) {
+void ntf::printRuns(const std::vector<TextRun>& runs) {
     for (const auto& r : runs) {
         std::cerr
         << (r.style.bold ? "B" : "-") << (r.style.italic ? "I" : "-") << (r.style.underline ? "U" : "-") << (r.style.strikethrough ? "S" : "-")

@@ -22,18 +22,11 @@
 
 #pragma once
 
-#include <cstdlib>
-#include <fstream>
 #include <string>
-#include <vector>
-#include <iostream>
 #include <filesystem>
-#include <stdexcept>
-#include <sstream>
-#include <iomanip>
 
 namespace hpnote {
-    std::wstring convertNote(std::filesystem::path& path, bool minify);
+    std::wstring ntfToHPNote(std::filesystem::path& path, bool minify);
 }
 
 

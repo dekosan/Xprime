@@ -27,7 +27,7 @@
 #include <vector>
 #include <cctype>
 
-namespace note {
+namespace ntf {
     enum FontSize : uint16_t {
         FONT10 = 1, FONT12 = 2, SMALL = 2, FONT14 = 3, MEDIUM = 3, FONT16 = 4, LARGE = 4, FONT18 = 5, FONT20 = 6, FONT22 = 7
     };
@@ -59,7 +59,7 @@ namespace note {
         int level = 0;
     };
     
-    std::vector<TextRun> parseNote(const std::string& input);
-    std::string ntf(const std::string md);
+    std::vector<TextRun> parseNTF(const std::string& input);
+    std::string markdownToNTF(const std::string md);
     void printRuns(const std::vector<TextRun>& runs);
 }

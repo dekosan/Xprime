@@ -20,25 +20,50 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+
 #include "hpnote.hpp"
-#include "note.hpp"
+#include "ntf.hpp"
 #include "utf.hpp"
+
+#include <cstdlib>
+#include <fstream>
+#include <vector>
+#include <iostream>
+#include <stdexcept>
+#include <sstream>
+#include <iomanip>
 
 using namespace hpnote;
 
-static std::wstring parseNoteLine(const std::string& str) {
+static std::wstring toBase36(uint64_t value)
+{
+    static constexpr wchar_t digits[] = L"0123456789abcdefghijklmnopqrstuvwxyz";
+
+    if (value == 0)
+        return L"0";
+
+    std::wstring result;
+    while (value > 0) {
+        result.push_back(digits[value % 36]);
+        value /= 36;
+    }
+
+    std::reverse(result.begin(), result.end());
+    return result;
+}
+
+static std::wstring parseLine(const std::string& str) {
     std::wstring wstr;
     
-    auto runs = note::parseNote(str);
-#ifdef DEBUG
-    note::printRuns(runs);
-#endif
+    auto runs = ntf::parseNTF(str);
     
-    wstr += LR"(\0\m\0\0\0\0\n)";
+    wstr.append(LR"(\0\)");
+    wstr.append(toBase36(22));
+    wstr.append(LR"(\0\0\0\0\)");
+    wstr.append(toBase36(23));
+    
     for (const auto& r : runs) {
-        if (r.level) {
-            wstr.at(5) = L'0' + r.level;
-        }
+        wstr.at(5) = toBase36(r.level).at(0);
         
         std::wstring ws;
         ws = LR"(\oǿῠ\0\0Ā\1\0\0 \)"; // Plain Text
@@ -49,34 +74,35 @@ static std::wstring parseNoteLine(const std::string& str) {
         
         if (r.style.bold) n |= 1 << 10;
         if (r.style.italic) n |= 1 << 11;
+        if (r.style.underline) n |= 1 << 12;
         if (r.style.strikethrough) n |= 1 << 14;
         
         switch (r.format.fontSize) {
-            case note::FONT22:
+            case ntf::FONT22:
                 n |= 7 << 15;
                 break;
                 
-            case note::FONT20:
+            case ntf::FONT20:
                 n |= 6 << 15;
                 break;
                 
-            case note::FONT18:
+            case ntf::FONT18:
                 n |= 5 << 15;
                 break;
                 
-            case note::LARGE:
+            case ntf::LARGE:
                 n |= 4 << 15;
                 break;
                 
-            case note::MEDIUM:
+            case ntf::MEDIUM:
                 n |= 3 << 15;
                 break;
                 
-            case note::SMALL:
+            case ntf::SMALL:
                 n |= 2 << 15;
                 break;
                 
-            case note::FONT10:
+            case ntf::FONT10:
                 n |= 1 << 15;
                 break;
                 
@@ -110,17 +136,14 @@ static std::wstring parseNoteLine(const std::string& str) {
         
         wstr += ws;
         
+        // Line length
+        wstr.append(toBase36(r.text.length()));
+        wstr.append(LR"(\0)");
         
-        if (r.text.length() > 9) {
-            wstr.append(1, static_cast<wchar_t>(87 + r.text.length()));
-        } else {
-            wstr.append(1, static_cast<wchar_t>(48 + r.text.length()));
-        }
-        wstr += LR"(\0)";
-        
-        wstr += utf::utf16(r.text);
+        // Text
+        wstr.append(utf::utf16(r.text));
     }
-    wstr += LR"(\0)";
+    wstr.append(LR"(\0)");
     
     
     
@@ -128,25 +151,30 @@ static std::wstring parseNoteLine(const std::string& str) {
 }
 
 
-static std::wstring parseNoteLines(std::istringstream& iss) {
+static std::wstring parseAllLines(std::istringstream& iss) {
     std::string str;
     std::wstring wstr;
     
     int lines = -1;
     while(getline(iss, str)) {
-        wstr += parseNoteLine(str);
+        wstr += parseLine(str);
         lines++;
+#ifdef DEBUG
+        auto runs = ntf::parseNTF(str);
+        std::cerr << lines + 1 << ":\n";
+        ntf::printRuns(runs);
+        std::cerr << "\n";
+#endif
     }
     
-    wstr += LR"(\0\0\3\0\)";
+    // Footer control bytes
+    wstr.append(LR"(\0\0\3\0\)");
     
-    if (lines > 9) {
-        wstr.append(1, static_cast<wchar_t>(87 + lines));
-    } else {
-        wstr.append(1, static_cast<wchar_t>(48 + lines));
-    }
-    
-    wstr += LR"(\0\0\0\0\0\1\0)";
+    // Line count (base-36 style)
+    wstr.append(toBase36((uint64_t)lines));
+  
+    // Footer control bytes
+    wstr.append(LR"(\0\0\0\0\0\1\0)");
     
     return wstr;
 }
@@ -154,7 +182,7 @@ static std::wstring parseNoteLines(std::istringstream& iss) {
 static std::wstring plainText(const std::string ntf) {
     std::wstring wstr;
     
-    auto runs = note::parseNote(ntf);
+    auto runs = ntf::parseNTF(ntf);
     
     for (const auto& r : runs) {
         wstr.append(utf::utf16(r.text));
@@ -163,26 +191,24 @@ static std::wstring plainText(const std::string ntf) {
     return wstr;
 }
 
-static std::wstring convertNtf(const std::string ntf, bool minify) {
+static std::wstring convertNTF(const std::string& ntf, bool minify) {
     std::wstring wstr;
-    
+    wstr.reserve(ntf.size() * 2);
     
     if (!minify) {
         wstr.append(plainText(ntf));
     }
     
-    wstr.append(1, L'\0');
-    wstr += LR"(CSWD110￿￿\lľ)";
+    wstr.push_back(L'\0');
+    wstr += L"CSWD110\xFFFF\xFFFF\\l\x013E";
     
-    std::istringstream iss;
-    iss.str(ntf);
-    
-    wstr += parseNoteLines(iss);
+    std::istringstream iss(ntf);
+    wstr += parseAllLines(iss);
     
     return wstr;
 }
 
-std::wstring hpnote::convertNote(std::filesystem::path& path, bool minify) {
+std::wstring hpnote::ntfToHPNote(std::filesystem::path& path, bool minify) {
     std::wstring wstr;
     std::string ntf;
     
@@ -193,10 +219,10 @@ std::wstring hpnote::convertNote(std::filesystem::path& path, bool minify) {
     if (extension == ".md") {
         // Markdown is first converted to NoteText Format
         std::string md = utf::load(path);
-        ntf = note::ntf(md);
+        ntf = ntf::markdownToNTF(md);
     } else {
         ntf = utf::load(path);
     }
     
-    return convertNtf(ntf, minify);
+    return convertNTF(ntf, minify);
 }

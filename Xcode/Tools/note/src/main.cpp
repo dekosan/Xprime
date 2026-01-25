@@ -197,7 +197,7 @@ int main(int argc, const char * argv[]) {
     auto out_extension = std::lowercased(outpath.extension().string());
  
     if (in_extension == ".md" || in_extension == ".ntf") {
-        content = hpnote::convertNote(inpath, minify);
+        content = hpnote::ntfToHPNote(inpath, minify);
     }
     
     if (in_extension == ".txt") {
@@ -207,7 +207,7 @@ int main(int argc, const char * argv[]) {
     if (in_extension == ".note") {
         auto bom = utf::bom(inpath);
         if (bom == utf::BOMnone) {
-            content = hpnote::convertNote(inpath, minify);
+            content = hpnote::ntfToHPNote(inpath, minify);
         } else {
             content = utf::load(inpath, bom);
         }
