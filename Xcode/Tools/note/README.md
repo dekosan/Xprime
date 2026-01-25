@@ -47,11 +47,13 @@
 #### Foreground Color
 ```
 \fg7C00 Red Text
+\fgFFFF Default
 ```
 
 #### Background Color
 ```
 \bg7C00 Red Background
+\bgFFFF Default
 ```
 
 #### Bullets
