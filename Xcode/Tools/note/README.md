@@ -72,3 +72,5 @@
 \l3     ▶
 \l None, ●, ○ or ▶
 ```
+>[!NOTE]
+>Markdown supports embedded NoteText Format commands to handle features it lacks, such as text alignment.
