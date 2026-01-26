@@ -1,7 +1,7 @@
 PROJECT_NAME ?= note
 ARCH := $(shell arch)
 
-all: arm64 x86_64 universal win_x86_64
+all: arm64 x86_64 universal win_x86_64 linux
 
 arm64:
 	mkdir -p build/arm64
