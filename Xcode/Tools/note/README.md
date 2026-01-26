@@ -52,44 +52,42 @@ Download links: <a href="http://insoft.uk/action/?method=downlink&path=macos&fil
 |.hpnote|HP Prime note (Plain Text without BOM)|UTF16le|
 |.hpappnote|HP Prime note (Plain Text without BOM)|UTF16le|
 
-# Text Formatting Reference
+## Text Formatting Reference
 
-## Bold
+### Bold
 - `\b0` — Disable bold  
 - `\b1` — Enable bold  
 - `\b` — Toggle bold on/off  
 
-## Italic
+### Italic
 - `\i0` — Disable italic  
 - `\i1` — Enable italic  
 - `\i` — Toggle italic on/off  
 
-## Underline
+### Underline
 - `\u0` — Disable underline  
 - `\u1` — Enable underline  
 - `\u` — Toggle underline on/off  
 
-## Strikethrough
+### Strikethrough
 - `\s0` — Disable strikethrough  
 - `\s1` — Enable strikethrough  
 - `\s` — Toggle strikethrough on/off  
 
 ---
 
-## Text Alignment
+### Text Alignment
 - `\a0` — Left-aligned text (default)  
 - `\a1` — Center-aligned text  
 - `\a2` — Right-aligned text  
 
 ---
 
-## Font Size
+### Font Size
 - `\fs7` — Font size 22  
 - `\fs` — Default font size (14)  
 
 ---
-
-## Colors
 
 ### Foreground (Text Color)
 - `\fg#7C00` — Red text  
@@ -103,7 +101,7 @@ Download links: <a href="http://insoft.uk/action/?method=downlink&path=macos&fil
 
 ---
 
-## Bullets
+### Bullets
 - `\l0` — No bullet  
 - `\l1` — ●  
 - `\l2` — ○  
