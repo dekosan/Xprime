@@ -24,6 +24,13 @@ win_x86_64:
     -std=c++23 \
 	-Isrc src/*.cpp \
     -o build/$(PROJECT_NAME).exe -static -O2 -s
+
+linux:
+    mkdir -p build/linux
+    g++ \
+    --std=c++23 \            
+    src/*.cpp \
+    -o build/linux/$(PROJECT_NAME) -Os -fno-ident -fno-asynchronous-unwind-tables -Wl,-x
 	
 clean:
 	rm -rf build/*
