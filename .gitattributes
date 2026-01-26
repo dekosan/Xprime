@@ -30,6 +30,8 @@
 *.entitlements linguist-generated=true
 *.yml        linguist-generated=true
 *.utf        linguist-generated=true
+*.note       linguist-generated=true
+*.hpnote     linguist-generated=true
 Makefile     linguist-generated=true
 
 # Vendored / external
