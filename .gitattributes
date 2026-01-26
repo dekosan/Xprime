@@ -16,7 +16,6 @@
 
 # Generated files
 /assets/**   linguist-generated=true
-/Xcode/Tools/note/test/**    linguist-generated=true
 *.sh         linguist-generated=true
 *.txt        linguist-generated=true
 *.rtf        linguist-generated=true
@@ -39,4 +38,5 @@ Makefile     linguist-generated=true
 /Examples/**                 linguist-vendored=true
 /Xcode/Xprime.xcodeproj/**   linguist-vendored=true
 /Xcode/Xprime/Resources/**   linguist-vendored=true
+/Xcode/Tools/note/test/**    linguist-vendored=true
 
