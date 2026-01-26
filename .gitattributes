@@ -16,6 +16,7 @@
 
 # Generated files
 /assets/**   linguist-generated=true
+/test/**     linguist-generated=true
 *.sh         linguist-generated=true
 *.txt        linguist-generated=true
 *.rtf        linguist-generated=true
@@ -28,6 +29,7 @@
 *.metal      linguist-generated=true
 *.entitlements linguist-generated=true
 *.yml        linguist-generated=true
+*.utf        linguist-generated=true
 Makefile     linguist-generated=true
 
 # Vendored / external
