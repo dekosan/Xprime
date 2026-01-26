@@ -1,7 +1,46 @@
-Download the latest 2026 version for Xprime <a href="http://insoft.uk/action/?method=downlink&path=macos&file=note.pkg">**here**</a> today.</br >
+## NOTE for HP Prime
+**Command Line Tool**
 
-Download the latest 2026 version for macOS <a href="http://insoft.uk/action/?method=downlink&path=macos&file=note.zip">**here**</a> today.</br >
-Download the latest 2026 version for Windows <a href="http://insoft.uk/action/?method=downlink&path=pc&file=note.exe.zip">**here**</a> today.
+A command-line tool that converts .md and .ntf files into the HP Prime .hpnote format, preserving formatting such as bold and italic text, font sizes, and foreground and background colors.
+
+`Usage: note <input-file> [-o <output-file>]`
+
+<table>
+  <thead>
+    <tr align="left">
+      <th>Options</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>-o <output-file></td><td>Specify the filename for generated note</td>
+    </tr>
+    <tr>
+      <td>-c or --compress</td><td>Specify if the CC note should be included</td>
+    </tr>
+    <tr>
+      <td>-v or --verbose</td><td>Display detailed processing information</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Additional Commands</b></td>
+    </tr>
+    <tr>
+      <td>--version</td><td>Displays the version information</td>
+    </tr>
+    <tr>
+      <td>--build</td><td>Displays the build information</td>
+    </tr>
+    <tr>
+      <td>--help</td><td>Show this help message</td>
+    </tr>
+  </tbody>
+</table>
+
+Download links: <a href="http://insoft.uk/action/?method=downlink&path=macos&file=note.zip">macOS</a> | <a href="http://insoft.uk/action/?method=downlink&path=pc&file=note.exe.zip">Windows
+
+>[!NOTE]
+>This <a href="http://insoft.uk/action/?method=downlink&path=macos&file=note.pkg">package installer</a> upgrades the command-line tool for Xprime version 26.1 and later.
 
 ### Supported File Types
 |Type|Description|Format|
