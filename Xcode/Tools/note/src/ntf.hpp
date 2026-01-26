@@ -29,7 +29,13 @@
 
 namespace ntf {
     enum FontSize : uint16_t {
-        FONT10 = 1, FONT12 = 2, SMALL = 2, FONT14 = 3, MEDIUM = 3, FONT16 = 4, LARGE = 4, FONT18 = 5, FONT20 = 6, FONT22 = 7
+        FONT10 = 1,
+        FONT12 = 2, SMALL  = 2,
+        FONT14 = 3, MEDIUM = 3,
+        FONT16 = 4, LARGE  = 4,
+        FONT18 = 5,
+        FONT20 = 6,
+        FONT22 = 7
     };
     
     enum Align {

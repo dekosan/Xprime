@@ -32,11 +32,47 @@ static uint8_t hexByte(const std::string& s, size_t pos) {
     return static_cast<uint8_t>(std::stoi(s.substr(pos, 2), nullptr, 16));
 }
 
+static uint16_t rgb888ToArgb1555(uint8_t r, uint8_t g, uint8_t b, bool opaque = true)
+{
+    uint16_t r5 = (r * 31 + 127) / 255;
+    uint16_t g5 = (g * 31 + 127) / 255;
+    uint16_t b5 = (b * 31 + 127) / 255;
+
+    uint16_t a1 = opaque ? 1 : 0;
+
+    return (a1 << 15) | (r5 << 10) | (g5 << 5) | b5;
+}
+
+uint16_t rgba8888ToArgb1555(
+    uint8_t r,
+    uint8_t g,
+    uint8_t b,
+    uint8_t a
+) {
+    uint16_t r5 = (r * 31 + 127) / 255;
+    uint16_t g5 = (g * 31 + 127) / 255;
+    uint16_t b5 = (b * 31 + 127) / 255;
+
+    uint16_t a1 = (a >= 128) ? 1 : 0;
+
+    return (a1 << 15) | (r5 << 10) | (g5 << 5) | b5;
+}
+
 static Color parseHexColor(const std::string& hex) {
     Color c = 0xFFFF;
+    
     if (hex.size() == 4) {
         c = static_cast<Color>(hexByte(hex, 0)) << 8 | hexByte(hex, 2);
     }
+    
+    if (hex.size() == 6) {
+        c = rgb888ToArgb1555(hexByte(hex, 0), hexByte(hex, 2), hexByte(hex, 4));
+    }
+    
+    if (hex.size() == 8) {
+        c = rgba8888ToArgb1555(hexByte(hex, 0), hexByte(hex, 2), hexByte(hex, 4), hexByte(hex, 6));
+    }
+    
     return c;
 }
 
@@ -145,22 +181,22 @@ std::string ntf::markdownToNTF(const std::string md) {
     re = R"(#{1} )";
     ntf = std::regex_replace(ntf, re, R"(\fs7 \b1 )");
     
-    re = R"(\*{2}([^*]+)\*{2})";
+    re = R"(\*{2}(.*)\*{2})";
     ntf = std::regex_replace(ntf, re, R"(\b1 $1)");
     
-    re = R"(\*([^*]+)\*)";
+    re = R"(\*(.*)\*)";
     ntf = std::regex_replace(ntf, re, R"(\i1 $1)");
     
-    re = R"(~{2}([^~]+)~{2})";
+    re = R"(~~(.*)~~)";
     ntf = std::regex_replace(ntf, re, R"(\s1 $1)");
     
-    re = R"(={2}([^=]+)={2})";
+    re = R"(==(.*)==)";
     ntf = std::regex_replace(ntf, re, R"(\bg#7F40 $1)");
     
-    re = R"(    - )";
+    re = R"( {4}- )";
     ntf = std::regex_replace(ntf, re, R"(\l3 )");
     
-    re = R"(  - )";
+    re = R"( {2}- )";
     ntf = std::regex_replace(ntf, re, R"(\l2 )");
     
     re = R"(- )";
