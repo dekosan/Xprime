@@ -27,8 +27,6 @@
 #include <filesystem>
 #include <algorithm>
 
-// MARK: - Extensions
-
 namespace std::filesystem {
     std::filesystem::path expand_tilde(const std::filesystem::path& path) {
         if (!path.empty() && path.string().starts_with("~")) {
