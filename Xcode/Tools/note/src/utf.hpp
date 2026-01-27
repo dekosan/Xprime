@@ -22,8 +22,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#ifndef utf_hpp
-#define utf_hpp
+#pragma once
 
 #include <sstream>
 #include <fstream>
@@ -50,5 +49,3 @@ namespace utf {
     BOM bom(std::ifstream& is);
     BOM bom(const std::filesystem::path& path);
 };
-
-#endif /* utf_hpp */
