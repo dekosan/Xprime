@@ -20,7 +20,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-
 #include "hpnote.hpp"
 #include "ntf.hpp"
 #include "utf.hpp"
@@ -144,8 +143,8 @@ static std::wstring parseLine(const std::string& str) {
         wstr += ws;
         
         // Line length
-        if (r.text.length() < 32)  wstr.append(LR"(\)");
-        wstr.append(toBase48(r.text.length()));
+        if (r.text.length() < 32) wstr.append(LR"(\)");
+        wstr.append(toBase48(r.text.length() % 48));
         wstr.append(LR"(\0)");
         
         // Text
@@ -153,11 +152,8 @@ static std::wstring parseLine(const std::string& str) {
     }
     wstr.append(LR"(\0)");
     
-    
-    
     return wstr;
 }
-
 
 static std::wstring parseAllLines(std::istringstream& iss) {
     std::string str;
