@@ -58,7 +58,7 @@ Download links: <a href="http://insoft.uk/action/?method=downlink&path=macos&fil
 ## Text Formatting Reference
 
 >[!WARNING]
->To support future RTF compatibility and RTF-to-NTF conversion, several changes have been made to NTF. Toggle-style formatting replaced with explicit state-setting control words, matching RTF semantics (for example, `\b` will be treated as shorthand for `\b1`). Additionally, `\u` will be replaced with `\ul` to avoid conflicts with RTF Unicode control words.
+>To support future RTF compatibility and RTF-to-NTF conversion, several changes have been made to NTF. Toggle-style formatting replaced with explicit state-setting control words, matching RTF semantics (for example, `\b` treated as shorthand for `\b1`). Additionally, `\u` replaced with `\ul` to avoid conflicts with RTF Unicode control words.
 
 ### Bold
 - `\b0` — Disable bold  
