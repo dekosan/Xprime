@@ -57,38 +57,38 @@ Download links: <a href="http://insoft.uk/action/?method=downlink&path=macos&fil
 
 ## Text Formatting Reference
 
+>[!WARNING]
+>To support future RTF compatibility and RTF-to-NTF conversion, several changes have been made to NTF. Toggle-style formatting replaced with explicit state-setting control words, matching RTF semantics (for example, `\b` will be treated as shorthand for `\b1`). Additionally, `\u` will be replaced with `\ul` to avoid conflicts with RTF Unicode control words.
+
 ### Bold
 - `\b0` — Disable bold  
-- `\b1` — Enable bold  
-- `\b` — Toggle bold on/off  
+- `\b1` or `\b ` — Enable bold
 
 ### Italic
 - `\i0` — Disable italic  
-- `\i1` — Enable italic  
-- `\i` — Toggle italic on/off  
+- `\i1` or `\i ` — Enable italic
 
 ### Underline
-- `\u0` — Disable underline  
-- `\u1` — Enable underline  
-- `\u` — Toggle underline on/off  
+- `\ul0` — Disable underline  
+- `\ul1` or `ul ` — Enable underline 
 
 ### Strikethrough
-- `\s0` — Disable strikethrough  
-- `\s1` — Enable strikethrough  
-- `\s` — Toggle strikethrough on/off  
+- `\srike0` — Disable strikethrough  
+- `\strike1` or `\strike ` — Enable strikethrough 
 
 ---
 
 ### Text Alignment
-- `\a0` — Left-aligned text (default)  
-- `\a1` — Center-aligned text  
-- `\a2` — Right-aligned text  
+- `\ql` — Left-aligned text (default)  
+- `\qc` — Center-aligned text  
+- `\qr` — Right-aligned text  
 
 ---
 
 ### Font Size
-- `\fs7` — Font size 22  
-- `\fs` — Default font size (14)  
+`fsN` N = font size (N + 4) * 2
+- `\fs7` → 22-point font (7 + 4) * 2 = 22
+- `\fs0` → 8-point font (0 + 4) * 2 = 8
 
 ---
 
@@ -105,11 +105,10 @@ Download links: <a href="http://insoft.uk/action/?method=downlink&path=macos&fil
 ---
 
 ### Bullets
-- `\l0` — No bullet  
-- `\l1` — ●  
-- `\l2` — 　○  
-- `\l3` — 　　■  
-- `\l` — Toggle between: none, ●, ○, ■
+- `\li0` — No bullet  
+- `\li1` — ●  
+- `\li2` — 　○  
+- `\li3` — 　　■
 
 >[!NOTE]
 >Markdown supports embedded NoteText Format commands to handle features it lacks, such as text alignment.
