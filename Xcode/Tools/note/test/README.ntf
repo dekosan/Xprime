@@ -2,15 +2,15 @@
 \fs6Heading level 2
 \fs5Heading level 3
 \fs4Heading level 4
-\fs3\s1\b0Strikethrough\s0
-\bg#7F40Highlight\bg
+\fs3\srike1\b0Strikethrough\strike0
+\ul Underlined\ul0
+\bg#7F40Highlight\bg#FFFF
 Plain text
-Left
-\a1Center
-\a2Right\a0
-\i1Italic
-\i0\b1Bold
-\i1\b1ItalicBold\i\b
-\l First item
-\l Second item
-\l Third item
+\qc Center Alignment
+\qr Right Alignment\ql
+\i1Italic\i0
+\b Bold
+\i ItalicBold\i0\b0
+\li1 First item
+\li1 Second item
+\li1 Third item

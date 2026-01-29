@@ -129,16 +129,16 @@ std::vector<TextRun> ntf::parseNTF(const std::string& input) {
 
             // Apply command
             if (cmd == "b") {
-                if (value != -1) style.bold = (value != 0); else style.bold = !style.bold;
+                style.bold = value != 0;
             }
             if (cmd == "i") {
-                if (value != -1) style.italic = (value != 0); else style.italic = !style.italic;
+                style.italic = value != 0;
             }
-            if (cmd == "u") {
-                if (value != -1) style.underline = (value != 0); else style.underline = !style.underline;
+            if (cmd == "ul") {
+                style.underline = value != 0;
             }
-            if (cmd == "s") {
-                if (value != -1) style.strikethrough = (value != 0); else style.strikethrough = !style.strikethrough;
+            if (cmd == "strike") {
+                style.strikethrough = value != 0;
             }
             if (cmd == "fs") {
                 if (value != -1) format.fontSize = static_cast<FontSize>(value); else format.fontSize = MEDIUM;
@@ -149,11 +149,17 @@ std::vector<TextRun> ntf::parseNTF(const std::string& input) {
             if (cmd == "bg") {
                 if (!hex.empty()) format.background = parseHexColor(hex); else format.background = 0xFFFF;
             }
-            if (cmd == "a") {
-                if (value != -1) format.align = static_cast<Align>(value); else format.align = static_cast<Align>((static_cast<int>(format.align) + 1) % 3);
+            if (cmd == "ql") {
+                format.align = LEFT;
             }
-            if (cmd == "l") {
-                if (value != -1) level = value; else level = (level + 1) % 4;
+            if (cmd == "qc") {
+                format.align = CENTER;
+            }
+            if (cmd == "qr") {
+                format.align = RIGHT;
+            }
+            if (cmd == "li" && value != -1) {
+                level = value % 4;
             }
 
             // Skip optional space after control word
@@ -174,37 +180,37 @@ std::string ntf::markdownToNTF(const std::string md) {
     std::regex re;
     
     re = R"(#{4} (.*))";
-    ntf = std::regex_replace(ntf, re, R"(\fs4\b1$1\b0\fs3)");
+    ntf = std::regex_replace(ntf, re, R"(\fs4\b1 $1\b0\fs3 )");
     
     re = R"(#{3} (.*))";
-    ntf = std::regex_replace(ntf, re, R"(\fs5\b1$1\b0\fs3)");
+    ntf = std::regex_replace(ntf, re, R"(\fs5\b1 $1\b0\fs3 )");
     
     re = R"(#{2} (.*))";
-    ntf = std::regex_replace(ntf, re, R"(\fs6\b1$1\b0\fs3)");
+    ntf = std::regex_replace(ntf, re, R"(\fs6\b1 $1\b0\fs3 )");
     
     re = R"(# (.*))";
-    ntf = std::regex_replace(ntf, re, R"(\fs7\b1$1\b0\fs3)");
+    ntf = std::regex_replace(ntf, re, R"(\fs7\b1 $1\b0\fs3 )");
     
     re = R"(\*{2}(.*)\*{2})";
-    ntf = std::regex_replace(ntf, re, R"(\b1$1\b0)");
+    ntf = std::regex_replace(ntf, re, R"(\b1 $1\b0 )");
     
     re = R"(\*(.*)\*)";
-    ntf = std::regex_replace(ntf, re, R"(\i1$1\i0)");
+    ntf = std::regex_replace(ntf, re, R"(\i1 $1\i0 )");
     
     re = R"(~~(.*)~~)";
-    ntf = std::regex_replace(ntf, re, R"(\s1$1\s0)");
+    ntf = std::regex_replace(ntf, re, R"(\strike1 $1\strike0 )");
     
     re = R"(==(.*)==)";
-    ntf = std::regex_replace(ntf, re, R"(\bg#7F40$1\bg )");
+    ntf = std::regex_replace(ntf, re, R"(\bg#7F40 $1\bg#FFFF )");
     
     re = R"( {4}- )";
-    ntf = std::regex_replace(ntf, re, R"(\l3)");
+    ntf = std::regex_replace(ntf, re, R"(\li3 )");
     
     re = R"( {2}- )";
-    ntf = std::regex_replace(ntf, re, R"(\l2)");
+    ntf = std::regex_replace(ntf, re, R"(\li2 )");
     
     re = R"(- )";
-    ntf = std::regex_replace(ntf, re, R"(\l1)");
+    ntf = std::regex_replace(ntf, re, R"(\li1 )");
     
     return ntf;
 }

@@ -3,9 +3,11 @@
 ### Heading level 3
 #### Heading level 4
 ~~Strikethrough~~
-\u1Underlined\u0
+\ul Underlined\ul0
 ==Highlight==
 Plain text
+\qc Center Alignment Text
+\qr Right Alignment Text\ql
 *Italic*
 **Bold**
 ***ItalicBold***
